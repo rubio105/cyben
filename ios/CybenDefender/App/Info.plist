@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>CFBundleDisplayName</key>
+        <string>Cyben Defender</string>
+        <key>CFBundleExecutable</key>
+        <string>$(EXECUTABLE_NAME)</string>
+        <key>CFBundleIdentifier</key>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+        <key>CFBundleInfoDictionaryVersion</key>
+        <string>6.0</string>
+        <key>CFBundleName</key>
+        <string>$(PRODUCT_NAME)</string>
+        <key>CFBundlePackageType</key>
+        <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+        <key>CFBundleShortVersionString</key>
+        <string>1.0.0</string>
+        <key>CFBundleVersion</key>
+        <string>1</string>
+        <key>LSRequiresIPhoneOS</key>
+        <true/>
+        <key>NSCameraUsageDescription</key>
+        <string>Cyben Guard usa la fotocamera per scattare foto da analizzare e per scansionare QR code sospetti.</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>Cyben Guard accede alla galleria per selezionare screenshot o immagini da analizzare alla ricerca di phishing e truffe.</string>
+        <key>NSFaceIDUsageDescription</key>
+        <string>Usa Face ID per un accesso rapido e sicuro a Cyben Defender.</string>
+        <key>NSLocalNetworkUsageDescription</key>
+        <string>Cyben Defender accede alla rete locale per analizzare la sicurezza della tua connessione WiFi.</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>La localizzazione è necessaria per leggere il nome della rete WiFi a cui sei connesso.</string>
+        <key>UIApplicationSceneManifest</key>
+        <dict>
+                <key>UIApplicationSupportsMultipleScenes</key>
+                <false/>
+                <key>UISceneConfigurations</key>
+                <dict/>
+        </dict>
+        <key>UIBackgroundModes</key>
+        <array>
+                <string>remote-notification</string>
+        </array>
+        <key>UILaunchScreen</key>
+        <dict/>
+        <key>UIRequiredDeviceCapabilities</key>
+        <array>
+                <string>armv7</string>
+        </array>
+        <key>UISupportedInterfaceOrientations</key>
+        <array>
+                <string>UIInterfaceOrientationPortrait</string>
+                <string>UIInterfaceOrientationLandscapeLeft</string>
+                <string>UIInterfaceOrientationLandscapeRight</string>
+        </array>
+        <key>UISupportedInterfaceOrientations~ipad</key>
+        <array>
+                <string>UIInterfaceOrientationPortrait</string>
+                <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                <string>UIInterfaceOrientationLandscapeLeft</string>
+                <string>UIInterfaceOrientationLandscapeRight</string>
+        </array>
+        <key>UIUserInterfaceStyle</key>
+        <string>Automatic</string>
+        <key>NSAppTransportSecurity</key>
+        <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <false/>
+                <key>NSExceptionDomains</key>
+                <dict>
+                        <key>cyben.eu</key>
+                        <dict>
+                                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                                <false/>
+                                <key>NSIncludesSubdomains</key>
+                                <true/>
+                        </dict>
+                </dict>
+        </dict>
+</dict>
+</plist>

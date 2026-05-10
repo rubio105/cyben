@@ -1,0 +1,436 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BB1000000000000000000061 /* CybenDefenderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000061 /* CybenDefenderApp.swift */; };
+		BB1000000000000000000063 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000063 /* ContentView.swift */; };
+		BB1000000000000000000064 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000064 /* LoginView.swift */; };
+		BB1000000000000000000065 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000065 /* RegisterView.swift */; };
+		BB1000000000000000000066 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000066 /* DashboardView.swift */; };
+		BB1000000000000000000067 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000067 /* SubscriptionView.swift */; };
+		BB1000000000000000000068 /* VPNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000068 /* VPNView.swift */; };
+		BB1000000000000000000069 /* BreachMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000069 /* BreachMonitorView.swift */; };
+		BB100000000000000000006A /* WiFiSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100000000000000000006A /* WiFiSecurityView.swift */; };
+		BB100000000000000000006B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100000000000000000006B /* SettingsView.swift */; };
+		BB100000000000000000006C /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100000000000000000006C /* APIService.swift */; };
+		BB100000000000000000006D /* VPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100000000000000000006D /* VPNManager.swift */; };
+		BB100000000000000000006E /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100000000000000000006E /* KeychainService.swift */; };
+		BB100000000000000000006F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100000000000000000006F /* Models.swift */; };
+		BB1000000000000000000070 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000070 /* Assets.xcassets */; };
+		BB1000000000000000000072 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000072 /* NetworkExtension.framework */; };
+		BB1000000000000000000073 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000073 /* CoreLocation.framework */; };
+		BB1000000000000000000074 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000074 /* LocalAuthentication.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA1000000000000000000060 /* CybenDefender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CybenDefender.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA1000000000000000000061 /* CybenDefenderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CybenDefenderApp.swift; sourceTree = "<group>"; };
+		AA1000000000000000000062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA1000000000000000000063 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AA1000000000000000000064 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AA1000000000000000000065 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		AA1000000000000000000066 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		AA1000000000000000000067 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
+		AA1000000000000000000068 /* VPNView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNView.swift; sourceTree = "<group>"; };
+		AA1000000000000000000069 /* BreachMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreachMonitorView.swift; sourceTree = "<group>"; };
+		AA100000000000000000006A /* WiFiSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiSecurityView.swift; sourceTree = "<group>"; };
+		AA100000000000000000006B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AA100000000000000000006C /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		AA100000000000000000006D /* VPNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNManager.swift; sourceTree = "<group>"; };
+		AA100000000000000000006E /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		AA100000000000000000006F /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		AA1000000000000000000070 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA1000000000000000000071 /* CybenDefender.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CybenDefender.entitlements; sourceTree = "<group>"; };
+		AA1000000000000000000072 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		AA1000000000000000000073 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		AA1000000000000000000074 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA1000000000000000000032 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB1000000000000000000072 /* NetworkExtension.framework in Frameworks */,
+				BB1000000000000000000073 /* CoreLocation.framework in Frameworks */,
+				BB1000000000000000000074 /* LocalAuthentication.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA100000000000000000000B /* root */ = {
+			isa = PBXGroup;
+			children = (
+				AA100000000000000000000D /* CybenDefender */,
+				AA1000000000000000000012 /* Frameworks */,
+				AA100000000000000000000C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA100000000000000000000C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000060 /* CybenDefender.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA100000000000000000000D /* CybenDefender */ = {
+			isa = PBXGroup;
+			children = (
+				AA100000000000000000000E /* App */,
+				AA100000000000000000000F /* Views */,
+				AA1000000000000000000010 /* Services */,
+				AA1000000000000000000011 /* Models */,
+				AA1000000000000000000070 /* Assets.xcassets */,
+				AA1000000000000000000071 /* CybenDefender.entitlements */,
+			);
+			path = CybenDefender;
+			sourceTree = "<group>";
+		};
+		AA100000000000000000000E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000061 /* CybenDefenderApp.swift */,
+				AA1000000000000000000062 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AA100000000000000000000F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000063 /* ContentView.swift */,
+				AA1000000000000000000064 /* LoginView.swift */,
+				AA1000000000000000000065 /* RegisterView.swift */,
+				AA1000000000000000000066 /* DashboardView.swift */,
+				AA1000000000000000000067 /* SubscriptionView.swift */,
+				AA1000000000000000000068 /* VPNView.swift */,
+				AA1000000000000000000069 /* BreachMonitorView.swift */,
+				AA100000000000000000006A /* WiFiSecurityView.swift */,
+				AA100000000000000000006B /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AA1000000000000000000010 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AA100000000000000000006C /* APIService.swift */,
+				AA100000000000000000006D /* VPNManager.swift */,
+				AA100000000000000000006E /* KeychainService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AA1000000000000000000011 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA100000000000000000006F /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AA1000000000000000000012 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000072 /* NetworkExtension.framework */,
+				AA1000000000000000000073 /* CoreLocation.framework */,
+				AA1000000000000000000074 /* LocalAuthentication.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA1000000000000000000020 /* CybenDefender */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA1000000000000000000051 /* Build configuration list for PBXNativeTarget "CybenDefender" */;
+			buildPhases = (
+				AA1000000000000000000030 /* Sources */,
+				AA1000000000000000000031 /* Resources */,
+				AA1000000000000000000032 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CybenDefender;
+			productName = CybenDefender;
+			productReference = AA1000000000000000000060 /* CybenDefender.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA100000000000000000000A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					AA1000000000000000000020 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = AA1000000000000000000050 /* Build configuration list for PBXProject "CybenDefender" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = it;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				it,
+				en,
+				Base,
+			);
+			mainGroup = AA100000000000000000000B;
+			productRefGroup = AA100000000000000000000C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA1000000000000000000020 /* CybenDefender */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA1000000000000000000031 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB1000000000000000000070 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA1000000000000000000030 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB1000000000000000000061 /* CybenDefenderApp.swift in Sources */,
+				BB1000000000000000000063 /* ContentView.swift in Sources */,
+				BB1000000000000000000064 /* LoginView.swift in Sources */,
+				BB1000000000000000000065 /* RegisterView.swift in Sources */,
+				BB1000000000000000000066 /* DashboardView.swift in Sources */,
+				BB1000000000000000000067 /* SubscriptionView.swift in Sources */,
+				BB1000000000000000000068 /* VPNView.swift in Sources */,
+				BB1000000000000000000069 /* BreachMonitorView.swift in Sources */,
+				BB100000000000000000006A /* WiFiSecurityView.swift in Sources */,
+				BB100000000000000000006B /* SettingsView.swift in Sources */,
+				BB100000000000000000006C /* APIService.swift in Sources */,
+				BB100000000000000000006D /* VPNManager.swift in Sources */,
+				BB100000000000000000006E /* KeychainService.swift in Sources */,
+				BB100000000000000000006F /* Models.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA1000000000000000000040 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA1000000000000000000041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA1000000000000000000042 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CybenDefender/CybenDefender.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CybenDefender/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = eu.cyben.guard.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA1000000000000000000043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CybenDefender/CybenDefender.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CybenDefender/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = eu.cyben.guard.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA1000000000000000000050 /* Build configuration list for PBXProject "CybenDefender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA1000000000000000000040 /* Debug */,
+				AA1000000000000000000041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA1000000000000000000051 /* Build configuration list for PBXNativeTarget "CybenDefender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA1000000000000000000042 /* Debug */,
+				AA1000000000000000000043 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA100000000000000000000A /* Project object */;
+}
