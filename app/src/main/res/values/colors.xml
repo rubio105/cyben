@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cyben_orange">#FF6B35</color>
+    <color name="cyben_dark">#1A1A2E</color>
+    <color name="cyben_surface">#16213E</color>
+    <color name="cyben_card">#0F3460</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0C0</color>
+    <color name="status_safe">#4CAF50</color>
+    <color name="status_warning">#FF9800</color>
+    <color name="status_danger">#F44336</color>
+    <color name="bubble_user">#FF6B35</color>
+    <color name="bubble_ai">#1E2A4A</color>
+</resources>

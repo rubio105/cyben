@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/cyben_dark" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="32dp">
+
+        <ImageButton android:id="@+id/btnBack" android:layout_width="40dp" android:layout_height="40dp"
+            android:src="@android:drawable/ic_media_previous" android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Crea account" android:textColor="@color/text_primary"
+            android:textSize="24sp" android:textStyle="bold" android:layout_marginBottom="24dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/name" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textColor="@color/text_primary"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/email" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:inputType="textEmailAddress"
+                android:textColor="@color/text_primary"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/password" style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="24dp" xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:passwordToggleEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:inputType="textPassword"
+                android:textColor="@color/text_primary"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox android:id="@+id/cbTerms" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="@string/terms_accept"
+            android:textColor="@color/text_secondary"/>
+        <CheckBox android:id="@+id/cbPrivacy" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="@string/privacy_accept"
+            android:textColor="@color/text_secondary"/>
+        <CheckBox android:id="@+id/cbMarketing" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="@string/marketing_consent"
+            android:textColor="@color/text_secondary" android:layout_marginBottom="24dp"/>
+
+        <Button android:id="@+id/btnRegister" android:layout_width="match_parent"
+            android:layout_height="52dp" android:text="@string/register"
+            android:backgroundTint="@color/cyben_orange" android:layout_marginBottom="16dp"/>
+
+        <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:visibility="gone" android:layout_gravity="center"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,6 @@
+-keep class eu.cyben.guard.data.models.** { *; }
+-keep class eu.cyben.guard.data.api.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn okhttp3.**
+-dontwarn retrofit2.**

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/cyben_dark" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+            android:orientation="horizontal" android:gravity="center_vertical" android:padding="8dp"
+            android:background="@color/cyben_surface">
+            <ImageButton android:id="@+id/btnBack" android:layout_width="40dp" android:layout_height="40dp"
+                android:src="@android:drawable/ic_media_previous" android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/text_primary"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="@string/subscription" android:textColor="@color/text_primary"
+                android:textSize="18sp" android:textStyle="bold" android:layout_marginStart="8dp"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="24dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/plan_base_title" android:textColor="@color/text_primary"
+                android:textSize="16sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/plan_base_desc" android:textColor="@color/text_secondary"
+                android:textSize="13sp" android:layout_marginBottom="12dp"/>
+            <Button android:id="@+id/btnSubscribeBase" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="Abbonati Base"
+                android:backgroundTint="@color/cyben_card" android:layout_marginBottom="24dp"/>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/plan_premium_monthly_title" android:textColor="@color/cyben_orange"
+                android:textSize="16sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/plan_premium_desc" android:textColor="@color/text_secondary"
+                android:textSize="13sp" android:layout_marginBottom="12dp"/>
+            <Button android:id="@+id/btnSubscribePremium" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="Premium Mensile"
+                android:backgroundTint="@color/cyben_orange" android:layout_marginBottom="12dp"/>
+            <Button android:id="@+id/btnSubscribePremiumAnnual" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="Premium Annuale (€24,90)"
+                android:backgroundTint="@color/cyben_orange" android:layout_marginBottom="32dp"/>
+
+            <Button android:id="@+id/btnManage" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="@string/manage_subscription"
+                style="?attr/borderlessButtonStyle" android:textColor="@color/text_secondary"/>
+
+            <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_gravity="center"
+                android:visibility="gone" android:layout_marginTop="16dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

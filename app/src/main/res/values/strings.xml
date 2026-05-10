@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cyben Guard</string>
+    <string name="login">Accedi</string>
+    <string name="register">Registrati</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Password dimenticata?</string>
+    <string name="no_account">Non hai un account? Registrati</string>
+    <string name="name">Nome</string>
+    <string name="terms_accept">Accetto i Termini di Servizio</string>
+    <string name="privacy_accept">Accetto la Privacy Policy</string>
+    <string name="marketing_consent">Consenso comunicazioni marketing (opzionale)</string>
+    <string name="send">Invia</string>
+    <string name="logout">Logout</string>
+    <string name="settings">Impostazioni</string>
+    <string name="breach_monitor">Monitoraggio Violazioni</string>
+    <string name="vpn">VPN</string>
+    <string name="subscription">Abbonamento</string>
+    <string name="plan_base_title">Piano Base — €11,90/anno</string>
+    <string name="plan_base_desc">Chat AI anti-phishing · 7 giorni gratis</string>
+    <string name="plan_premium_monthly_title">Piano Premium — €3,99/mese</string>
+    <string name="plan_premium_annual_title">Piano Premium — €24,90/anno</string>
+    <string name="plan_premium_desc">VPN · SMS · Violazioni · SOS · Human on the Loop</string>
+    <string name="manage_subscription">Gestisci abbonamento</string>
+    <string name="sos">SOS Incidente</string>
+    <string name="type_message">Scrivi un messaggio o incolla un testo sospetto…</string>
+</resources>
