@@ -43,7 +43,7 @@
         android:background="@color/cyben_surface">
         <EditText android:id="@+id/etMessage" android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1" android:hint="@string/type_message" android:textColor="@color/text_primary"
-            android:hintTextColor="@color/text_secondary" android:background="@null"
+             android:background="@null"
             android:inputType="textMultiLine" android:maxLines="4" android:padding="8dp"/>
         <ImageButton android:id="@+id/btnSend" android:layout_width="48dp" android:layout_height="48dp"
             android:src="@android:drawable/ic_menu_send" android:background="?attr/selectableItemBackgroundBorderless"
