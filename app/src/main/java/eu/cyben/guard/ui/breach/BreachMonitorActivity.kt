@@ -2,6 +2,7 @@ package eu.cyben.guard.ui.breach
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -40,21 +41,21 @@ class BreachMonitorActivity : AppCompatActivity() {
                     } else {
                         binding.tvEmpty.visibility = View.GONE
                         binding.tvEmailList.visibility = View.VISIBLE
-                        binding.tvEmailList.text = emails.joinToString("
-
-") {
-                            "📧 ${it.email}
-   Violazioni: ${it.breachCount ?: 0}"
+                        binding.tvEmailList.text = emails.joinToString("\n\n") {
+                            "📧 ${it.email}\n   Violazioni: ${it.breachCount ?: 0}"
                         }
                     }
                 }
-            } catch (e: Exception) { Toast.makeText(this@BreachMonitorActivity, "Errore caricamento", Toast.LENGTH_SHORT).show() }
-            finally { binding.progressBar.visibility = View.GONE }
+            } catch (e: Exception) {
+                Toast.makeText(this@BreachMonitorActivity, "Errore caricamento", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.progressBar.visibility = View.GONE
+            }
         }
     }
 
     private fun showAddEmailDialog() {
-        val input = android.widget.EditText(this).apply { hint = "email@esempio.com"; setPadding(48, 32, 48, 32) }
+        val input = EditText(this).apply { hint = "email@esempio.com"; setPadding(48, 32, 48, 32) }
         AlertDialog.Builder(this)
             .setTitle("Monitora email")
             .setView(input)
@@ -70,9 +71,15 @@ class BreachMonitorActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val resp = api.addMonitoredEmail(AddEmailRequest(email, null))
-                if (resp.isSuccessful) { Toast.makeText(this@BreachMonitorActivity, "Email aggiunta", Toast.LENGTH_SHORT).show(); loadEmails() }
-                else Toast.makeText(this@BreachMonitorActivity, "Errore aggiunta email", Toast.LENGTH_SHORT).show()
-            } catch (e: Exception) { Toast.makeText(this@BreachMonitorActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show() }
+                if (resp.isSuccessful) {
+                    Toast.makeText(this@BreachMonitorActivity, "Email aggiunta", Toast.LENGTH_SHORT).show()
+                    loadEmails()
+                } else {
+                    Toast.makeText(this@BreachMonitorActivity, "Errore aggiunta email", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@BreachMonitorActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
