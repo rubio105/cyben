@@ -11,4 +11,10 @@
     <color name="status_danger">#F44336</color>
     <color name="bubble_user">#FF6B35</color>
     <color name="bubble_ai">#1E2A4A</color>
+    <color name="background">#1A1A2E</color>
+    <color name="background_dark">#0F0F1A</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="surface_variant">#2A2A4A</color>
+    <color name="text_tertiary">#707080</color>
 </resources>
