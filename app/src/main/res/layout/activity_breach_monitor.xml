@@ -79,6 +79,15 @@
             </LinearLayout>
             <ProgressBar android:id="@+id/progressBreach" android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:visibility="gone" android:layout_gravity="center_horizontal"/>
+            <TextView android:id="@+id/tvBreachAlertsLabel"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Violazioni rilevate" android:textColor="@color/text_secondary"
+                android:textSize="13sp" android:layout_marginTop="16dp" android:layout_marginBottom="8dp"
+                android:layout_marginStart="4dp" android:visibility="gone"/>
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvBreachAlerts"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" android:layout_marginBottom="20dp"
+                android:visibility="gone"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

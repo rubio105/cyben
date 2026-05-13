@@ -20,7 +20,6 @@ import eu.cyben.guard.ui.auth.LoginActivity
 import eu.cyben.guard.ui.breach.BreachMonitorActivity
 import eu.cyben.guard.ui.dashboard.DashboardActivity
 import eu.cyben.guard.ui.vpn.VPNActivity
-import eu.cyben.guard.ui.prohmed.ProhmedActivity
 import eu.cyben.guard.ui.subscription.SubscriptionActivity
 import eu.cyben.guard.utils.TokenManager
 import kotlinx.coroutines.launch
