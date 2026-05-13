@@ -1,18 +1,23 @@
 package eu.cyben.guard.ui.breach
 
+import android.content.Intent
 import android.os.Bundle
-import android.security.keystore.KeyProperties
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.data.api.AddEmailRequest
 import eu.cyben.guard.data.api.ApiService
-import eu.cyben.guard.data.api.HibpCheckRequest
+import eu.cyben.guard.data.models.GuardBreachAlert
+import eu.cyben.guard.data.models.GuardMonitoredEmail
 import eu.cyben.guard.databinding.ActivityBreachMonitorBinding
+import eu.cyben.guard.ui.dashboard.DashboardActivity
+import eu.cyben.guard.ui.settings.SettingsActivity
+import eu.cyben.guard.ui.vpn.VPNActivity
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import javax.inject.Inject
@@ -29,23 +34,40 @@ class BreachMonitorActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { finish() }
         binding.btnAddEmail.setOnClickListener { showAddEmailDialog() }
         binding.btnHibp.setOnClickListener { showHibpDialog() }
+        setupNav()
         loadData()
     }
 
     private fun loadData() {
         lifecycleScope.launch {
             try {
-                val resp = api.getMonitoredEmails()
-                if (resp.isSuccessful) {
-                    val emails = resp.body() ?: emptyList()
+                val emailsResp = api.getMonitoredEmails()
+                val alertsResp = api.getBreachAlerts()
+                if (emailsResp.isSuccessful) {
+                    val emails = emailsResp.body() ?: emptyList()
                     binding.tvEmailLabel.text = "Email monitorate (${emails.size}/2)"
-                    binding.tvBreachSubheader.text = "${emails.size}/2 email monitorate · verifica password disponibile"
+                    binding.tvBreachSubheader.text = "${emails.size}/2 email monitorate"
                     val breached = emails.sumOf { it.breachCount ?: 0 }
                     if (breached > 0) {
                         binding.tvBreachStatus.text = "$breached violazioni trovate"
                         binding.tvBreachStatus.setTextColor(0xFFFF1744.toInt())
                     } else {
                         binding.tvBreachStatus.text = "Nessuna rilevata"
+                        binding.tvBreachStatus.setTextColor(0xFF66BB6A.toInt())
+                    }
+                    binding.rvEmails.layoutManager = LinearLayoutManager(this@BreachMonitorActivity)
+                    binding.rvEmails.adapter = EmailAdapter(emails)
+                }
+                if (alertsResp.isSuccessful) {
+                    val alerts = alertsResp.body() ?: emptyList()
+                    if (alerts.isNotEmpty()) {
+                        binding.tvBreachAlertsLabel.visibility = View.VISIBLE
+                        binding.rvBreachAlerts.visibility = View.VISIBLE
+                        binding.rvBreachAlerts.layoutManager = LinearLayoutManager(this@BreachMonitorActivity)
+                        binding.rvBreachAlerts.adapter = AlertAdapter(alerts)
+                    } else {
+                        binding.tvBreachAlertsLabel.visibility = View.GONE
+                        binding.rvBreachAlerts.visibility = View.GONE
                     }
                 }
             } catch (_: Exception) {}
@@ -53,7 +75,11 @@ class BreachMonitorActivity : AppCompatActivity() {
     }
 
     private fun showAddEmailDialog() {
-        val input = EditText(this).apply { hint = "email@esempio.com"; inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS; setPadding(48, 32, 48, 32) }
+        val input = EditText(this).apply {
+            hint = "email@esempio.com"
+            inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            setPadding(48, 32, 48, 32)
+        }
         AlertDialog.Builder(this).setTitle("Aggiungi email").setView(input)
             .setPositiveButton("Aggiungi") { _, _ ->
                 val email = input.text.toString().trim()
@@ -68,8 +94,12 @@ class BreachMonitorActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val resp = api.addMonitoredEmail(AddEmailRequest(email, null))
-                if (resp.isSuccessful) { Toast.makeText(this@BreachMonitorActivity, "Email aggiunta", Toast.LENGTH_SHORT).show(); loadData() }
-                else Toast.makeText(this@BreachMonitorActivity, "Errore aggiunta email", Toast.LENGTH_SHORT).show()
+                if (resp.isSuccessful) {
+                    val added = resp.body()
+                    Toast.makeText(this@BreachMonitorActivity, "Email aggiunta, verifica in corso...", Toast.LENGTH_SHORT).show()
+                    if (added?.id != null) try { api.checkBreach(added.id) } catch (_: Exception) {}
+                    loadData()
+                } else Toast.makeText(this@BreachMonitorActivity, "Errore aggiunta email", Toast.LENGTH_SHORT).show()
             } catch (_: Exception) { Toast.makeText(this@BreachMonitorActivity, "Errore di rete", Toast.LENGTH_SHORT).show() }
             finally { binding.progressBreach.visibility = View.GONE }
         }
@@ -82,12 +112,9 @@ class BreachMonitorActivity : AppCompatActivity() {
             setPadding(48, 32, 48, 32)
         }
         AlertDialog.Builder(this).setTitle("Verifica password")
-            .setMessage("La password non verra' inviata in chiaro. Viene usato SHA-1 k-anonymity.")
+            .setMessage("La password non viene inviata in chiaro. Viene usato SHA-1 k-anonymity.")
             .setView(input)
-            .setPositiveButton("Verifica") { _, _ ->
-                val pwd = input.text.toString()
-                if (pwd.isNotEmpty()) checkPassword(pwd)
-            }
+            .setPositiveButton("Verifica") { _, _ -> val pwd = input.text.toString(); if (pwd.isNotEmpty()) checkPassword(pwd) }
             .setNegativeButton("Annulla", null).show()
     }
 
@@ -96,21 +123,14 @@ class BreachMonitorActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val sha1 = sha1(password).uppercase()
-                val prefix = sha1.take(5)
-                val suffix = sha1.drop(5)
-                val resp = okhttp3.OkHttpClient().newCall(
-                    okhttp3.Request.Builder().url("https://api.pwnedpasswords.com/range/$prefix").build()
-                ).execute()
-                val body = resp.body?.string() ?: ""
-                val count = body.lines().find { it.startsWith(suffix) }?.split(":")?.getOrNull(1)?.trim()?.toIntOrNull() ?: 0
-                if (count > 0) {
-                    AlertDialog.Builder(this@BreachMonitorActivity)
-                        .setTitle("Password compromessa")
+                val prefix = sha1.take(5); val suffix = sha1.drop(5)
+                val resp = okhttp3.OkHttpClient().newCall(okhttp3.Request.Builder().url("https://api.pwnedpasswords.com/range/$prefix").build()).execute()
+                val count = (resp.body?.string() ?: "").lines().find { it.startsWith(suffix) }?.split(":")?.getOrNull(1)?.trim()?.toIntOrNull() ?: 0
+                if (count > 0)
+                    AlertDialog.Builder(this@BreachMonitorActivity).setTitle("Password compromessa")
                         .setMessage("Questa password e' apparsa $count volte in violazioni note. Cambiala subito.")
                         .setPositiveButton("OK", null).show()
-                } else {
-                    Toast.makeText(this@BreachMonitorActivity, "Password non trovata in violazioni note", Toast.LENGTH_LONG).show()
-                }
+                else Toast.makeText(this@BreachMonitorActivity, "Password non trovata in violazioni note", Toast.LENGTH_LONG).show()
             } catch (_: Exception) { Toast.makeText(this@BreachMonitorActivity, "Errore verifica", Toast.LENGTH_SHORT).show() }
             finally { binding.progressBreach.visibility = View.GONE }
         }
@@ -119,5 +139,93 @@ class BreachMonitorActivity : AppCompatActivity() {
     private fun sha1(input: String): String {
         val bytes = MessageDigest.getInstance("SHA-1").digest(input.toByteArray())
         return bytes.joinToString("") { "%02x".format(it) }
+    }
+
+    private fun setupNav() {
+        binding.tabAnalizza.setOnClickListener { startActivity(Intent(this, DashboardActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)) }
+        binding.tabViolazioni.setOnClickListener { /* already here */ }
+        binding.tabVPN.setOnClickListener { startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)) }
+        binding.tabImpostazioni.setOnClickListener { startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)) }
+    }
+
+    inner class EmailAdapter(private val items: List<GuardMonitoredEmail>) :
+        androidx.recyclerview.widget.RecyclerView.Adapter<EmailAdapter.VH>() {
+        inner class VH(val root: android.widget.LinearLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
+        override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
+            val ll = android.widget.LinearLayout(parent.context).apply {
+                orientation = android.widget.LinearLayout.HORIZONTAL
+                setPadding(40, 28, 40, 28)
+                layoutParams = android.view.ViewGroup.MarginLayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT).also { it.setMargins(0,0,0,8) }
+                setBackgroundResource(eu.cyben.guard.R.drawable.settings_card_bg)
+            }
+            return VH(ll)
+        }
+        override fun getItemCount() = items.size
+        override fun onBindViewHolder(holder: VH, position: Int) {
+            val item = items[position]; val ll = holder.root; ll.removeAllViews()
+            val count = item.breachCount ?: 0
+            val icon = android.widget.TextView(ll.context).apply {
+                text = if (count > 0) "!" else "✓"
+                textSize = 14f; gravity = android.view.Gravity.CENTER
+                setTypeface(null, android.graphics.Typeface.BOLD)
+                setTextColor(if (count > 0) 0xFFFF5252.toInt() else 0xFF66BB6A.toInt())
+                background = android.graphics.drawable.GradientDrawable().also { d ->
+                    d.shape = android.graphics.drawable.GradientDrawable.OVAL
+                    d.setColor(if (count > 0) 0x33FF5252.toInt() else 0x3366BB6A.toInt())
+                }
+                val sz = (40 * resources.displayMetrics.density).toInt()
+                layoutParams = android.widget.LinearLayout.LayoutParams(sz, sz).also { it.marginEnd = 16 }
+            }
+            val info = android.widget.LinearLayout(ll.context).apply {
+                orientation = android.widget.LinearLayout.VERTICAL
+                layoutParams = android.widget.LinearLayout.LayoutParams(0, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            }
+            info.addView(android.widget.TextView(ll.context).apply {
+                text = item.email; setTextColor(0xFFEEEEFF.toInt()); textSize = 14f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            })
+            info.addView(android.widget.TextView(ll.context).apply {
+                text = if (count > 0) "$count violazioni trovate" else "Nessuna violazione"
+                setTextColor(if (count > 0) 0xFFFF5252.toInt() else 0xFF66BB6A.toInt()); textSize = 12f
+            })
+            ll.addView(icon); ll.addView(info)
+        }
+    }
+
+    inner class AlertAdapter(private val items: List<GuardBreachAlert>) :
+        androidx.recyclerview.widget.RecyclerView.Adapter<AlertAdapter.VH>() {
+        inner class VH(val root: android.widget.LinearLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
+        override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
+            val ll = android.widget.LinearLayout(parent.context).apply {
+                orientation = android.widget.LinearLayout.VERTICAL; setPadding(40, 28, 40, 28)
+                layoutParams = android.view.ViewGroup.MarginLayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT).also { it.setMargins(0,0,0,8) }
+                setBackgroundResource(eu.cyben.guard.R.drawable.settings_card_bg)
+            }
+            return VH(ll)
+        }
+        override fun getItemCount() = items.size
+        override fun onBindViewHolder(holder: VH, position: Int) {
+            val item = items[position]; val ll = holder.root; ll.removeAllViews()
+            ll.addView(android.widget.TextView(ll.context).apply {
+                text = "  " + (item.breachName ?: "Violazione"); setTextColor(0xFFFF5252.toInt()); textSize = 14f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            })
+            item.breachDate?.take(10)?.let { date ->
+                ll.addView(android.widget.TextView(ll.context).apply { text = "Data: $date"; setTextColor(0xFF888899.toInt()); textSize = 11f })
+            }
+            if (!item.dataClasses.isNullOrEmpty()) {
+                ll.addView(android.widget.TextView(ll.context).apply {
+                    text = "Dati esposti: " + item.dataClasses.joinToString(", ")
+                    setTextColor(0xFFFF9800.toInt()); textSize = 11f
+                    setPadding(0, 4, 0, 0)
+                })
+            }
+            if (!item.description.isNullOrEmpty()) {
+                ll.addView(android.widget.TextView(ll.context).apply {
+                    text = item.description.take(100); setTextColor(0xFF9999AA.toInt()); textSize = 11f
+                    setPadding(0, 4, 0, 0)
+                })
+            }
+        }
     }
 }
