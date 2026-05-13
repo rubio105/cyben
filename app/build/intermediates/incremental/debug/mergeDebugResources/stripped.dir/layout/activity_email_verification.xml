@@ -6,14 +6,29 @@
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:text="Verifica Email" android:textColor="@color/text_primary"
         android:textSize="24sp" android:textStyle="bold" android:layout_marginBottom="16dp"/>
-    <TextView android:id="@+id/tvMessage" android:layout_width="wrap_content"
+    <TextView android:id="@+id/tvMessage" android:layout_width="match_parent"
         android:layout_height="wrap_content" android:textColor="@color/text_secondary"
-        android:textSize="15sp" android:gravity="center" android:layout_marginBottom="32dp"
-        android:text="Abbiamo inviato un link di verifica alla tua email. Clicca il link e poi torna qui."/>
+        android:textSize="15sp" android:gravity="center" android:layout_marginBottom="24dp"
+        android:text="Abbiamo inviato un codice di verifica a 6 cifre alla tua email."/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etVerificationCode"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="Codice a 6 cifre"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:letterSpacing="0.3"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button android:id="@+id/btnVerified" android:layout_width="match_parent"
+        android:layout_height="52dp" android:text="Verifica Codice"
+        android:backgroundTint="@color/cyben_orange" android:layout_marginBottom="12dp"/>
     <Button android:id="@+id/btnResend" android:layout_width="match_parent"
         android:layout_height="52dp" android:text="Rimanda Email"
-        android:backgroundTint="@color/cyben_card" android:layout_marginBottom="12dp"/>
-    <Button android:id="@+id/btnVerified" android:layout_width="match_parent"
-        android:layout_height="52dp" android:text="Ho Verificato - Accedi"
-        android:backgroundTint="@color/cyben_orange"/>
+        android:backgroundTint="@color/cyben_card"/>
 </LinearLayout>

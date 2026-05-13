@@ -31,6 +31,8 @@ import eu.cyben.guard.data.api.ApiModule_ProvideApiServiceFactory;
 import eu.cyben.guard.data.api.ApiModule_ProvideOkHttpClientFactory;
 import eu.cyben.guard.data.api.ApiModule_ProvideRetrofitFactory;
 import eu.cyben.guard.data.api.ApiService;
+import eu.cyben.guard.ui.analysis.AnalysisHistoryActivity;
+import eu.cyben.guard.ui.analysis.AnalysisHistoryActivity_MembersInjector;
 import eu.cyben.guard.ui.auth.EmailVerificationActivity;
 import eu.cyben.guard.ui.auth.EmailVerificationActivity_MembersInjector;
 import eu.cyben.guard.ui.auth.LoginActivity;
@@ -43,8 +45,6 @@ import eu.cyben.guard.ui.dashboard.DashboardActivity;
 import eu.cyben.guard.ui.dashboard.DashboardActivity_MembersInjector;
 import eu.cyben.guard.ui.prohmed.ProhmedActivity;
 import eu.cyben.guard.ui.prohmed.ProhmedActivity_MembersInjector;
-import eu.cyben.guard.ui.settings.AnalysisHistoryActivity;
-import eu.cyben.guard.ui.settings.AnalysisHistoryActivity_MembersInjector;
 import eu.cyben.guard.ui.settings.SettingsActivity;
 import eu.cyben.guard.ui.settings.SettingsActivity_MembersInjector;
 import eu.cyben.guard.ui.subscription.SubscriptionActivity;
@@ -406,6 +406,17 @@ public final class DaggerCybenGuardApp_HiltComponents_SingletonC {
     }
 
     @Override
+    public void injectAnalysisHistoryActivity(AnalysisHistoryActivity arg0) {
+      injectAnalysisHistoryActivity2(arg0);
+    }
+
+    @Override
+    public void injectAnalysisHistoryActivity(
+        eu.cyben.guard.ui.settings.AnalysisHistoryActivity arg0) {
+      injectAnalysisHistoryActivity3(arg0);
+    }
+
+    @Override
     public void injectEmailVerificationActivity(EmailVerificationActivity arg0) {
       injectEmailVerificationActivity2(arg0);
     }
@@ -436,11 +447,6 @@ public final class DaggerCybenGuardApp_HiltComponents_SingletonC {
     }
 
     @Override
-    public void injectAnalysisHistoryActivity(AnalysisHistoryActivity arg0) {
-      injectAnalysisHistoryActivity2(arg0);
-    }
-
-    @Override
     public void injectSettingsActivity(SettingsActivity arg0) {
       injectSettingsActivity2(arg0);
     }
@@ -453,6 +459,20 @@ public final class DaggerCybenGuardApp_HiltComponents_SingletonC {
     @Override
     public void injectVPNActivity(VPNActivity arg0) {
       injectVPNActivity2(arg0);
+    }
+
+    @CanIgnoreReturnValue
+    private AnalysisHistoryActivity injectAnalysisHistoryActivity2(
+        AnalysisHistoryActivity instance) {
+      AnalysisHistoryActivity_MembersInjector.injectApi(instance, singletonCImpl.provideApiServiceProvider.get());
+      return instance;
+    }
+
+    @CanIgnoreReturnValue
+    private eu.cyben.guard.ui.settings.AnalysisHistoryActivity injectAnalysisHistoryActivity3(
+        eu.cyben.guard.ui.settings.AnalysisHistoryActivity instance) {
+      eu.cyben.guard.ui.settings.AnalysisHistoryActivity_MembersInjector.injectApi(instance, singletonCImpl.provideApiServiceProvider.get());
+      return instance;
     }
 
     @CanIgnoreReturnValue
@@ -492,13 +512,6 @@ public final class DaggerCybenGuardApp_HiltComponents_SingletonC {
     @CanIgnoreReturnValue
     private ProhmedActivity injectProhmedActivity2(ProhmedActivity instance) {
       ProhmedActivity_MembersInjector.injectApi(instance, singletonCImpl.provideApiServiceProvider.get());
-      return instance;
-    }
-
-    @CanIgnoreReturnValue
-    private AnalysisHistoryActivity injectAnalysisHistoryActivity2(
-        AnalysisHistoryActivity instance) {
-      AnalysisHistoryActivity_MembersInjector.injectApi(instance, singletonCImpl.provideApiServiceProvider.get());
       return instance;
     }
 
@@ -662,7 +675,7 @@ public final class DaggerCybenGuardApp_HiltComponents_SingletonC {
     }
 
     @Override
-    public void injectCybenGuardApp(CybenGuardApp arg0) {
+    public void injectCybenGuardApp(CybenGuardApp cybenGuardApp) {
     }
 
     private static final class SwitchingProvider<T> implements dagger.internal.Provider<T> {

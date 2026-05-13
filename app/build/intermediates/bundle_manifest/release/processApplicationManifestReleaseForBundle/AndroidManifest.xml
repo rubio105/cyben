@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.cyben.guard"
-    android:versionCode="3"
+    android:versionCode="4"
     android:versionName="1.3.0" >
 
     <uses-sdk
@@ -96,10 +96,6 @@
                 <action android:name="android.telecom.CallScreeningService" />
             </intent-filter>
         </service>
-        <!--
-        Service for holding metadata. Cannot be instantiated.
-        Metadata will be merged from other manifests.
-        -->
         <service
             android:name="androidx.camera.core.impl.MetadataHolderService"
             android:enabled="false"

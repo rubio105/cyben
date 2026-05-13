@@ -107,6 +107,7 @@ id etMessage
 id etName
 id etPassword
 id etPhone
+id etVerificationCode
 id labelProhmed
 id layoutActivate
 id layoutConsult

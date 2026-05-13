@@ -13,7 +13,7 @@ android {
         applicationId = "eu.cyben.guard"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
+        versionCode = 4
         versionName = "1.3.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://cyben.eu\"")
@@ -64,6 +64,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.2")
     implementation("androidx.camera:camera-view:1.3.2")
     implementation("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation("com.android.billingclient:billing-ktx:7.0.0")
     testImplementation("junit:junit:4.13.2")
 }
 

@@ -36,7 +36,7 @@
                             android:text="Premium Mensile" android:textColor="@color/text_primary"
                             android:textSize="18sp" android:textStyle="bold"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="3,99 €/mese" android:textColor="@color/cyben_orange" android:textSize="15sp"/>
+                            android:text="4,99 €/mese" android:textColor="@color/cyben_orange" android:textSize="15sp"/>
                     </LinearLayout>
                 </LinearLayout>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Chat AI anti-phishing illimitata" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="3dp"/>
@@ -65,7 +65,7 @@
                             android:text="Premium Annuale" android:textColor="@color/text_primary"
                             android:textSize="18sp" android:textStyle="bold"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="24,90 €/anno  •  risparmia il 48%" android:textColor="#E040FB" android:textSize="15sp"/>
+                            android:text="49,99 €/anno  •  risparmia il 48%" android:textColor="#E040FB" android:textSize="15sp"/>
                     </LinearLayout>
                 </LinearLayout>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Tutto il piano Mensile" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="3dp"/>

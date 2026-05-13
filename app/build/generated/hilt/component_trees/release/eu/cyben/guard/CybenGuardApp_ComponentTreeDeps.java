@@ -38,6 +38,7 @@ import hilt_aggregated_deps._dagger_hilt_android_internal_modules_ApplicationCon
 import hilt_aggregated_deps._dagger_hilt_android_internal_modules_HiltWrapper_ActivityModule;
 import hilt_aggregated_deps._eu_cyben_guard_CybenGuardApp_GeneratedInjector;
 import hilt_aggregated_deps._eu_cyben_guard_data_api_ApiModule;
+import hilt_aggregated_deps._eu_cyben_guard_ui_analysis_AnalysisHistoryActivity_GeneratedInjector;
 import hilt_aggregated_deps._eu_cyben_guard_ui_auth_EmailVerificationActivity_GeneratedInjector;
 import hilt_aggregated_deps._eu_cyben_guard_ui_auth_LoginActivity_GeneratedInjector;
 import hilt_aggregated_deps._eu_cyben_guard_ui_auth_RegisterActivity_GeneratedInjector;
@@ -90,6 +91,7 @@ import hilt_aggregated_deps._eu_cyben_guard_ui_vpn_VPNActivity_GeneratedInjector
         _dagger_hilt_android_internal_modules_HiltWrapper_ActivityModule.class,
         _eu_cyben_guard_CybenGuardApp_GeneratedInjector.class,
         _eu_cyben_guard_data_api_ApiModule.class,
+        _eu_cyben_guard_ui_analysis_AnalysisHistoryActivity_GeneratedInjector.class,
         _eu_cyben_guard_ui_auth_EmailVerificationActivity_GeneratedInjector.class,
         _eu_cyben_guard_ui_auth_LoginActivity_GeneratedInjector.class,
         _eu_cyben_guard_ui_auth_RegisterActivity_GeneratedInjector.class,

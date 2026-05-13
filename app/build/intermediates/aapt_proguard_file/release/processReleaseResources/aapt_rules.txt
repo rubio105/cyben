@@ -27,6 +27,8 @@
 -keep class eu.cyben.guard.ui.settings.SettingsActivity { <init>(); }
 -keep class eu.cyben.guard.ui.subscription.SubscriptionActivity { <init>(); }
 -keep class eu.cyben.guard.ui.vpn.VPNActivity { <init>(); }
+-keep class android.widget.EditText { <init>(android.content.Context, android.util.AttributeSet); }
+
 -keep class android.widget.Space { <init>(android.content.Context, android.util.AttributeSet); }
 
 -keep class androidx.appcompat.app.AlertController$RecycleListView { <init>(android.content.Context, android.util.AttributeSet); }
@@ -64,6 +66,8 @@
 -keep class androidx.appcompat.widget.Toolbar { <init>(android.content.Context, android.util.AttributeSet); }
 
 -keep class androidx.appcompat.widget.ViewStubCompat { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.camera.view.PreviewView { <init>(android.content.Context, android.util.AttributeSet); }
 
 -keep class androidx.constraintlayout.helper.widget.Flow { <init>(android.content.Context, android.util.AttributeSet); }
 

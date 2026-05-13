@@ -4,10 +4,9 @@ package eu.cyben.guard.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,55 +19,55 @@ import java.lang.String;
 
 public final class ActivityVpnBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final LinearLayout rootView;
 
   @NonNull
   public final ImageButton btnBack;
 
   @NonNull
-  public final Button btnConnect;
+  public final LinearLayout btnConnectVpn;
 
   @NonNull
-  public final ProgressBar progressBar;
+  public final ProgressBar progressVpn;
 
   @NonNull
-  public final TextView tvBlockedDomains;
+  public final TextView tvConnectLabel;
 
   @NonNull
-  public final TextView tvDnsServer;
-
-  @NonNull
-  public final TextView tvDnsStatus;
+  public final TextView tvVpnCredentials;
 
   @NonNull
   public final TextView tvVpnStatus;
 
   @NonNull
-  public final TextView tvVpnSubtitle;
+  public final TextView tvVpnStatusDesc;
 
   @NonNull
-  public final View vStatusDot;
+  public final TextView tvVpnStatusIcon;
 
-  private ActivityVpnBinding(@NonNull ScrollView rootView, @NonNull ImageButton btnBack,
-      @NonNull Button btnConnect, @NonNull ProgressBar progressBar,
-      @NonNull TextView tvBlockedDomains, @NonNull TextView tvDnsServer,
-      @NonNull TextView tvDnsStatus, @NonNull TextView tvVpnStatus, @NonNull TextView tvVpnSubtitle,
-      @NonNull View vStatusDot) {
+  @NonNull
+  public final View viewStatusDot;
+
+  private ActivityVpnBinding(@NonNull LinearLayout rootView, @NonNull ImageButton btnBack,
+      @NonNull LinearLayout btnConnectVpn, @NonNull ProgressBar progressVpn,
+      @NonNull TextView tvConnectLabel, @NonNull TextView tvVpnCredentials,
+      @NonNull TextView tvVpnStatus, @NonNull TextView tvVpnStatusDesc,
+      @NonNull TextView tvVpnStatusIcon, @NonNull View viewStatusDot) {
     this.rootView = rootView;
     this.btnBack = btnBack;
-    this.btnConnect = btnConnect;
-    this.progressBar = progressBar;
-    this.tvBlockedDomains = tvBlockedDomains;
-    this.tvDnsServer = tvDnsServer;
-    this.tvDnsStatus = tvDnsStatus;
+    this.btnConnectVpn = btnConnectVpn;
+    this.progressVpn = progressVpn;
+    this.tvConnectLabel = tvConnectLabel;
+    this.tvVpnCredentials = tvVpnCredentials;
     this.tvVpnStatus = tvVpnStatus;
-    this.tvVpnSubtitle = tvVpnSubtitle;
-    this.vStatusDot = vStatusDot;
+    this.tvVpnStatusDesc = tvVpnStatusDesc;
+    this.tvVpnStatusIcon = tvVpnStatusIcon;
+    this.viewStatusDot = viewStatusDot;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public LinearLayout getRoot() {
     return rootView;
   }
 
@@ -99,33 +98,27 @@ public final class ActivityVpnBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.btnConnect;
-      Button btnConnect = ViewBindings.findChildViewById(rootView, id);
-      if (btnConnect == null) {
+      id = R.id.btnConnectVpn;
+      LinearLayout btnConnectVpn = ViewBindings.findChildViewById(rootView, id);
+      if (btnConnectVpn == null) {
         break missingId;
       }
 
-      id = R.id.progressBar;
-      ProgressBar progressBar = ViewBindings.findChildViewById(rootView, id);
-      if (progressBar == null) {
+      id = R.id.progressVpn;
+      ProgressBar progressVpn = ViewBindings.findChildViewById(rootView, id);
+      if (progressVpn == null) {
         break missingId;
       }
 
-      id = R.id.tvBlockedDomains;
-      TextView tvBlockedDomains = ViewBindings.findChildViewById(rootView, id);
-      if (tvBlockedDomains == null) {
+      id = R.id.tvConnectLabel;
+      TextView tvConnectLabel = ViewBindings.findChildViewById(rootView, id);
+      if (tvConnectLabel == null) {
         break missingId;
       }
 
-      id = R.id.tvDnsServer;
-      TextView tvDnsServer = ViewBindings.findChildViewById(rootView, id);
-      if (tvDnsServer == null) {
-        break missingId;
-      }
-
-      id = R.id.tvDnsStatus;
-      TextView tvDnsStatus = ViewBindings.findChildViewById(rootView, id);
-      if (tvDnsStatus == null) {
+      id = R.id.tvVpnCredentials;
+      TextView tvVpnCredentials = ViewBindings.findChildViewById(rootView, id);
+      if (tvVpnCredentials == null) {
         break missingId;
       }
 
@@ -135,20 +128,27 @@ public final class ActivityVpnBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvVpnSubtitle;
-      TextView tvVpnSubtitle = ViewBindings.findChildViewById(rootView, id);
-      if (tvVpnSubtitle == null) {
+      id = R.id.tvVpnStatusDesc;
+      TextView tvVpnStatusDesc = ViewBindings.findChildViewById(rootView, id);
+      if (tvVpnStatusDesc == null) {
         break missingId;
       }
 
-      id = R.id.vStatusDot;
-      View vStatusDot = ViewBindings.findChildViewById(rootView, id);
-      if (vStatusDot == null) {
+      id = R.id.tvVpnStatusIcon;
+      TextView tvVpnStatusIcon = ViewBindings.findChildViewById(rootView, id);
+      if (tvVpnStatusIcon == null) {
         break missingId;
       }
 
-      return new ActivityVpnBinding((ScrollView) rootView, btnBack, btnConnect, progressBar,
-          tvBlockedDomains, tvDnsServer, tvDnsStatus, tvVpnStatus, tvVpnSubtitle, vStatusDot);
+      id = R.id.viewStatusDot;
+      View viewStatusDot = ViewBindings.findChildViewById(rootView, id);
+      if (viewStatusDot == null) {
+        break missingId;
+      }
+
+      return new ActivityVpnBinding((LinearLayout) rootView, btnBack, btnConnectVpn, progressVpn,
+          tvConnectLabel, tvVpnCredentials, tvVpnStatus, tvVpnStatusDesc, tvVpnStatusIcon,
+          viewStatusDot);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

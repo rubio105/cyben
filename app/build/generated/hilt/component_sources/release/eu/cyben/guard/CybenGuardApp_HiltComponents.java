@@ -45,13 +45,13 @@ import dagger.hilt.components.SingletonComponent;
 import dagger.hilt.internal.GeneratedComponent;
 import dagger.hilt.migration.DisableInstallInCheck;
 import eu.cyben.guard.data.api.ApiModule;
+import eu.cyben.guard.ui.analysis.AnalysisHistoryActivity_GeneratedInjector;
 import eu.cyben.guard.ui.auth.EmailVerificationActivity_GeneratedInjector;
 import eu.cyben.guard.ui.auth.LoginActivity_GeneratedInjector;
 import eu.cyben.guard.ui.auth.RegisterActivity_GeneratedInjector;
 import eu.cyben.guard.ui.breach.BreachMonitorActivity_GeneratedInjector;
 import eu.cyben.guard.ui.dashboard.DashboardActivity_GeneratedInjector;
 import eu.cyben.guard.ui.prohmed.ProhmedActivity_GeneratedInjector;
-import eu.cyben.guard.ui.settings.AnalysisHistoryActivity_GeneratedInjector;
 import eu.cyben.guard.ui.settings.SettingsActivity_GeneratedInjector;
 import eu.cyben.guard.ui.subscription.SubscriptionActivity_GeneratedInjector;
 import eu.cyben.guard.ui.vpn.VPNActivity_GeneratedInjector;
@@ -193,13 +193,14 @@ public final class CybenGuardApp_HiltComponents {
       FragmentComponentManager.FragmentComponentBuilderEntryPoint,
       ViewComponentManager.ViewComponentBuilderEntryPoint,
       GeneratedComponent,
+      AnalysisHistoryActivity_GeneratedInjector,
       EmailVerificationActivity_GeneratedInjector,
       LoginActivity_GeneratedInjector,
       RegisterActivity_GeneratedInjector,
       BreachMonitorActivity_GeneratedInjector,
       DashboardActivity_GeneratedInjector,
       ProhmedActivity_GeneratedInjector,
-      AnalysisHistoryActivity_GeneratedInjector,
+      eu.cyben.guard.ui.settings.AnalysisHistoryActivity_GeneratedInjector,
       SettingsActivity_GeneratedInjector,
       SubscriptionActivity_GeneratedInjector,
       VPNActivity_GeneratedInjector {

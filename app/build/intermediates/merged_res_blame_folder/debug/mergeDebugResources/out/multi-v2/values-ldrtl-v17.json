@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "eu.cyben.guard.app-mergeDebugResources-49:/values-ldrtl-v17/values-ldrtl-v17.xml",
+            "outputFile": "eu.cyben.guard.app-mergeDebugResources-50:/values-ldrtl-v17/values-ldrtl-v17.xml",
             "map": [
                 {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/5d3f4ebcb8572522519b4297b7ad3cde/transformed/material-1.11.0/res/values-ldrtl-v17/values-ldrtl-v17.xml",

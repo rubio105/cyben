@@ -34,6 +34,7 @@ import eu.cyben.guard.ui.auth.LoginActivity
 import eu.cyben.guard.ui.breach.BreachMonitorActivity
 import eu.cyben.guard.ui.settings.SettingsActivity
 import eu.cyben.guard.ui.subscription.SubscriptionActivity
+import eu.cyben.guard.ui.voice.VoiceActivity
 import eu.cyben.guard.ui.vpn.VPNActivity
 import eu.cyben.guard.utils.LocaleHelper
 import eu.cyben.guard.utils.TokenManager
@@ -115,7 +116,7 @@ class DashboardActivity : AppCompatActivity() {
         }
         binding.btnQuickNumber.setOnClickListener { showPhoneCheckDialog() }
         binding.btnQuickVoice.setOnClickListener {
-            if (currentUser?.isPremium == true) { if (isListening) stopListening() else startListening() }
+            if (currentUser?.isPremium == true) { startActivity(Intent(this, VoiceActivity::class.java)) }
             else showUpgradeDialog()
         }
     }

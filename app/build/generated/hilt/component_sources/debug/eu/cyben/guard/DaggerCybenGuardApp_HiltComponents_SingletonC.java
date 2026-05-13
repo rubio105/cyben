@@ -479,6 +479,7 @@ public final class DaggerCybenGuardApp_HiltComponents_SingletonC {
     private EmailVerificationActivity injectEmailVerificationActivity2(
         EmailVerificationActivity instance) {
       EmailVerificationActivity_MembersInjector.injectApi(instance, singletonCImpl.provideApiServiceProvider.get());
+      EmailVerificationActivity_MembersInjector.injectTokenManager(instance, singletonCImpl.tokenManagerProvider.get());
       return instance;
     }
 

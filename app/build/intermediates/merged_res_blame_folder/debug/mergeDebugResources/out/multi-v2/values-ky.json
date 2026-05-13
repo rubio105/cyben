@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "eu.cyben.guard.app-mergeDebugResources-49:/values-ky/values-ky.xml",
+            "outputFile": "eu.cyben.guard.app-mergeDebugResources-50:/values-ky/values-ky.xml",
             "map": [
                 {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/res/values-ky/values-ky.xml",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/a47c077c076071a0229e6b382769b28f/transformed/play-services-base-18.1.0/res/values-ky/values.xml",
+                    "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/1d5dce0995b8751e1b86bfabd17730bc/transformed/play-services-base-18.3.0/res/values-ky/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
