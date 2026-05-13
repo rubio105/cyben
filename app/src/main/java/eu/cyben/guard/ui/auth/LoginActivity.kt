@@ -71,7 +71,11 @@ class LoginActivity : AppCompatActivity() {
                 if (resp.isSuccessful) {
                     val body = resp.body()
                     when {
-                        body?.needsVerification == true -> Toast.makeText(this@LoginActivity, "Verifica la tua email prima di accedere", Toast.LENGTH_LONG).show()
+                        body?.needsVerification == true -> {
+                            startActivity(Intent(this@LoginActivity, EmailVerificationActivity::class.java).apply {
+                                putExtra("email", email)
+                            })
+                        }
                         body?.token != null -> { tokenManager.saveToken(body.token); goToDashboard() }
                         else -> Toast.makeText(this@LoginActivity, body?.error ?: "Login fallito", Toast.LENGTH_LONG).show()
                     }
