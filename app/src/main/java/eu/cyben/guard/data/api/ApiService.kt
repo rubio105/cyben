@@ -10,6 +10,7 @@ interface ApiService {
     @GET("/api/guard/auth/me") suspend fun getMe(): Response<GuardUser>
     @DELETE("/api/guard/auth/delete-account") suspend fun deleteAccount(): Response<Unit>
     @POST("/api/guard/auth/resend-verification") suspend fun resendVerification(@Body body: EmailRequest): Response<OkResponse>
+    @POST("/api/guard/auth/verify-email") suspend fun verifyEmail(@Body body: VerifyEmailRequest): Response<GuardAuthResponse>
     @POST("/api/guard/auth/forgot-password") suspend fun forgotPassword(@Body body: EmailRequest): Response<MessageResponse>
     @POST("/api/guard/auth/change-password") suspend fun changePassword(@Body body: ChangePasswordRequest): Response<OkResponse>
     @POST("/api/guard/analyze") suspend fun analyze(@Body body: AnalyzeRequest): Response<AnalyzeResponse>
@@ -46,4 +47,5 @@ data class SubscribeRequest(val plan: String, val billingPeriod: String?)
 data class HumanRequest(val text: String, val analysisId: Int?)
 data class SOSRequest(val description: String, val incidentType: String = "other")
 data class PhoneCheckRequest(val number: String)
+data class VerifyEmailRequest(val email: String, val code: String)
 data class HibpCheckRequest(val password: String)
