@@ -38,6 +38,7 @@
         <activity android:name=".ui.settings.SettingsActivity" android:exported="false" />
         <activity android:name=".ui.auth.EmailVerificationActivity" android:exported="false" />
         <activity android:name=".ui.settings.AnalysisHistoryActivity" android:exported="false" />
+        <activity android:name=".ui.voice.VoiceActivity" android:exported="false" />
 
 
         <receiver android:name=".receiver.SmsReceiver" android:exported="true">

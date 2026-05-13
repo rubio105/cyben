@@ -16,6 +16,9 @@ import eu.cyben.guard.data.models.GuardUser
 import eu.cyben.guard.databinding.ActivitySettingsBinding
 import eu.cyben.guard.ui.analysis.AnalysisHistoryActivity
 import eu.cyben.guard.ui.auth.LoginActivity
+import eu.cyben.guard.ui.dashboard.DashboardActivity
+import eu.cyben.guard.ui.breach.BreachMonitorActivity
+import eu.cyben.guard.ui.vpn.VPNActivity
 import eu.cyben.guard.ui.prohmed.ProhmedActivity
 import eu.cyben.guard.ui.subscription.SubscriptionActivity
 import eu.cyben.guard.utils.TokenManager
@@ -44,6 +47,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.rowTerms.setOnClickListener { openUrl("https://cyben.eu/terms") }
         binding.cardLogout.setOnClickListener { logout() }
         binding.btnProhmedConsult.setOnClickListener { startActivity(Intent(this, ProhmedActivity::class.java)) }
+        setupNav()
         loadUser()
     }
 
@@ -179,4 +183,18 @@ class SettingsActivity : AppCompatActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
         finishAffinity()
     }
+
+    private fun setupNav() {
+        binding.tabAnalizza.setOnClickListener {
+            startActivity(Intent(this, DashboardActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+        binding.tabViolazioni.setOnClickListener {
+            startActivity(Intent(this, BreachMonitorActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+        binding.tabVPN.setOnClickListener {
+            startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+        binding.tabImpostazioni.setOnClickListener { /* already here */ }
+    }
+
 }

@@ -34,6 +34,7 @@ import eu.cyben.guard.ui.auth.LoginActivity
 import eu.cyben.guard.ui.breach.BreachMonitorActivity
 import eu.cyben.guard.ui.settings.SettingsActivity
 import eu.cyben.guard.ui.subscription.SubscriptionActivity
+import eu.cyben.guard.ui.voice.VoiceActivity
 import eu.cyben.guard.ui.vpn.VPNActivity
 import eu.cyben.guard.utils.LocaleHelper
 import eu.cyben.guard.utils.TokenManager
@@ -115,19 +116,24 @@ class DashboardActivity : AppCompatActivity() {
         }
         binding.btnQuickNumber.setOnClickListener { showPhoneCheckDialog() }
         binding.btnQuickVoice.setOnClickListener {
-            if (currentUser?.isPremium == true) { if (isListening) stopListening() else startListening() }
+            if (currentUser?.isPremium == true) startActivity(Intent(this, VoiceActivity::class.java))
             else showUpgradeDialog()
         }
     }
 
     private fun setupNav() {
-        binding.tabAnalizza.setOnClickListener { }
-        binding.tabViolazioni.setOnClickListener { startActivity(Intent(this, BreachMonitorActivity::class.java)) }
+        binding.tabAnalizza.setOnClickListener { /* already here */ }
+        binding.tabViolazioni.setOnClickListener {
+            startActivity(Intent(this, BreachMonitorActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
         binding.tabVPN.setOnClickListener {
-            if (currentUser?.isPremium == true) startActivity(Intent(this, VPNActivity::class.java))
+            if (currentUser?.isPremium == true)
+                startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
             else showUpgradeDialog()
         }
-        binding.tabImpostazioni.setOnClickListener { startActivity(Intent(this, SettingsActivity::class.java)) }
+        binding.tabImpostazioni.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
     }
 
     private fun loadUser() {

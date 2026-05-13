@@ -1,5 +1,6 @@
 package eu.cyben.guard.ui.breach
 
+import android.content.Intent
 import android.os.Bundle
 import android.security.keystore.KeyProperties
 import android.view.View
@@ -8,11 +9,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.data.api.AddEmailRequest
 import eu.cyben.guard.data.api.ApiService
 import eu.cyben.guard.data.api.HibpCheckRequest
 import eu.cyben.guard.databinding.ActivityBreachMonitorBinding
+import eu.cyben.guard.data.models.GuardMonitoredEmail
+import eu.cyben.guard.data.models.GuardBreachAlert
+import eu.cyben.guard.ui.dashboard.DashboardActivity
+import eu.cyben.guard.ui.settings.SettingsActivity
+import eu.cyben.guard.ui.vpn.VPNActivity
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import javax.inject.Inject
@@ -29,15 +36,17 @@ class BreachMonitorActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { finish() }
         binding.btnAddEmail.setOnClickListener { showAddEmailDialog() }
         binding.btnHibp.setOnClickListener { showHibpDialog() }
+        setupNav()
         loadData()
     }
 
     private fun loadData() {
         lifecycleScope.launch {
             try {
-                val resp = api.getMonitoredEmails()
-                if (resp.isSuccessful) {
-                    val emails = resp.body() ?: emptyList()
+                val emailsResp = api.getMonitoredEmails()
+                val alertsResp = api.getBreachAlerts()
+                if (emailsResp.isSuccessful) {
+                    val emails = emailsResp.body() ?: emptyList()
                     binding.tvEmailLabel.text = "Email monitorate (${emails.size}/2)"
                     binding.tvBreachSubheader.text = "${emails.size}/2 email monitorate · verifica password disponibile"
                     val breached = emails.sumOf { it.breachCount ?: 0 }
@@ -46,6 +55,21 @@ class BreachMonitorActivity : AppCompatActivity() {
                         binding.tvBreachStatus.setTextColor(0xFFFF1744.toInt())
                     } else {
                         binding.tvBreachStatus.text = "Nessuna rilevata"
+                        binding.tvBreachStatus.setTextColor(0xFF66BB6A.toInt())
+                    }
+                    binding.rvEmails.layoutManager = LinearLayoutManager(this@BreachMonitorActivity)
+                    binding.rvEmails.adapter = EmailAdapter(emails)
+                }
+                if (alertsResp.isSuccessful) {
+                    val alerts = alertsResp.body() ?: emptyList()
+                    if (alerts.isNotEmpty()) {
+                        binding.tvBreachAlertsLabel.visibility = View.VISIBLE
+                        binding.rvBreachAlerts.visibility = View.VISIBLE
+                        binding.rvBreachAlerts.layoutManager = LinearLayoutManager(this@BreachMonitorActivity)
+                        binding.rvBreachAlerts.adapter = AlertAdapter(alerts)
+                    } else {
+                        binding.tvBreachAlertsLabel.visibility = View.GONE
+                        binding.rvBreachAlerts.visibility = View.GONE
                     }
                 }
             } catch (_: Exception) {}
@@ -68,8 +92,14 @@ class BreachMonitorActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val resp = api.addMonitoredEmail(AddEmailRequest(email, null))
-                if (resp.isSuccessful) { Toast.makeText(this@BreachMonitorActivity, "Email aggiunta", Toast.LENGTH_SHORT).show(); loadData() }
-                else Toast.makeText(this@BreachMonitorActivity, "Errore aggiunta email", Toast.LENGTH_SHORT).show()
+                if (resp.isSuccessful) {
+                    val added = resp.body()
+                    Toast.makeText(this@BreachMonitorActivity, "Email aggiunta, verifica in corso...", Toast.LENGTH_SHORT).show()
+                    if (added?.id != null) {
+                        try { api.checkBreach(added.id) } catch (_: Exception) {}
+                    }
+                    loadData()
+                } else Toast.makeText(this@BreachMonitorActivity, "Errore aggiunta email", Toast.LENGTH_SHORT).show()
             } catch (_: Exception) { Toast.makeText(this@BreachMonitorActivity, "Errore di rete", Toast.LENGTH_SHORT).show() }
             finally { binding.progressBreach.visibility = View.GONE }
         }
@@ -120,4 +150,116 @@ class BreachMonitorActivity : AppCompatActivity() {
         val bytes = MessageDigest.getInstance("SHA-1").digest(input.toByteArray())
         return bytes.joinToString("") { "%02x".format(it) }
     }
+
+    private fun setupNav() {
+        binding.tabAnalizza.setOnClickListener {
+            startActivity(Intent(this, DashboardActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+        binding.tabViolazioni.setOnClickListener { /* already here */ }
+        binding.tabVPN.setOnClickListener {
+            startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+        binding.tabImpostazioni.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+    }
+
+    inner class EmailAdapter(private val items: List<GuardMonitoredEmail>) :
+        androidx.recyclerview.widget.RecyclerView.Adapter<EmailAdapter.VH>() {
+        inner class VH(val root: android.widget.LinearLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
+        override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
+            val ll = android.widget.LinearLayout(parent.context).apply {
+                orientation = android.widget.LinearLayout.HORIZONTAL
+                setPadding(40, 28, 40, 28)
+                layoutParams = android.view.ViewGroup.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                setBackgroundResource(eu.cyben.guard.R.drawable.settings_card_bg)
+            }
+            return VH(ll)
+        }
+        override fun getItemCount() = items.size
+        override fun onBindViewHolder(holder: VH, position: Int) {
+            val item = items[position]
+            val ll = holder.root
+            ll.removeAllViews()
+            val count = item.breachCount ?: 0
+            val icon = android.widget.TextView(ll.context).apply {
+                text = if (count > 0) "⚠️" else "✔"
+                textSize = 18f
+                setPadding(0, 0, 28, 0)
+            }
+            val info = android.widget.LinearLayout(ll.context).apply {
+                orientation = android.widget.LinearLayout.VERTICAL
+                layoutParams = android.widget.LinearLayout.LayoutParams(0, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            }
+            val tvEmail = android.widget.TextView(ll.context).apply {
+                text = item.email
+                setTextColor(0xFFEEEEFF.toInt())
+                textSize = 14f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            }
+            val tvSub = android.widget.TextView(ll.context).apply {
+                text = if (count > 0) "$count violazioni trovate" else "Nessuna violazione"
+                setTextColor(if (count > 0) 0xFFFF5252.toInt() else 0xFF66BB6A.toInt())
+                textSize = 12f
+            }
+            info.addView(tvEmail)
+            info.addView(tvSub)
+            ll.addView(icon)
+            ll.addView(info)
+        }
+    }
+
+    inner class AlertAdapter(private val items: List<GuardBreachAlert>) :
+        androidx.recyclerview.widget.RecyclerView.Adapter<AlertAdapter.VH>() {
+        inner class VH(val root: android.widget.LinearLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
+        override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
+            val ll = android.widget.LinearLayout(parent.context).apply {
+                orientation = android.widget.LinearLayout.VERTICAL
+                setPadding(40, 28, 40, 28)
+                val lp = android.view.ViewGroup.MarginLayoutParams(
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                lp.setMargins(0, 0, 0, 16)
+                layoutParams = lp
+                setBackgroundResource(eu.cyben.guard.R.drawable.settings_card_bg)
+            }
+            return VH(ll)
+        }
+        override fun getItemCount() = items.size
+        override fun onBindViewHolder(holder: VH, position: Int) {
+            val item = items[position]
+            val ll = holder.root
+            ll.removeAllViews()
+            val tvName = android.widget.TextView(ll.context).apply {
+                text = "⚠️ " + (item.breachName ?: "Violazione sconosciuta")
+                setTextColor(0xFFFF5252.toInt())
+                textSize = 14f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            }
+            ll.addView(tvName)
+            if (!item.description.isNullOrEmpty()) {
+                val tvDesc = android.widget.TextView(ll.context).apply {
+                    text = item.description.take(120)
+                    setTextColor(0xFFB0B0C0.toInt())
+                    textSize = 12f
+                    setPadding(0, 6, 0, 0)
+                }
+                ll.addView(tvDesc)
+            }
+            if (!item.dataClasses.isNullOrEmpty()) {
+                val tvCats = android.widget.TextView(ll.context).apply {
+                    text = "Dati esposti: " + item.dataClasses.joinToString(", ")
+                    setTextColor(0xFFFF9800.toInt())
+                    textSize = 11f
+                    setPadding(0, 4, 0, 0)
+                }
+                ll.addView(tvCats)
+            }
+        }
+    }
+
 }
