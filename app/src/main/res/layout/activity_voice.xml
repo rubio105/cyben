@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/cyben_dark">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp"
+        android:background="@color/cyben_surface">
+        <ImageButton android:id="@+id/btnBack" android:layout_width="36dp" android:layout_height="36dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_primary" android:layout_marginEnd="8dp"/>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="CyAgent" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text=" BETA" android:textColor="@color/cyben_orange" android:textSize="10sp" android:textStyle="bold" android:layout_marginStart="4dp"/>
+            </LinearLayout>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Agente AI vocale" android:textColor="@color/text_secondary" android:textSize="10sp"/>
+        </LinearLayout>
+        <TextView android:id="@+id/tvVoiceStatus" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Pronto" android:textColor="@color/status_safe" android:textSize="11sp"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvVoiceChat"
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:paddingTop="12dp" android:paddingBottom="8dp" android:clipToPadding="false"/>
+    <ProgressBar android:id="@+id/progressVoice" android:layout_width="wrap_content"
+        android:layout_height="24dp" android:visibility="gone" android:layout_marginStart="16dp"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:background="@color/cyben_surface" android:padding="20dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:gravity="center" android:paddingTop="8dp" android:paddingBottom="16dp">
+            <LinearLayout android:id="@+id/btnVoiceMic" android:layout_width="80dp" android:layout_height="80dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/mic_button_bg" android:clickable="true" android:focusable="true" android:elevation="4dp">
+                <TextView android:id="@+id/tvMicIcon" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="&#127897;" android:textSize="32sp"/>
+            </LinearLayout>
+            <TextView android:id="@+id/tvListeningLabel" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Premi per parlare" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginTop="12dp"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <EditText android:id="@+id/etVoiceText" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:hint="Scrivi invece di parlare..."
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_tertiary"
+                android:background="@drawable/input_bg" android:inputType="text" android:padding="10dp" android:textSize="14sp"/>
+            <ImageButton android:id="@+id/btnVoiceSend" android:layout_width="44dp" android:layout_height="44dp"
+                android:src="@android:drawable/ic_menu_send"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/cyben_orange" android:layout_marginStart="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
+        android:orientation="horizontal" android:background="@color/cyben_surface" android:elevation="8dp">
+        <LinearLayout android:id="@+id/tabAnalizza" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128269;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Analizza" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabViolazioni" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128065;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Violazioni" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabVPN" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128274;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="VPN" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabImpostazioni" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#9881;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Impostazioni" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
