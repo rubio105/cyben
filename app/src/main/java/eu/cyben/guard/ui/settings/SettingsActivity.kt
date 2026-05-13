@@ -15,6 +15,7 @@ import eu.cyben.guard.data.api.SOSRequest
 import eu.cyben.guard.data.models.GuardUser
 import eu.cyben.guard.databinding.ActivitySettingsBinding
 import eu.cyben.guard.ui.analysis.AnalysisHistoryActivity
+import eu.cyben.guard.ui.prohmed.ProhmedActivity
 import eu.cyben.guard.ui.auth.LoginActivity
 import eu.cyben.guard.ui.breach.BreachMonitorActivity
 import eu.cyben.guard.ui.dashboard.DashboardActivity
@@ -97,10 +98,50 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun showProtectionInfo() {
-        AlertDialog.Builder(this)
+        val pm = packageManager
+        val smsOk = androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        val callOk = androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        val notifOk = if (android.os.Build.VERSION.SDK_INT >= 33)
+            androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        else true
+
+        val smsIcon = if (smsOk) "✓" else "✗"
+        val callIcon = if (callOk) "✓" else "✗"
+        val notifIcon = if (notifOk) "✓" else "✗"
+
+        val msg = """Protezione SMS  $smsIcon
+${if (smsOk) "Attiva - i messaggi vengono analizzati automaticamente" else "Disattivata - abilita il permesso SMS"}
+
+Protezione chiamate  $callIcon
+${if (callOk) "Attiva - le chiamate sospette vengono identificate" else "Disattivata - abilita il permesso telefono"}
+
+Notifiche di sicurezza  $notifIcon
+${if (notifOk) "Attive - ricevi avvisi in tempo reale" else "Disattivate - abilita le notifiche"}
+
+La protezione WhatsApp richiede di condividere manualmente i messaggi tramite la funzione Condividi."""
+
+        val builder = AlertDialog.Builder(this)
             .setTitle("Protezione immediata")
-            .setMessage("SMS e chiamate vengono analizzati automaticamente in background quando i permessi sono concessi. La protezione WhatsApp richiede di condividere manualmente i messaggi sospetti tramite la funzione Condividi.")
-            .setPositiveButton("OK", null).show()
+            .setMessage(msg)
+            .setPositiveButton("OK", null)
+        if (!smsOk || !callOk || !notifOk) {
+            builder.setNeutralButton("Abilita permessi") { _, _ ->
+                androidx.core.app.ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        android.Manifest.permission.RECEIVE_SMS,
+                        android.Manifest.permission.READ_PHONE_STATE,
+                        android.Manifest.permission.READ_SMS
+                    ).let { perms ->
+                        if (android.os.Build.VERSION.SDK_INT >= 33)
+                            perms + android.Manifest.permission.POST_NOTIFICATIONS
+                        else perms
+                    },
+                    200
+                )
+            }
+        }
+        builder.show()
     }
 
     private fun showSOSDialog() {
