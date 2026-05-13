@@ -1,0 +1,454 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="eu.cyben.guard"
+4    android:versionCode="2"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+11-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:4:5-71
+11-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:4:22-68
+12    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+12-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:5:5-70
+12-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:5:22-67
+13    <uses-permission android:name="android.permission.READ_SMS" />
+13-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:6:5-67
+13-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:6:22-64
+14    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+14-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:7:5-75
+14-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:7:22-72
+15    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+15-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:8:5-72
+15-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:8:22-69
+16    <uses-permission android:name="android.permission.INTERNET" />
+16-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:9:5-67
+16-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:9:22-64
+17    <uses-permission android:name="android.permission.CONTROL_VPN" />
+17-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:10:5-69
+17-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:10:22-67
+18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+18-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:11:5-79
+18-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:11:22-76
+19    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+19-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:12:5-77
+19-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:12:22-74
+20    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+20-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:24:5-68
+20-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:24:22-65
+21    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+21-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:26:5-82
+21-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:26:22-79
+22    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+22-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:26:5-110
+22-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:26:22-107
+23    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+23-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:25:5-79
+23-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:25:22-76
+24    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+24-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:26:5-88
+24-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:26:22-85
+25    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" />
+25-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:27:5-82
+25-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:27:22-79
+26
+27    <permission
+27-->[androidx.core:core:1.12.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+28        android:name="eu.cyben.guard.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+28-->[androidx.core:core:1.12.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+29        android:protectionLevel="signature" />
+29-->[androidx.core:core:1.12.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+30
+31    <uses-permission android:name="eu.cyben.guard.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+31-->[androidx.core:core:1.12.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+31-->[androidx.core:core:1.12.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+32
+33    <application
+33-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:14:5-54:19
+34        android:name="eu.cyben.guard.CybenGuardApp"
+34-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:15:9-38
+35        android:allowBackup="false"
+35-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:16:9-36
+36        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+36-->[androidx.core:core:1.12.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+37        android:debuggable="true"
+38        android:extractNativeLibs="false"
+39        android:icon="@mipmap/ic_launcher"
+39-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:17:9-43
+40        android:label="@string/app_name"
+40-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:18:9-41
+41        android:roundIcon="@mipmap/ic_launcher_round"
+41-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:19:9-54
+42        android:supportsRtl="true"
+42-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:20:9-35
+43        android:theme="@style/Theme.CybenGuard"
+43-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:21:9-48
+44        android:usesCleartextTraffic="false" >
+44-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:22:9-45
+45        <activity
+45-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:24:9-29:20
+46            android:name="eu.cyben.guard.ui.auth.LoginActivity"
+46-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:24:19-56
+47            android:exported="true" >
+47-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:24:57-80
+48            <intent-filter>
+48-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:25:13-28:29
+49                <action android:name="android.intent.action.MAIN" />
+49-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:26:17-69
+49-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:26:25-66
+50
+51                <category android:name="android.intent.category.LAUNCHER" />
+51-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:27:17-77
+51-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:27:27-74
+52            </intent-filter>
+53        </activity>
+54        <activity
+54-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:30:9-87
+55            android:name="eu.cyben.guard.ui.auth.RegisterActivity"
+55-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:30:19-59
+56            android:exported="false" />
+56-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:30:60-84
+57        <activity
+57-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:31:9-93
+58            android:name="eu.cyben.guard.ui.dashboard.DashboardActivity"
+58-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:31:19-65
+59            android:exported="false" />
+59-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:31:66-90
+60        <activity
+60-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:32:9-94
+61            android:name="eu.cyben.guard.ui.breach.BreachMonitorActivity"
+61-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:32:19-66
+62            android:exported="false" />
+62-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:32:67-91
+63        <activity
+63-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:33:9-81
+64            android:name="eu.cyben.guard.ui.vpn.VPNActivity"
+64-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:33:19-53
+65            android:exported="false" />
+65-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:33:54-78
+66        <activity
+66-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:34:9-99
+67            android:name="eu.cyben.guard.ui.subscription.SubscriptionActivity"
+67-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:34:19-71
+68            android:exported="false" />
+68-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:34:72-96
+69        <activity
+69-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:35:9-91
+70            android:name="eu.cyben.guard.ui.settings.SettingsActivity"
+70-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:35:19-63
+71            android:exported="false" />
+71-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:35:64-88
+72        <activity
+72-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:36:9-96
+73            android:name="eu.cyben.guard.ui.auth.EmailVerificationActivity"
+73-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:36:19-68
+74            android:exported="false" />
+74-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:36:69-93
+75        <activity
+75-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:37:9-98
+76            android:name="eu.cyben.guard.ui.settings.AnalysisHistoryActivity"
+76-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:37:19-70
+77            android:exported="false" />
+77-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:37:71-95
+78
+79        <receiver
+79-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:40:9-44:20
+80            android:name="eu.cyben.guard.receiver.SmsReceiver"
+80-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:40:19-55
+81            android:exported="true" >
+81-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:40:56-79
+82            <intent-filter android:priority="999" >
+82-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:41:13-43:29
+82-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:41:28-50
+83                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+83-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:42:17-82
+83-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:42:25-79
+84            </intent-filter>
+85        </receiver>
+86
+87        <service
+87-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:46:9-53:19
+88            android:name="eu.cyben.guard.service.GuardCallScreeningService"
+88-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:47:13-62
+89            android:exported="true"
+89-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:49:13-36
+90            android:permission="android.permission.BIND_SCREENING_SERVICE" >
+90-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:48:13-75
+91            <intent-filter>
+91-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:50:13-52:29
+92                <action android:name="android.telecom.CallScreeningService" />
+92-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:51:17-79
+92-->/Users/rubenguarnaccia/AndroidStudioProjects/cyben/app/src/main/AndroidManifest.xml:51:25-76
+93            </intent-filter>
+94        </service>
+95
+96        <receiver
+96-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:29:9-40:20
+97            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+97-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:30:13-78
+98            android:exported="true"
+98-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:31:13-36
+99            android:permission="com.google.android.c2dm.permission.SEND" >
+99-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:32:13-73
+100            <intent-filter>
+100-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:33:13-35:29
+101                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+101-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:34:17-81
+101-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:34:25-78
+102            </intent-filter>
+103
+104            <meta-data
+104-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:37:13-39:40
+105                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
+105-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:38:17-92
+106                android:value="true" />
+106-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:39:17-37
+107        </receiver>
+108        <!--
+109             FirebaseMessagingService performs security checks at runtime,
+110             but set to not exported to explicitly avoid allowing another app to call it.
+111        -->
+112        <service
+112-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:46:9-53:19
+113            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+113-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:47:13-82
+114            android:directBootAware="true"
+114-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:48:13-43
+115            android:exported="false" >
+115-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:49:13-37
+116            <intent-filter android:priority="-500" >
+116-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:50:13-52:29
+116-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:50:28-51
+117                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+117-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:51:17-78
+117-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:51:25-75
+118            </intent-filter>
+119        </service>
+120        <service
+120-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:54:9-63:19
+121            android:name="com.google.firebase.components.ComponentDiscoveryService"
+121-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:55:13-84
+122            android:directBootAware="true"
+122-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+123            android:exported="false" >
+123-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:56:13-37
+124            <meta-data
+124-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:57:13-59:85
+125                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
+125-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:58:17-122
+126                android:value="com.google.firebase.components.ComponentRegistrar" />
+126-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:59:17-82
+127            <meta-data
+127-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:60:13-62:85
+128                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+128-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:61:17-119
+129                android:value="com.google.firebase.components.ComponentRegistrar" />
+129-->[com.google.firebase:firebase-messaging:24.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/c99135e19d7c5ab92048ad2d28a6382d/transformed/firebase-messaging-24.0.0/AndroidManifest.xml:62:17-82
+130            <meta-data
+130-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:37:13-39:85
+131                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+131-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:38:17-139
+132                android:value="com.google.firebase.components.ComponentRegistrar" />
+132-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:39:17-82
+133            <meta-data
+133-->[com.google.firebase:firebase-installations:18.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/0d620131e675af5f07e27c32b955409f/transformed/firebase-installations-18.0.0/AndroidManifest.xml:15:13-17:85
+134                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+134-->[com.google.firebase:firebase-installations:18.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/0d620131e675af5f07e27c32b955409f/transformed/firebase-installations-18.0.0/AndroidManifest.xml:16:17-130
+135                android:value="com.google.firebase.components.ComponentRegistrar" />
+135-->[com.google.firebase:firebase-installations:18.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/0d620131e675af5f07e27c32b955409f/transformed/firebase-installations-18.0.0/AndroidManifest.xml:17:17-82
+136            <meta-data
+136-->[com.google.firebase:firebase-installations:18.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/0d620131e675af5f07e27c32b955409f/transformed/firebase-installations-18.0.0/AndroidManifest.xml:18:13-20:85
+137                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+137-->[com.google.firebase:firebase-installations:18.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/0d620131e675af5f07e27c32b955409f/transformed/firebase-installations-18.0.0/AndroidManifest.xml:19:17-127
+138                android:value="com.google.firebase.components.ComponentRegistrar" />
+138-->[com.google.firebase:firebase-installations:18.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/0d620131e675af5f07e27c32b955409f/transformed/firebase-installations-18.0.0/AndroidManifest.xml:20:17-82
+139            <meta-data
+139-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/dfb41721794259c4f53c0cbf52faaf8f/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+140                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+140-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/dfb41721794259c4f53c0cbf52faaf8f/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+141                android:value="com.google.firebase.components.ComponentRegistrar" />
+141-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/dfb41721794259c4f53c0cbf52faaf8f/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
+142            <meta-data
+142-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+143                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+143-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+144                android:value="com.google.firebase.components.ComponentRegistrar" />
+144-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+145            <meta-data
+145-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/948b206ec79a64330354997e8706aefc/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:25:13-27:85
+146                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+146-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/948b206ec79a64330354997e8706aefc/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:26:17-115
+147                android:value="com.google.firebase.components.ComponentRegistrar" />
+147-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/948b206ec79a64330354997e8706aefc/transformed/firebase-datatransport-18.2.0/AndroidManifest.xml:27:17-82
+148        </service>
+149
+150        <activity
+150-->[com.google.android.gms:play-services-base:18.0.1] /Users/rubenguarnaccia/.gradle/caches/transforms-3/ae31b30d601af7bd4cfdd811e485cff6/transformed/play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+151            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+151-->[com.google.android.gms:play-services-base:18.0.1] /Users/rubenguarnaccia/.gradle/caches/transforms-3/ae31b30d601af7bd4cfdd811e485cff6/transformed/play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+152            android:exported="false"
+152-->[com.google.android.gms:play-services-base:18.0.1] /Users/rubenguarnaccia/.gradle/caches/transforms-3/ae31b30d601af7bd4cfdd811e485cff6/transformed/play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+153            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+153-->[com.google.android.gms:play-services-base:18.0.1] /Users/rubenguarnaccia/.gradle/caches/transforms-3/ae31b30d601af7bd4cfdd811e485cff6/transformed/play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+154
+155        <receiver
+155-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:29:9-33:20
+156            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+156-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:30:13-85
+157            android:enabled="true"
+157-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:31:13-35
+158            android:exported="false" >
+158-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:32:13-37
+159        </receiver>
+160
+161        <service
+161-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:35:9-38:40
+162            android:name="com.google.android.gms.measurement.AppMeasurementService"
+162-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:36:13-84
+163            android:enabled="true"
+163-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:37:13-35
+164            android:exported="false" />
+164-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:38:13-37
+165        <service
+165-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:39:9-43:72
+166            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+166-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:40:13-87
+167            android:enabled="true"
+167-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:41:13-35
+168            android:exported="false"
+168-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:42:13-37
+169            android:permission="android.permission.BIND_JOB_SERVICE" />
+169-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/940d1cc5b95dce05451dd7610963c7cf/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:43:13-69
+170
+171        <property
+171-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:30:9-32:61
+172            android:name="android.adservices.AD_SERVICES_CONFIG"
+172-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:31:13-65
+173            android:resource="@xml/ga_ad_services_config" />
+173-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/20022e2b7d8d441e278c83e2f5a50a96/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:32:13-58
+174
+175        <provider
+175-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+176            android:name="com.google.firebase.provider.FirebaseInitProvider"
+176-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+177            android:authorities="eu.cyben.guard.firebaseinitprovider"
+177-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+178            android:directBootAware="true"
+178-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+179            android:exported="false"
+179-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+180            android:initOrder="100" />
+180-->[com.google.firebase:firebase-common:21.0.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f5da2882c4022fd3f8a62027eb207f31/transformed/firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+181        <provider
+181-->[androidx.emoji2:emoji2:1.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/886b95293e28b1f16cfb15484c0c9186/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+182            android:name="androidx.startup.InitializationProvider"
+182-->[androidx.emoji2:emoji2:1.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/886b95293e28b1f16cfb15484c0c9186/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+183            android:authorities="eu.cyben.guard.androidx-startup"
+183-->[androidx.emoji2:emoji2:1.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/886b95293e28b1f16cfb15484c0c9186/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+184            android:exported="false" >
+184-->[androidx.emoji2:emoji2:1.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/886b95293e28b1f16cfb15484c0c9186/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+185            <meta-data
+185-->[androidx.emoji2:emoji2:1.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/886b95293e28b1f16cfb15484c0c9186/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+186                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+186-->[androidx.emoji2:emoji2:1.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/886b95293e28b1f16cfb15484c0c9186/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+187                android:value="androidx.startup" />
+187-->[androidx.emoji2:emoji2:1.2.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/886b95293e28b1f16cfb15484c0c9186/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+188            <meta-data
+188-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/d65d03dbdc7a6f6f3efdfb03c7d7b334/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+189                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+189-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/d65d03dbdc7a6f6f3efdfb03c7d7b334/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+190                android:value="androidx.startup" />
+190-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/d65d03dbdc7a6f6f3efdfb03c7d7b334/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+191            <meta-data
+191-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+192                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+192-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+193                android:value="androidx.startup" />
+193-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+194        </provider>
+195
+196        <uses-library
+196-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/rubenguarnaccia/.gradle/caches/transforms-3/6f13693994661bce2246fee75b7a2e98/transformed/ads-adservices-1.0.0-beta05/AndroidManifest.xml:23:9-25:40
+197            android:name="android.ext.adservices"
+197-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/rubenguarnaccia/.gradle/caches/transforms-3/6f13693994661bce2246fee75b7a2e98/transformed/ads-adservices-1.0.0-beta05/AndroidManifest.xml:24:13-50
+198            android:required="false" />
+198-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/rubenguarnaccia/.gradle/caches/transforms-3/6f13693994661bce2246fee75b7a2e98/transformed/ads-adservices-1.0.0-beta05/AndroidManifest.xml:25:13-37
+199
+200        <meta-data
+200-->[com.google.android.gms:play-services-basement:18.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/74096daacf395f3ad924496645276f03/transformed/play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
+201            android:name="com.google.android.gms.version"
+201-->[com.google.android.gms:play-services-basement:18.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/74096daacf395f3ad924496645276f03/transformed/play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
+202            android:value="@integer/google_play_services_version" />
+202-->[com.google.android.gms:play-services-basement:18.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/74096daacf395f3ad924496645276f03/transformed/play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
+203
+204        <service
+204-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/260f63ef5b57bef7c968d32d88f10296/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:28:9-34:19
+205            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+205-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/260f63ef5b57bef7c968d32d88f10296/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:29:13-103
+206            android:exported="false" >
+206-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/260f63ef5b57bef7c968d32d88f10296/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:30:13-37
+207            <meta-data
+207-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/260f63ef5b57bef7c968d32d88f10296/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:31:13-33:39
+208                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+208-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/260f63ef5b57bef7c968d32d88f10296/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:32:17-94
+209                android:value="cct" />
+209-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/260f63ef5b57bef7c968d32d88f10296/transformed/transport-backend-cct-3.1.9/AndroidManifest.xml:33:17-36
+210        </service>
+211        <service
+211-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f6a185bff42d34ddecae1061c681e016/transformed/transport-runtime-3.1.9/AndroidManifest.xml:26:9-30:19
+212            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+212-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f6a185bff42d34ddecae1061c681e016/transformed/transport-runtime-3.1.9/AndroidManifest.xml:27:13-117
+213            android:exported="false"
+213-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f6a185bff42d34ddecae1061c681e016/transformed/transport-runtime-3.1.9/AndroidManifest.xml:28:13-37
+214            android:permission="android.permission.BIND_JOB_SERVICE" >
+214-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f6a185bff42d34ddecae1061c681e016/transformed/transport-runtime-3.1.9/AndroidManifest.xml:29:13-69
+215        </service>
+216
+217        <receiver
+217-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f6a185bff42d34ddecae1061c681e016/transformed/transport-runtime-3.1.9/AndroidManifest.xml:32:9-34:40
+218            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+218-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f6a185bff42d34ddecae1061c681e016/transformed/transport-runtime-3.1.9/AndroidManifest.xml:33:13-132
+219            android:exported="false" />
+219-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/rubenguarnaccia/.gradle/caches/transforms-3/f6a185bff42d34ddecae1061c681e016/transformed/transport-runtime-3.1.9/AndroidManifest.xml:34:13-37
+220        <receiver
+220-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+221            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+221-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+222            android:directBootAware="false"
+222-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+223            android:enabled="true"
+223-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+224            android:exported="true"
+224-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+225            android:permission="android.permission.DUMP" >
+225-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+226            <intent-filter>
+226-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+227                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+227-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+227-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+228            </intent-filter>
+229            <intent-filter>
+229-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+230                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+230-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+230-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+231            </intent-filter>
+232            <intent-filter>
+232-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+233                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+233-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+233-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+234            </intent-filter>
+235            <intent-filter>
+235-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+236                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+236-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+236-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rubenguarnaccia/.gradle/caches/transforms-3/03c30023a23171be3ca5927078e76b4b/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+237            </intent-filter>
+238        </receiver>
+239    </application>
+240
+241</manifest>

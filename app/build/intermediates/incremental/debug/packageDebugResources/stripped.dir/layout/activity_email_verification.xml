@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/cyben_dark"
+    android:gravity="center" android:padding="32dp">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Verifica Email" android:textColor="@color/text_primary"
+        android:textSize="24sp" android:textStyle="bold" android:layout_marginBottom="16dp"/>
+    <TextView android:id="@+id/tvMessage" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:textColor="@color/text_secondary"
+        android:textSize="15sp" android:gravity="center" android:layout_marginBottom="32dp"
+        android:text="Abbiamo inviato un link di verifica alla tua email. Clicca il link e poi torna qui."/>
+    <Button android:id="@+id/btnResend" android:layout_width="match_parent"
+        android:layout_height="52dp" android:text="Rimanda Email"
+        android:backgroundTint="@color/cyben_card" android:layout_marginBottom="12dp"/>
+    <Button android:id="@+id/btnVerified" android:layout_width="match_parent"
+        android:layout_height="52dp" android:text="Ho Verificato - Accedi"
+        android:backgroundTint="@color/cyben_orange"/>
+</LinearLayout>

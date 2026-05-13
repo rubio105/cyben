@@ -2,11 +2,14 @@ package eu.cyben.guard.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import eu.cyben.guard.R
 import eu.cyben.guard.data.api.ApiService
 import eu.cyben.guard.data.api.EmailRequest
 import eu.cyben.guard.data.api.LoginRequest
@@ -21,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
     @Inject lateinit var api: ApiService
     @Inject lateinit var tokenManager: TokenManager
     private lateinit var binding: ActivityLoginBinding
+    private var passwordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,14 +33,30 @@ class LoginActivity : AppCompatActivity() {
         if (tokenManager.isLoggedIn()) { goToDashboard(); return }
         binding.btnLogin.setOnClickListener { doLogin() }
         binding.btnRegister.setOnClickListener { startActivity(Intent(this, RegisterActivity::class.java)) }
+        binding.btnTogglePwd.setOnClickListener { togglePassword() }
         binding.tvForgotPassword.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             if (email.isEmpty()) { binding.etEmail.error = "Inserisci la tua email"; return@setOnClickListener }
             lifecycleScope.launch {
-                try { api.forgotPassword(EmailRequest(email)); Toast.makeText(this@LoginActivity, "Email di recupero inviata", Toast.LENGTH_SHORT).show() }
-                catch (e: Exception) { Toast.makeText(this@LoginActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show() }
+                try {
+                    api.forgotPassword(EmailRequest(email))
+                    Toast.makeText(this@LoginActivity, "Email di recupero inviata", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this@LoginActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+    }
+
+    private fun togglePassword() {
+        passwordVisible = !passwordVisible
+        val cursor = binding.etPassword.selectionEnd
+        binding.etPassword.transformationMethod = if (passwordVisible)
+            HideReturnsTransformationMethod.getInstance()
+        else
+            PasswordTransformationMethod.getInstance()
+        binding.etPassword.setSelection(cursor)
+        binding.btnTogglePwd.setImageResource(if (passwordVisible) R.drawable.ic_eye_off else R.drawable.ic_eye)
     }
 
     private fun doLogin() {
@@ -56,11 +76,15 @@ class LoginActivity : AppCompatActivity() {
                         else -> Toast.makeText(this@LoginActivity, body?.error ?: "Login fallito", Toast.LENGTH_LONG).show()
                     }
                 } else Toast.makeText(this@LoginActivity, "Credenziali non valide", Toast.LENGTH_LONG).show()
-            } catch (e: Exception) { Toast.makeText(this@LoginActivity, "Errore di rete: ${e.message}", Toast.LENGTH_LONG).show() }
-            finally { setLoading(false) }
+            } catch (e: Exception) {
+                Toast.makeText(this@LoginActivity, "Errore di rete: ${e.message}", Toast.LENGTH_LONG).show()
+            } finally { setLoading(false) }
         }
     }
 
     private fun goToDashboard() { startActivity(Intent(this, DashboardActivity::class.java)); finish() }
-    private fun setLoading(b: Boolean) { binding.progressBar.visibility = if (b) View.VISIBLE else View.GONE; binding.btnLogin.isEnabled = !b }
+    private fun setLoading(b: Boolean) {
+        binding.progressBar.visibility = if (b) View.VISIBLE else View.GONE
+        binding.btnLogin.isEnabled = !b
+    }
 }

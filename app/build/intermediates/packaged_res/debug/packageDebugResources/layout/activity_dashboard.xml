@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/cyben_dark">
+
+    <!-- Header -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:padding="16dp" android:gravity="center_vertical"
+        android:background="@color/cyben_surface">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical">
+            <TextView android:id="@+id/tvUserName" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textColor="@color/text_primary"
+                android:textSize="16sp" android:textStyle="bold" android:text="Cyben Guard"/>
+            <TextView android:id="@+id/tvPlanBadge" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textColor="@color/cyben_orange"
+                android:textSize="12sp" android:text="Gratuito"/>
+        </LinearLayout>
+        <ImageButton android:id="@+id/btnSettings" android:layout_width="40dp" android:layout_height="40dp"
+            android:src="@android:drawable/ic_menu_manage" android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_secondary"/>
+    </LinearLayout>
+
+    <!-- Risk Banner -->
+    <TextView android:id="@+id/tvRiskBanner" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:padding="12dp" android:textColor="@color/text_primary"
+        android:background="@color/status_danger" android:visibility="gone" android:textSize="13sp"/>
+
+    <!-- Chat -->
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvChat"
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:paddingTop="8dp" android:paddingBottom="8dp"
+        android:clipToPadding="false"/>
+
+    <!-- Typing indicator -->
+    <ProgressBar android:id="@+id/progressTyping" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:visibility="gone"
+        android:layout_gravity="start" android:layout_marginStart="16dp"/>
+
+    <!-- Input -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:padding="8dp" android:gravity="center_vertical"
+        android:background="@color/cyben_surface">
+        <EditText android:id="@+id/etMessage" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:hint="@string/type_message" android:textColor="@color/text_primary"
+             android:background="@null"
+            android:inputType="textMultiLine" android:maxLines="4" android:padding="8dp"/>
+        <ImageButton android:id="@+id/btnMic" android:layout_width="48dp" android:layout_height="48dp"
+            android:src="@android:drawable/ic_btn_speak_now" android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_secondary"/>
+        <ImageButton android:id="@+id/btnSend" android:layout_width="48dp" android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_send" android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/cyben_orange"/>
+    </LinearLayout>
+
+    <!-- Bottom Nav -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:background="@color/cyben_surface"
+        android:gravity="center">
+        <Button android:id="@+id/btnBreach" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="🔍" android:textSize="22sp"
+            style="?attr/borderlessButtonStyle" android:textColor="@color/text_secondary"/>
+        <Button android:id="@+id/btnVpn" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="🔒" android:textSize="22sp"
+            style="?attr/borderlessButtonStyle" android:textColor="@color/text_secondary"/>
+        <Button android:id="@+id/btnSubscription" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="⭐" android:textSize="22sp"
+            style="?attr/borderlessButtonStyle" android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+
+</LinearLayout>

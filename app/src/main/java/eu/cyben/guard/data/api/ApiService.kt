@@ -24,6 +24,12 @@ interface ApiService {
     @POST("/api/guard/critical-requests") suspend fun sendSOS(@Body body: SOSRequest): Response<CriticalRequestResponse>
     @GET("/api/guard/vpn/credentials") suspend fun getVPNCredentials(): Response<VPNCredentials>
     @GET("/api/guard/vpn/dns-stats") suspend fun getVPNDnsStats(): Response<VPNDnsStats>
+    @DELETE("/api/guard/auth/delete-account") suspend fun deleteAccount(): Response<OkResponse>
+    @POST("/api/guard/analyze-image") suspend fun analyzeImage(@Body body: ImageAnalyzeRequest): Response<AnalyzeResponse>
+    @GET("/api/guard/prohmed/status") suspend fun getProhmedStatus(): Response<eu.cyben.guard.data.models.ProhmedStatus>
+    @POST("/api/guard/prohmed/activate") suspend fun activateProhmed(@Body body: eu.cyben.guard.data.models.ProhmedActivateRequest): Response<eu.cyben.guard.data.models.ProhmedActivateResponse>
+    @POST("/api/guard/prohmed/consult") suspend fun sendConsult(@Body body: eu.cyben.guard.data.models.ProhmedConsultRequest): Response<eu.cyben.guard.data.models.ProhmedConsultResponse>
+    @GET("/api/guard/prohmed/consults") suspend fun getConsults(): Response<List<eu.cyben.guard.data.models.ProhmedConsult>>
 }
 
 data class RegisterRequest(val name: String, val email: String, val password: String, val termsAccepted: Boolean, val privacyAccepted: Boolean, val marketingConsent: Boolean, val preferredLanguage: String = "it")
@@ -36,3 +42,5 @@ data class AddEmailRequest(val email: String, val label: String?)
 data class SubscribeRequest(val plan: String, val billingPeriod: String?)
 data class HumanRequest(val text: String, val analysisId: Int?)
 data class SOSRequest(val description: String, val incidentType: String = "other")
+
+data class ImageAnalyzeRequest(val imageBase64: String, val mimeType: String = "image/jpeg", val type: String = "screenshot", val preferredLanguage: String = java.util.Locale.getDefault().language)
