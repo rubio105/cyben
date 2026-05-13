@@ -101,4 +101,37 @@
                 android:layout_marginTop="8dp" android:gravity="center" android:visibility="gone"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
+        android:orientation="horizontal" android:background="@color/cyben_surface"
+        android:elevation="8dp">
+        <LinearLayout android:id="@+id/tabAnalizza" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128269;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Analizza" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabViolazioni" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128065;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Violazioni" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabVPN" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128274;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="VPN" android:textSize="9sp" android:textColor="@color/cyben_orange"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabImpostazioni" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#9881;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Impostazioni" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

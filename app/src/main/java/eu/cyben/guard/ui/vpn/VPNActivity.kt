@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.data.api.ApiService
+import eu.cyben.guard.ui.breach.BreachMonitorActivity
+import eu.cyben.guard.ui.dashboard.DashboardActivity
+import eu.cyben.guard.ui.settings.SettingsActivity
 import eu.cyben.guard.databinding.ActivityVpnBinding
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +29,7 @@ class VPNActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { finish() }
         binding.btnConnectVpn.setOnClickListener { if (connected) disconnect() else connect() }
         loadCredentials()
+        setupNav()
     }
 
     private fun loadCredentials() {
@@ -73,5 +77,13 @@ class VPNActivity : AppCompatActivity() {
             binding.tvConnectLabel.text = "Connetti VPN"
             binding.tvVpnStatus.setTextColor(0xFFB0B0C0.toInt())
         }
+    }
+
+
+    private fun setupNav() {
+        binding.tabAnalizza.setOnClickListener { startActivity(android.content.Intent(this, DashboardActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)) }
+        binding.tabViolazioni.setOnClickListener { startActivity(android.content.Intent(this, BreachMonitorActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)) }
+        binding.tabVPN.setOnClickListener { /* already here */ }
+        binding.tabImpostazioni.setOnClickListener { startActivity(android.content.Intent(this, SettingsActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)) }
     }
 }
