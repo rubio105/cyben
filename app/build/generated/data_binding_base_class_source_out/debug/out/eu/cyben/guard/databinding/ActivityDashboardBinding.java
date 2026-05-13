@@ -4,7 +4,6 @@ package eu.cyben.guard.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -25,22 +24,22 @@ public final class ActivityDashboardBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
-  public final Button btnBreach;
-
-  @NonNull
   public final ImageButton btnMic;
 
   @NonNull
+  public final LinearLayout btnQuickImage;
+
+  @NonNull
+  public final LinearLayout btnQuickNumber;
+
+  @NonNull
+  public final LinearLayout btnQuickQr;
+
+  @NonNull
+  public final LinearLayout btnQuickVoice;
+
+  @NonNull
   public final ImageButton btnSend;
-
-  @NonNull
-  public final ImageButton btnSettings;
-
-  @NonNull
-  public final Button btnSubscription;
-
-  @NonNull
-  public final Button btnVpn;
 
   @NonNull
   public final EditText etMessage;
@@ -52,32 +51,56 @@ public final class ActivityDashboardBinding implements ViewBinding {
   public final RecyclerView rvChat;
 
   @NonNull
-  public final TextView tvPlanBadge;
+  public final LinearLayout tabAnalizza;
+
+  @NonNull
+  public final LinearLayout tabImpostazioni;
+
+  @NonNull
+  public final LinearLayout tabVPN;
+
+  @NonNull
+  public final LinearLayout tabViolazioni;
+
+  @NonNull
+  public final TextView tvAnalysisCount;
 
   @NonNull
   public final TextView tvRiskBanner;
 
   @NonNull
-  public final TextView tvUserName;
+  public final TextView tvScoreBadge;
 
-  private ActivityDashboardBinding(@NonNull LinearLayout rootView, @NonNull Button btnBreach,
-      @NonNull ImageButton btnMic, @NonNull ImageButton btnSend, @NonNull ImageButton btnSettings,
-      @NonNull Button btnSubscription, @NonNull Button btnVpn, @NonNull EditText etMessage,
+  @NonNull
+  public final TextView tvStatus;
+
+  private ActivityDashboardBinding(@NonNull LinearLayout rootView, @NonNull ImageButton btnMic,
+      @NonNull LinearLayout btnQuickImage, @NonNull LinearLayout btnQuickNumber,
+      @NonNull LinearLayout btnQuickQr, @NonNull LinearLayout btnQuickVoice,
+      @NonNull ImageButton btnSend, @NonNull EditText etMessage,
       @NonNull ProgressBar progressTyping, @NonNull RecyclerView rvChat,
-      @NonNull TextView tvPlanBadge, @NonNull TextView tvRiskBanner, @NonNull TextView tvUserName) {
+      @NonNull LinearLayout tabAnalizza, @NonNull LinearLayout tabImpostazioni,
+      @NonNull LinearLayout tabVPN, @NonNull LinearLayout tabViolazioni,
+      @NonNull TextView tvAnalysisCount, @NonNull TextView tvRiskBanner,
+      @NonNull TextView tvScoreBadge, @NonNull TextView tvStatus) {
     this.rootView = rootView;
-    this.btnBreach = btnBreach;
     this.btnMic = btnMic;
+    this.btnQuickImage = btnQuickImage;
+    this.btnQuickNumber = btnQuickNumber;
+    this.btnQuickQr = btnQuickQr;
+    this.btnQuickVoice = btnQuickVoice;
     this.btnSend = btnSend;
-    this.btnSettings = btnSettings;
-    this.btnSubscription = btnSubscription;
-    this.btnVpn = btnVpn;
     this.etMessage = etMessage;
     this.progressTyping = progressTyping;
     this.rvChat = rvChat;
-    this.tvPlanBadge = tvPlanBadge;
+    this.tabAnalizza = tabAnalizza;
+    this.tabImpostazioni = tabImpostazioni;
+    this.tabVPN = tabVPN;
+    this.tabViolazioni = tabViolazioni;
+    this.tvAnalysisCount = tvAnalysisCount;
     this.tvRiskBanner = tvRiskBanner;
-    this.tvUserName = tvUserName;
+    this.tvScoreBadge = tvScoreBadge;
+    this.tvStatus = tvStatus;
   }
 
   @Override
@@ -107,39 +130,39 @@ public final class ActivityDashboardBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btnBreach;
-      Button btnBreach = ViewBindings.findChildViewById(rootView, id);
-      if (btnBreach == null) {
-        break missingId;
-      }
-
       id = R.id.btnMic;
       ImageButton btnMic = ViewBindings.findChildViewById(rootView, id);
       if (btnMic == null) {
         break missingId;
       }
 
+      id = R.id.btnQuickImage;
+      LinearLayout btnQuickImage = ViewBindings.findChildViewById(rootView, id);
+      if (btnQuickImage == null) {
+        break missingId;
+      }
+
+      id = R.id.btnQuickNumber;
+      LinearLayout btnQuickNumber = ViewBindings.findChildViewById(rootView, id);
+      if (btnQuickNumber == null) {
+        break missingId;
+      }
+
+      id = R.id.btnQuickQr;
+      LinearLayout btnQuickQr = ViewBindings.findChildViewById(rootView, id);
+      if (btnQuickQr == null) {
+        break missingId;
+      }
+
+      id = R.id.btnQuickVoice;
+      LinearLayout btnQuickVoice = ViewBindings.findChildViewById(rootView, id);
+      if (btnQuickVoice == null) {
+        break missingId;
+      }
+
       id = R.id.btnSend;
       ImageButton btnSend = ViewBindings.findChildViewById(rootView, id);
       if (btnSend == null) {
-        break missingId;
-      }
-
-      id = R.id.btnSettings;
-      ImageButton btnSettings = ViewBindings.findChildViewById(rootView, id);
-      if (btnSettings == null) {
-        break missingId;
-      }
-
-      id = R.id.btnSubscription;
-      Button btnSubscription = ViewBindings.findChildViewById(rootView, id);
-      if (btnSubscription == null) {
-        break missingId;
-      }
-
-      id = R.id.btnVpn;
-      Button btnVpn = ViewBindings.findChildViewById(rootView, id);
-      if (btnVpn == null) {
         break missingId;
       }
 
@@ -161,9 +184,33 @@ public final class ActivityDashboardBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvPlanBadge;
-      TextView tvPlanBadge = ViewBindings.findChildViewById(rootView, id);
-      if (tvPlanBadge == null) {
+      id = R.id.tabAnalizza;
+      LinearLayout tabAnalizza = ViewBindings.findChildViewById(rootView, id);
+      if (tabAnalizza == null) {
+        break missingId;
+      }
+
+      id = R.id.tabImpostazioni;
+      LinearLayout tabImpostazioni = ViewBindings.findChildViewById(rootView, id);
+      if (tabImpostazioni == null) {
+        break missingId;
+      }
+
+      id = R.id.tabVPN;
+      LinearLayout tabVPN = ViewBindings.findChildViewById(rootView, id);
+      if (tabVPN == null) {
+        break missingId;
+      }
+
+      id = R.id.tabViolazioni;
+      LinearLayout tabViolazioni = ViewBindings.findChildViewById(rootView, id);
+      if (tabViolazioni == null) {
+        break missingId;
+      }
+
+      id = R.id.tvAnalysisCount;
+      TextView tvAnalysisCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvAnalysisCount == null) {
         break missingId;
       }
 
@@ -173,15 +220,22 @@ public final class ActivityDashboardBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvUserName;
-      TextView tvUserName = ViewBindings.findChildViewById(rootView, id);
-      if (tvUserName == null) {
+      id = R.id.tvScoreBadge;
+      TextView tvScoreBadge = ViewBindings.findChildViewById(rootView, id);
+      if (tvScoreBadge == null) {
         break missingId;
       }
 
-      return new ActivityDashboardBinding((LinearLayout) rootView, btnBreach, btnMic, btnSend,
-          btnSettings, btnSubscription, btnVpn, etMessage, progressTyping, rvChat, tvPlanBadge,
-          tvRiskBanner, tvUserName);
+      id = R.id.tvStatus;
+      TextView tvStatus = ViewBindings.findChildViewById(rootView, id);
+      if (tvStatus == null) {
+        break missingId;
+      }
+
+      return new ActivityDashboardBinding((LinearLayout) rootView, btnMic, btnQuickImage,
+          btnQuickNumber, btnQuickQr, btnQuickVoice, btnSend, etMessage, progressTyping, rvChat,
+          tabAnalizza, tabImpostazioni, tabVPN, tabViolazioni, tvAnalysisCount, tvRiskBanner,
+          tvScoreBadge, tvStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

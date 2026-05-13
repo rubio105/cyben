@@ -1,25 +1,8 @@
 {
     "logs": [
         {
-            "outputFile": "eu.cyben.guard.app-mergeDebugResources-44:/values-fr-rCA/values-fr-rCA.xml",
+            "outputFile": "eu.cyben.guard.app-mergeDebugResources-49:/values-fr-rCA/values-fr-rCA.xml",
             "map": [
-                {
-                    "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/ae31b30d601af7bd4cfdd811e485cff6/transformed/play-services-base-18.0.1/res/values-fr-rCA/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "197,299,475,601,706,873,1002,1119,1228,1419,1527,1708,1840,1996,2171,2240,2300",
-                        "endColumns": "101,175,125,104,166,128,116,108,190,107,180,131,155,174,68,59,79",
-                        "endOffsets": "298,474,600,705,872,1001,1118,1227,1418,1526,1707,1839,1995,2170,2239,2299,2379"
-                    },
-                    "to": {
-                        "startLines": "48,49,50,51,52,53,54,55,57,58,59,60,61,62,63,64,65",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "4608,4714,4894,5024,5133,5304,5437,5558,5832,6027,6139,6324,6460,6620,6799,6872,6936",
-                        "endColumns": "105,179,129,108,170,132,120,112,194,111,184,135,159,178,72,63,83",
-                        "endOffsets": "4709,4889,5019,5128,5299,5432,5553,5666,6022,6134,6319,6455,6615,6794,6867,6931,7015"
-                    }
-                },
                 {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/res/values-fr-rCA/values-fr-rCA.xml",
                     "from": {
@@ -69,6 +52,23 @@
                         "startOffsets": "5671",
                         "endColumns": "160",
                         "endOffsets": "5827"
+                    }
+                },
+                {
+                    "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/a47c077c076071a0229e6b382769b28f/transformed/play-services-base-18.1.0/res/values-fr-rCA/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "197,299,475,601,706,873,1002,1119,1228,1419,1527,1708,1840,1996,2171,2240,2300",
+                        "endColumns": "101,175,125,104,166,128,116,108,190,107,180,131,155,174,68,59,79",
+                        "endOffsets": "298,474,600,705,872,1001,1118,1227,1418,1526,1707,1839,1995,2170,2239,2299,2379"
+                    },
+                    "to": {
+                        "startLines": "48,49,50,51,52,53,54,55,57,58,59,60,61,62,63,64,65",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "4608,4714,4894,5024,5133,5304,5437,5558,5832,6027,6139,6324,6460,6620,6799,6872,6936",
+                        "endColumns": "105,179,129,108,170,132,120,112,194,111,184,135,159,178,72,63,83",
+                        "endOffsets": "4709,4889,5019,5128,5299,5432,5553,5666,6022,6134,6319,6455,6615,6794,6867,6931,7015"
                     }
                 },
                 {

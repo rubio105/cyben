@@ -4,13 +4,13 @@ package eu.cyben.guard.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import eu.cyben.guard.R;
@@ -23,29 +23,52 @@ public final class ActivityBreachMonitorBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
-  public final Button btnAddEmail;
+  public final LinearLayout btnAddEmail;
 
   @NonNull
   public final ImageButton btnBack;
 
   @NonNull
-  public final ProgressBar progressBar;
+  public final LinearLayout btnHibp;
 
   @NonNull
-  public final TextView tvEmailList;
+  public final LinearLayout layoutEmails;
 
   @NonNull
-  public final TextView tvEmpty;
+  public final ProgressBar progressBreach;
 
-  private ActivityBreachMonitorBinding(@NonNull LinearLayout rootView, @NonNull Button btnAddEmail,
-      @NonNull ImageButton btnBack, @NonNull ProgressBar progressBar, @NonNull TextView tvEmailList,
-      @NonNull TextView tvEmpty) {
+  @NonNull
+  public final RecyclerView rvEmails;
+
+  @NonNull
+  public final TextView tvBreachHeader;
+
+  @NonNull
+  public final TextView tvBreachStatus;
+
+  @NonNull
+  public final TextView tvBreachSubheader;
+
+  @NonNull
+  public final TextView tvEmailLabel;
+
+  private ActivityBreachMonitorBinding(@NonNull LinearLayout rootView,
+      @NonNull LinearLayout btnAddEmail, @NonNull ImageButton btnBack,
+      @NonNull LinearLayout btnHibp, @NonNull LinearLayout layoutEmails,
+      @NonNull ProgressBar progressBreach, @NonNull RecyclerView rvEmails,
+      @NonNull TextView tvBreachHeader, @NonNull TextView tvBreachStatus,
+      @NonNull TextView tvBreachSubheader, @NonNull TextView tvEmailLabel) {
     this.rootView = rootView;
     this.btnAddEmail = btnAddEmail;
     this.btnBack = btnBack;
-    this.progressBar = progressBar;
-    this.tvEmailList = tvEmailList;
-    this.tvEmpty = tvEmpty;
+    this.btnHibp = btnHibp;
+    this.layoutEmails = layoutEmails;
+    this.progressBreach = progressBreach;
+    this.rvEmails = rvEmails;
+    this.tvBreachHeader = tvBreachHeader;
+    this.tvBreachStatus = tvBreachStatus;
+    this.tvBreachSubheader = tvBreachSubheader;
+    this.tvEmailLabel = tvEmailLabel;
   }
 
   @Override
@@ -76,7 +99,7 @@ public final class ActivityBreachMonitorBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.btnAddEmail;
-      Button btnAddEmail = ViewBindings.findChildViewById(rootView, id);
+      LinearLayout btnAddEmail = ViewBindings.findChildViewById(rootView, id);
       if (btnAddEmail == null) {
         break missingId;
       }
@@ -87,26 +110,57 @@ public final class ActivityBreachMonitorBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.progressBar;
-      ProgressBar progressBar = ViewBindings.findChildViewById(rootView, id);
-      if (progressBar == null) {
+      id = R.id.btnHibp;
+      LinearLayout btnHibp = ViewBindings.findChildViewById(rootView, id);
+      if (btnHibp == null) {
         break missingId;
       }
 
-      id = R.id.tvEmailList;
-      TextView tvEmailList = ViewBindings.findChildViewById(rootView, id);
-      if (tvEmailList == null) {
+      id = R.id.layoutEmails;
+      LinearLayout layoutEmails = ViewBindings.findChildViewById(rootView, id);
+      if (layoutEmails == null) {
         break missingId;
       }
 
-      id = R.id.tvEmpty;
-      TextView tvEmpty = ViewBindings.findChildViewById(rootView, id);
-      if (tvEmpty == null) {
+      id = R.id.progressBreach;
+      ProgressBar progressBreach = ViewBindings.findChildViewById(rootView, id);
+      if (progressBreach == null) {
+        break missingId;
+      }
+
+      id = R.id.rvEmails;
+      RecyclerView rvEmails = ViewBindings.findChildViewById(rootView, id);
+      if (rvEmails == null) {
+        break missingId;
+      }
+
+      id = R.id.tvBreachHeader;
+      TextView tvBreachHeader = ViewBindings.findChildViewById(rootView, id);
+      if (tvBreachHeader == null) {
+        break missingId;
+      }
+
+      id = R.id.tvBreachStatus;
+      TextView tvBreachStatus = ViewBindings.findChildViewById(rootView, id);
+      if (tvBreachStatus == null) {
+        break missingId;
+      }
+
+      id = R.id.tvBreachSubheader;
+      TextView tvBreachSubheader = ViewBindings.findChildViewById(rootView, id);
+      if (tvBreachSubheader == null) {
+        break missingId;
+      }
+
+      id = R.id.tvEmailLabel;
+      TextView tvEmailLabel = ViewBindings.findChildViewById(rootView, id);
+      if (tvEmailLabel == null) {
         break missingId;
       }
 
       return new ActivityBreachMonitorBinding((LinearLayout) rootView, btnAddEmail, btnBack,
-          progressBar, tvEmailList, tvEmpty);
+          btnHibp, layoutEmails, progressBreach, rvEmails, tvBreachHeader, tvBreachStatus,
+          tvBreachSubheader, tvEmailLabel);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

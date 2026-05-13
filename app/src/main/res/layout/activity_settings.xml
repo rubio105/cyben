@@ -1,65 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/cyben_dark">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
-            android:orientation="horizontal" android:gravity="center_vertical" android:padding="8dp"
-            android:background="@color/cyben_surface">
-            <ImageButton android:id="@+id/btnBack" android:layout_width="40dp" android:layout_height="40dp"
-                android:src="@android:drawable/ic_media_previous"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/text_primary"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="@string/settings" android:textColor="@color/text_primary"
-                android:textSize="18sp" android:textStyle="bold" android:layout_marginStart="8dp"/>
-        </LinearLayout>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:padding="24dp">
-            <TextView android:id="@+id/tvName" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textColor="@color/text_primary"
-                android:textSize="20sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
-            <TextView android:id="@+id/tvEmail" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textColor="@color/text_secondary"
-                android:textSize="14sp" android:layout_marginBottom="4dp"/>
-            <TextView android:id="@+id/tvPlan" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textColor="@color/cyben_orange"
-                android:textSize="14sp" android:layout_marginBottom="24dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Sicurezza" android:textColor="@color/text_secondary"
-                android:textSize="12sp" android:layout_marginBottom="8dp"/>
-            <Button android:id="@+id/btnPasswordCheck" android:layout_width="match_parent"
-                android:layout_height="52dp" android:text="Verifica Password (HIBP)"
-                android:backgroundTint="@color/cyben_card" android:layout_marginBottom="12dp"/>
-            <Button android:id="@+id/btnChangePassword" android:layout_width="match_parent"
-                android:layout_height="52dp" android:text="Cambia Password"
-                android:backgroundTint="@color/cyben_card" android:layout_marginBottom="24dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Servizi" android:textColor="@color/text_secondary"
-                android:textSize="12sp" android:layout_marginBottom="8dp"/>
-            <Button android:id="@+id/btnProhmed" android:layout_width="match_parent"
-                android:layout_height="52dp" android:text="Prohmed Health"
-                android:backgroundTint="@color/cyben_card" android:layout_marginBottom="24dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Supporto" android:textColor="@color/text_secondary"
-                android:textSize="12sp" android:layout_marginBottom="8dp"/>
-            <Button android:id="@+id/btnHistory" android:layout_width="match_parent"
-                android:layout_height="52dp" android:text="Storico Analisi"
-                android:backgroundTint="@color/cyben_card" android:layout_marginBottom="12dp"/>
-            <Button android:id="@+id/btnHumanRequest" android:layout_width="match_parent"
-                android:layout_height="52dp" android:text="Parla con un Esperto"
-                android:backgroundTint="@color/cyben_card" android:layout_marginBottom="12dp"/>
-            <Button android:id="@+id/btnSos" android:layout_width="match_parent"
-                android:layout_height="52dp" android:text="SOS Incidente Critico"
-                android:backgroundTint="@color/status_danger" android:layout_marginBottom="24dp"/>
-            <Button android:id="@+id/btnDeleteAccount" android:layout_width="match_parent"
-                android:layout_height="52dp" android:text="Elimina Account"
-                android:backgroundTint="#B71C1C" android:layout_marginBottom="12dp"
-                android:textColor="@android:color/white"/>
-            <Button android:id="@+id/btnLogout" android:layout_width="match_parent"
-                android:layout_height="52dp" android:text="@string/logout"
-                android:backgroundTint="@color/cyben_card"/>
-        </LinearLayout>
+    android:orientation="vertical" android:background="#0D0D1A">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp"
+        android:background="#0D0D1A">
+        <ImageButton android:id="@+id/btnBack" android:layout_width="36dp" android:layout_height="36dp"
+            android:src="@android:drawable/ic_media_previous" android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_primary" android:layout_marginEnd="8dp"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:text="Impostazioni" android:textColor="@color/text_primary" android:textSize="20sp" android:textStyle="bold" android:gravity="center"/>
+        <View android:layout_width="36dp" android:layout_height="36dp"/>
     </LinearLayout>
-</ScrollView>
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="16dp">
+            <!-- Profile -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:padding="16dp" android:layout_marginBottom="20dp" android:background="@drawable/settings_card_bg">
+                <TextView android:id="@+id/tvAvatar" android:layout_width="52dp" android:layout_height="52dp"
+                    android:gravity="center" android:textColor="@color/white" android:textSize="22sp" android:textStyle="bold"
+                    android:background="@drawable/avatar_bg" android:layout_marginEnd="14dp" android:text="?"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:id="@+id/tvName" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" android:text="Utente"/>
+                    <TextView android:id="@+id/tvEmail" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="@color/text_secondary" android:textSize="13sp" android:text=""/>
+                    <TextView android:id="@+id/tvPlanBadge" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Premium" android:textColor="#E040FB" android:textSize="12sp"
+                        android:background="@drawable/badge_purple" android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="2dp" android:paddingBottom="2dp" android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Stato protezione -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stato protezione"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@drawable/settings_card_bg" android:layout_marginBottom="20dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
+                    <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#128276;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_green" android:layout_marginEnd="12dp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notifiche di sicurezza" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Avvisi attivi per violazioni e analisi importanti" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="@color/surface_variant" android:layout_marginStart="62dp"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
+                    <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#128274;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_orange" android:layout_marginEnd="12dp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Protezione app" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Attiva un blocco per proteggere l'accesso" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="@color/surface_variant" android:layout_marginStart="62dp"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
+                    <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#11088;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_purple" android:layout_marginEnd="12dp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:id="@+id/tvPremiumStatusTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Copertura Premium attiva" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Monitoraggio e strumenti completi disponibili" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Abbonamento -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Abbonamento"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp"/>
+            <LinearLayout android:id="@+id/cardSubscription" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="20dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#11088;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_purple" android:layout_marginEnd="12dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:id="@+id/tvSubTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Piano Premium" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvSubDesc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tutte le funzioni Premium attive" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Prohmed -->
+            <TextView android:id="@+id/labelProhmed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Health Prohmed"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp" android:visibility="gone"/>
+            <LinearLayout android:id="@+id/cardProhmed" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="14dp" android:background="@drawable/settings_card_bg"
+                android:layout_marginBottom="20dp" android:visibility="gone">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="2dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PRO" android:textColor="#2979FF" android:textSize="16sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HMED" android:textColor="#4CAF50" android:textSize="16sp" android:textStyle="bold"/>
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MEDICAL INTELLIGENCE PREVENTION" android:textColor="@color/text_secondary" android:textSize="10sp" android:layout_marginBottom="8dp"/>
+                <TextView android:id="@+id/tvProhmedStatus" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginBottom="6dp"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="4dp">
+                    <TextView android:id="@+id/tvProhmedResidui" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="" android:textColor="#4CAF50" android:textSize="13sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvProhmedUsati" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                </LinearLayout>
+                <TextView android:id="@+id/tvProhmedEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginBottom="8dp"/>
+                <TextView android:id="@+id/btnProhmedConsult" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Richiedi consulto" android:textColor="#00BCD4" android:textSize="14sp" android:clickable="true" android:focusable="true"/>
+            </LinearLayout>
+            <!-- Analisi -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Analisi"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp"/>
+            <LinearLayout android:id="@+id/cardHistory" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="20dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#128336;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_blue" android:layout_marginEnd="12dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Storico analisi" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Consulta le verifiche e genera un report" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:textColor="@color/text_secondary" android:textSize="16sp"/>
+            </LinearLayout>
+            <!-- Protezione -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Protezione"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp"/>
+            <LinearLayout android:id="@+id/cardProtection" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="20dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#9889;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_green" android:layout_marginEnd="12dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Protezione immediata" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SMS, chiamate e condivisione WhatsApp" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:textColor="@color/text_secondary" android:textSize="16sp"/>
+            </LinearLayout>
+            <!-- SOS -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Emergenza Sicurezza"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp"/>
+            <LinearLayout android:id="@+id/cardSos" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="20dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="SOS" android:textSize="10sp" android:gravity="center"
+                    android:textColor="#FF1744" android:background="@drawable/icon_bg_red" android:textStyle="bold" android:layout_marginEnd="12dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SOS Incidente Critico" android:textColor="#FF1744" android:textSize="14sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Risposta da esperto umano entro 4 ore" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:textColor="@color/text_secondary" android:textSize="16sp"/>
+            </LinearLayout>
+            <!-- Notifiche -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notifiche"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="20dp">
+                <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#128276;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_green" android:layout_marginEnd="12dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notifiche attive" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ricevi avvisi di sicurezza in tempo reale" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                </LinearLayout>
+                <TextView android:layout_width="24dp" android:layout_height="24dp" android:text="&#10004;" android:textSize="12sp" android:gravity="center"
+                    android:textColor="@color/white" android:background="@drawable/circle_green"/>
+            </LinearLayout>
+            <!-- Account -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Account"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@drawable/settings_card_bg" android:layout_marginBottom="20dp">
+                <LinearLayout android:id="@+id/rowChangePassword" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp" android:clickable="true" android:focusable="true">
+                    <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#128273;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_blue" android:layout_marginEnd="12dp"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Cambia password" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="@color/surface_variant" android:layout_marginStart="62dp"/>
+                <LinearLayout android:id="@+id/rowDeleteAccount" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp" android:clickable="true" android:focusable="true">
+                    <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#128465;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_red" android:layout_marginEnd="12dp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Elimina account" android:textColor="#FF1744" android:textSize="14sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cancella definitivamente account e dati associati" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- App -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="App"
+                android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="8dp" android:layout_marginStart="4dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@drawable/settings_card_bg" android:layout_marginBottom="20dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
+                    <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="i" android:textSize="16sp" android:gravity="center" android:textColor="#00BCD4" android:background="@drawable/icon_bg_blue" android:layout_marginEnd="12dp" android:textStyle="bold"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Versione" android:textColor="@color/text_primary" android:textSize="14sp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1.3.0" android:textColor="@color/text_secondary" android:textSize="13sp"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="@color/surface_variant" android:layout_marginStart="62dp"/>
+                <LinearLayout android:id="@+id/rowPrivacy" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp" android:clickable="true" android:focusable="true">
+                    <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#128075;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_blue" android:layout_marginEnd="12dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Privacy Policy" android:textColor="#00BCD4" android:textSize="14sp"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="@color/surface_variant" android:layout_marginStart="62dp"/>
+                <LinearLayout android:id="@+id/rowTerms" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp" android:clickable="true" android:focusable="true">
+                    <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#128196;" android:textSize="18sp" android:gravity="center" android:background="@drawable/icon_bg_blue" android:layout_marginEnd="12dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Termini di Servizio" android:textColor="#00BCD4" android:textSize="14sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Logout -->
+            <LinearLayout android:id="@+id/cardLogout" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="24dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="36dp" android:layout_height="36dp" android:text="&#8592;" android:textSize="18sp" android:gravity="center"
+                    android:textColor="#FF5722" android:background="@drawable/icon_bg_red" android:layout_marginEnd="12dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Esci dall'account" android:textColor="#FF5722" android:textSize="16sp" android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -3,69 +3,151 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical" android:background="@color/cyben_dark">
 
-    <!-- Header -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:padding="16dp" android:gravity="center_vertical"
+        android:orientation="horizontal" android:padding="12dp" android:gravity="center_vertical"
         android:background="@color/cyben_surface">
+        <ImageView android:layout_width="36dp" android:layout_height="36dp"
+            android:src="@mipmap/ic_launcher_round" android:layout_marginEnd="10dp"/>
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1" android:orientation="vertical">
-            <TextView android:id="@+id/tvUserName" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textColor="@color/text_primary"
-                android:textSize="16sp" android:textStyle="bold" android:text="Cyben Guard"/>
-            <TextView android:id="@+id/tvPlanBadge" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textColor="@color/cyben_orange"
-                android:textSize="12sp" android:text="Gratuito"/>
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Cyben" android:textColor="@color/text_primary"
+                    android:textSize="17sp" android:textStyle="bold"/>
+                <View android:layout_width="7dp" android:layout_height="7dp"
+                    android:layout_marginStart="5dp" android:layout_marginEnd="3dp"
+                    android:background="@drawable/circle_green"/>
+                <TextView android:id="@+id/tvStatus" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Pronto"
+                    android:textColor="@color/status_safe" android:textSize="12sp"/>
+            </LinearLayout>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Protezione da truffe, link e screenshot sospetti"
+                android:textColor="@color/text_secondary" android:textSize="10sp"/>
         </LinearLayout>
-        <ImageButton android:id="@+id/btnSettings" android:layout_width="40dp" android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_manage" android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/text_secondary"/>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:orientation="vertical" android:gravity="end">
+            <TextView android:id="@+id/tvAnalysisCount" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="0/10"
+                android:textColor="@color/text_secondary" android:textSize="10sp"/>
+            <TextView android:id="@+id/tvScoreBadge" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Score --"
+                android:textColor="@color/status_safe" android:textSize="11sp" android:textStyle="bold"
+                android:background="@drawable/badge_green" android:paddingStart="6dp"
+                android:paddingEnd="6dp" android:paddingTop="2dp" android:paddingBottom="2dp"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Risk Banner -->
     <TextView android:id="@+id/tvRiskBanner" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:padding="12dp" android:textColor="@color/text_primary"
-        android:background="@color/status_danger" android:visibility="gone" android:textSize="13sp"/>
+        android:layout_height="wrap_content" android:padding="10dp" android:textColor="@color/text_primary"
+        android:background="@color/status_danger" android:visibility="gone" android:textSize="12sp"/>
 
-    <!-- Chat -->
     <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvChat"
         android:layout_width="match_parent" android:layout_height="0dp"
-        android:layout_weight="1" android:paddingTop="8dp" android:paddingBottom="8dp"
+        android:layout_weight="1" android:paddingTop="8dp" android:paddingBottom="4dp"
         android:clipToPadding="false"/>
 
-    <!-- Typing indicator -->
     <ProgressBar android:id="@+id/progressTyping" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:visibility="gone"
-        android:layout_gravity="start" android:layout_marginStart="16dp"/>
+        android:layout_height="24dp" android:visibility="gone" android:layout_marginStart="16dp"/>
 
-    <!-- Input -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:padding="8dp" android:gravity="center_vertical"
+        android:orientation="vertical" android:background="@color/cyben_surface" android:paddingTop="8dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Azioni rapide" android:textColor="@color/text_secondary"
+            android:textSize="10sp" android:layout_marginStart="14dp" android:layout_marginBottom="6dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:paddingStart="6dp" android:paddingEnd="6dp" android:paddingBottom="6dp">
+            <LinearLayout android:id="@+id/btnQuickImage" android:layout_width="0dp"
+                android:layout_height="72dp" android:layout_weight="1" android:layout_margin="3dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/quick_action_bg" android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128444;" android:textSize="22sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Immagine" android:textColor="@color/text_primary" android:textSize="10sp" android:layout_marginTop="3dp"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/btnQuickQr" android:layout_width="0dp"
+                android:layout_height="72dp" android:layout_weight="1" android:layout_margin="3dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/quick_action_bg" android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128247;" android:textSize="22sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="QR" android:textColor="@color/text_primary" android:textSize="10sp" android:layout_marginTop="3dp"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/btnQuickNumber" android:layout_width="0dp"
+                android:layout_height="72dp" android:layout_weight="1" android:layout_margin="3dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/quick_action_bg" android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128222;" android:textSize="22sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Numero" android:textColor="@color/text_primary" android:textSize="10sp" android:layout_marginTop="3dp"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/btnQuickVoice" android:layout_width="0dp"
+                android:layout_height="72dp" android:layout_weight="1" android:layout_margin="3dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/quick_action_bg" android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#127897;" android:textSize="22sp"/>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="CYAGENT" android:textColor="@color/text_primary" android:textSize="9sp" android:layout_marginTop="3dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text=" BETA" android:textColor="@color/cyben_orange" android:textSize="7sp" android:layout_marginTop="3dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Condividi screenshot o incolla testo sospetto per ricevere una valutazione immediata."
+            android:textColor="@color/text_secondary" android:textSize="10sp"
+            android:gravity="center" android:paddingStart="12dp" android:paddingEnd="12dp" android:paddingBottom="6dp"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:padding="6dp" android:gravity="center_vertical"
         android:background="@color/cyben_surface">
         <EditText android:id="@+id/etMessage" android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:hint="@string/type_message" android:textColor="@color/text_primary"
-             android:background="@null"
-            android:inputType="textMultiLine" android:maxLines="4" android:padding="8dp"/>
-        <ImageButton android:id="@+id/btnMic" android:layout_width="48dp" android:layout_height="48dp"
-            android:src="@android:drawable/ic_btn_speak_now" android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/text_secondary"/>
-        <ImageButton android:id="@+id/btnSend" android:layout_width="48dp" android:layout_height="48dp"
+            android:layout_weight="1" android:hint="Incolla qui messaggio, email o link sospetto"
+            android:textColor="@color/text_primary" android:textColorHint="@color/text_tertiary"
+            android:background="@null" android:inputType="textMultiLine" android:maxLines="4" android:padding="8dp"/>
+        <ImageButton android:id="@+id/btnMic" android:layout_width="38dp" android:layout_height="38dp"
+            android:src="@android:drawable/ic_btn_speak_now"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_secondary" android:visibility="gone"/>
+        <ImageButton android:id="@+id/btnSend" android:layout_width="44dp" android:layout_height="44dp"
             android:src="@android:drawable/ic_menu_send" android:background="?attr/selectableItemBackgroundBorderless"
             android:tint="@color/cyben_orange"/>
     </LinearLayout>
 
-    <!-- Bottom Nav -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
-        android:orientation="horizontal" android:background="@color/cyben_surface"
-        android:gravity="center">
-        <Button android:id="@+id/btnBreach" android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:text="🔍" android:textSize="22sp"
-            style="?attr/borderlessButtonStyle" android:textColor="@color/text_secondary"/>
-        <Button android:id="@+id/btnVpn" android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:text="🔒" android:textSize="22sp"
-            style="?attr/borderlessButtonStyle" android:textColor="@color/text_secondary"/>
-        <Button android:id="@+id/btnSubscription" android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:text="⭐" android:textSize="22sp"
-            style="?attr/borderlessButtonStyle" android:textColor="@color/text_secondary"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
+        android:orientation="horizontal" android:background="@color/cyben_surface">
+        <LinearLayout android:id="@+id/tabAnalizza" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128269;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Analizza" android:textSize="9sp" android:textColor="@color/cyben_orange" android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabViolazioni" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128065;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Violazioni" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabVPN" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128274;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="VPN" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/tabImpostazioni" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#9881;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Impostazioni" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

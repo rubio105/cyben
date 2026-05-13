@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "eu.cyben.guard.app-mergeDebugResources-44:/values-pt/values-pt.xml",
+            "outputFile": "eu.cyben.guard.app-mergeDebugResources-49:/values-pt/values-pt.xml",
             "map": [
                 {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/e860181e8b96bf92e366b3f3a0b69037/transformed/appcompat-1.6.1/res/values-pt/values-pt.xml",

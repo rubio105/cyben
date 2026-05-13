@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "eu.cyben.guard.app-mergeDebugResources-44:/values-night-v8/values-night-v8.xml",
+            "outputFile": "eu.cyben.guard.app-mergeDebugResources-49:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/e860181e8b96bf92e366b3f3a0b69037/transformed/appcompat-1.6.1/res/values-night-v8/values-night-v8.xml",

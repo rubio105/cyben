@@ -10,19 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.data.api.ApiService
-import eu.cyben.guard.data.api.EmailRequest
-import eu.cyben.guard.data.api.HumanRequest
+import eu.cyben.guard.data.models.ChangePasswordRequest
 import eu.cyben.guard.data.api.SOSRequest
 import eu.cyben.guard.data.models.GuardUser
 import eu.cyben.guard.databinding.ActivitySettingsBinding
+import eu.cyben.guard.ui.analysis.AnalysisHistoryActivity
 import eu.cyben.guard.ui.auth.LoginActivity
+import eu.cyben.guard.ui.prohmed.ProhmedActivity
 import eu.cyben.guard.ui.subscription.SubscriptionActivity
 import eu.cyben.guard.utils.TokenManager
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.URL
-import java.security.MessageDigest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,7 +27,6 @@ class SettingsActivity : AppCompatActivity() {
     @Inject lateinit var api: ApiService
     @Inject lateinit var tokenManager: TokenManager
     private lateinit var binding: ActivitySettingsBinding
-    private var userEmail = ""
     private var currentUser: GuardUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,14 +34,16 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnBack.setOnClickListener { finish() }
-        binding.btnPasswordCheck.setOnClickListener { showPasswordCheckDialog() }
-        binding.btnChangePassword.setOnClickListener { changePassword() }
-        binding.btnProhmed.setOnClickListener { handleProhmed() }
-        binding.btnHistory.setOnClickListener { startActivity(Intent(this, AnalysisHistoryActivity::class.java)) }
-        binding.btnHumanRequest.setOnClickListener { showHumanRequestDialog() }
-        binding.btnSos.setOnClickListener { showSOSDialog() }
-        binding.btnDeleteAccount.setOnClickListener { confirmDeleteAccount() }
-        binding.btnLogout.setOnClickListener { logout() }
+        binding.cardSubscription.setOnClickListener { startActivity(Intent(this, SubscriptionActivity::class.java)) }
+        binding.cardHistory.setOnClickListener { startActivity(Intent(this, AnalysisHistoryActivity::class.java)) }
+        binding.cardProtection.setOnClickListener { showProtectionInfo() }
+        binding.cardSos.setOnClickListener { showSOSDialog() }
+        binding.rowChangePassword.setOnClickListener { showChangePasswordDialog() }
+        binding.rowDeleteAccount.setOnClickListener { confirmDeleteAccount() }
+        binding.rowPrivacy.setOnClickListener { openUrl("https://cyben.eu/privacy") }
+        binding.rowTerms.setOnClickListener { openUrl("https://cyben.eu/terms") }
+        binding.cardLogout.setOnClickListener { logout() }
+        binding.btnProhmedConsult.setOnClickListener { startActivity(Intent(this, ProhmedActivity::class.java)) }
         loadUser()
     }
 
@@ -55,177 +53,130 @@ class SettingsActivity : AppCompatActivity() {
                 val resp = api.getMe()
                 if (resp.isSuccessful) {
                     currentUser = resp.body()
-                    userEmail = currentUser?.email ?: ""
-                    binding.tvName.text = currentUser?.name ?: ""
-                    binding.tvEmail.text = currentUser?.email ?: ""
-                    binding.tvPlan.text = "Piano: ${currentUser?.planLabel ?: ""}"
-                    updateProhmedButton()
+                    val user = currentUser ?: return@launch
+                    val initial = user.name.firstOrNull()?.uppercaseChar()?.toString() ?: "?"
+                    binding.tvAvatar.text = initial
+                    binding.tvName.text = user.name
+                    binding.tvEmail.text = user.email
+                    binding.tvPlanBadge.text = "✦ ${user.planLabel}"
+                    binding.tvSubTitle.text = "Piano ${user.planLabel}"
+                    binding.tvSubDesc.text = if (user.isPremiumAnnual) "Tutte le funzioni Premium attive, incluso Health Prohmed" else "Tutte le funzioni Premium attive"
+                    if (user.isProhmedEnabled) {
+                        loadProhmedStatus()
+                    }
+                } else if (resp.code() == 401) logout()
+            } catch (_: Exception) {}
+        }
+    }
+
+    private fun loadProhmedStatus() {
+        lifecycleScope.launch {
+            try {
+                val resp = api.getProhmedStatus()
+                if (resp.isSuccessful) {
+                    val status = resp.body() ?: return@launch
+                    binding.labelProhmed.visibility = android.view.View.VISIBLE
+                    binding.cardProhmed.visibility = android.view.View.VISIBLE
+                    if (status.activated) {
+                        binding.tvProhmedStatus.text = "Profilo attivo"
+                        binding.tvProhmedEmail.text = status.email ?: ""
+                        val res = status.residui ?: 0
+                        binding.tvProhmedResidui.text = "$res residui"
+                        binding.tvProhmedUsati.text = "0/$res usati"
+                    } else {
+                        binding.tvProhmedStatus.text = "Profilo non attivato"
+                        binding.btnProhmedConsult.text = "Attiva Prohmed"
+                    }
                 }
             } catch (_: Exception) {}
         }
     }
 
-    private fun updateProhmedButton() {
-        val user = currentUser ?: return
-        if (user.isProhmedEnabled) {
-            binding.btnProhmed.text = "Apri Prohmed Health"
-            binding.btnProhmed.backgroundTintList =
-                android.content.res.ColorStateList.valueOf(getColor(android.R.color.holo_green_dark))
-        } else {
-            binding.btnProhmed.text = "Prohmed Health (Piano Annuale)"
-            binding.btnProhmed.backgroundTintList =
-                android.content.res.ColorStateList.valueOf(0xFF424242.toInt())
-        }
-    }
-
-    private fun handleProhmed() {
-        if (currentUser?.isProhmedEnabled == true) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://prohmed.it")))
-        } else if (currentUser?.isPremium == true) {
-            AlertDialog.Builder(this)
-                .setTitle("Prohmed Health")
-                .setMessage("Prohmed Health e incluso nel Piano Premium Annuale. Passa al piano annuale per accedere.")
-                .setPositiveButton("Passa ad Annuale") { _, _ -> startActivity(Intent(this, SubscriptionActivity::class.java)) }
-                .setNegativeButton("Annulla", null).show()
-        } else {
-            AlertDialog.Builder(this)
-                .setTitle("Prohmed Health")
-                .setMessage("Prohmed Health e incluso nel Piano Premium Annuale. Abbonati per accedere a consulti medici online, cartella clinica digitale e molto altro.")
-                .setPositiveButton("Scopri Premium") { _, _ -> startActivity(Intent(this, SubscriptionActivity::class.java)) }
-                .setNegativeButton("Annulla", null).show()
-        }
-    }
-
-    private fun showPasswordCheckDialog() {
-        val input = EditText(this).apply {
-            hint = "Password da verificare"
-            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-            setPadding(48, 32, 48, 32)
-        }
+    private fun showProtectionInfo() {
         AlertDialog.Builder(this)
-            .setTitle("Verifica Password (HIBP)")
-            .setMessage("Controlla se la password e stata compromessa in breach noti.")
-            .setView(input)
-            .setPositiveButton("Verifica") { _, _ ->
-                val pw = input.text.toString()
-                if (pw.isNotEmpty()) checkPasswordHIBP(pw)
-            }
-            .setNegativeButton("Annulla", null).show()
-    }
-
-    private fun checkPasswordHIBP(password: String) {
-        lifecycleScope.launch {
-            try {
-                val hash = withContext(Dispatchers.Default) {
-                    MessageDigest.getInstance("SHA-1")
-                        .digest(password.toByteArray())
-                        .joinToString("") { "%02X".format(it) }
-                }
-                val prefix = hash.take(5)
-                val suffix = hash.drop(5)
-                val response = withContext(Dispatchers.IO) {
-                    URL("https://api.pwnedpasswords.com/range/$prefix").readText()
-                }
-                val matchLine = response.lines().firstOrNull { it.startsWith(suffix, ignoreCase = true) }
-                val count = matchLine?.split(":")?.getOrNull(1)?.trim()?.toIntOrNull() ?: 0
-                if (matchLine != null) {
-                    AlertDialog.Builder(this@SettingsActivity)
-                        .setTitle("Password Compromessa")
-                        .setMessage("Trovata in $count breach. Cambiala subito!")
-                        .setPositiveButton("Cambia Password") { _, _ -> changePassword() }
-                        .setNegativeButton("Ignora", null).show()
-                } else {
-                    AlertDialog.Builder(this@SettingsActivity)
-                        .setTitle("Password Sicura")
-                        .setMessage("Nessun breach noto trovato per questa password.")
-                        .setPositiveButton("OK", null).show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(this@SettingsActivity, "Errore verifica: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun changePassword() {
-        if (userEmail.isEmpty()) return
-        lifecycleScope.launch {
-            try {
-                api.forgotPassword(EmailRequest(userEmail))
-                Toast.makeText(this@SettingsActivity, "Email di reset inviata a $userEmail", Toast.LENGTH_LONG).show()
-            } catch (e: Exception) {
-                Toast.makeText(this@SettingsActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun showHumanRequestDialog() {
-        val input = EditText(this).apply { hint = "Descrivi la tua richiesta..."; setPadding(48, 32, 48, 32); minLines = 3 }
-        AlertDialog.Builder(this)
-            .setTitle("Parla con un Esperto")
-            .setMessage("Un esperto ti risponderà entro 4 ore.")
-            .setView(input)
-            .setPositiveButton("Invia") { _, _ ->
-                val text = input.text.toString().trim()
-                if (text.isNotEmpty()) lifecycleScope.launch {
-                    try {
-                        val resp = api.requestHuman(HumanRequest(text, null))
-                        if (resp.isSuccessful) Toast.makeText(this@SettingsActivity, "Richiesta inviata.", Toast.LENGTH_LONG).show()
-                    } catch (_: Exception) {}
-                }
-            }
-            .setNegativeButton("Annulla", null).show()
+            .setTitle("Protezione immediata")
+            .setMessage("SMS e chiamate vengono analizzati automaticamente in background quando i permessi sono concessi. La protezione WhatsApp richiede di condividere manualmente i messaggi sospetti tramite la funzione Condividi.")
+            .setPositiveButton("OK", null).show()
     }
 
     private fun showSOSDialog() {
-        val input = EditText(this).apply { hint = "Descrivi l incidente..."; setPadding(48, 32, 48, 32); minLines = 3 }
-        AlertDialog.Builder(this)
-            .setTitle("SOS Incidente Critico")
+        val input = EditText(this).apply { hint = "Descrivi l'incidente..."; setPadding(48, 32, 48, 32); minLines = 3 }
+        AlertDialog.Builder(this).setTitle("SOS Incidente Critico")
             .setMessage("Un esperto risponderà entro 4 ore.")
             .setView(input)
             .setPositiveButton("Invia SOS") { _, _ ->
                 val desc = input.text.toString().trim()
-                if (desc.isNotEmpty()) lifecycleScope.launch {
-                    try {
-                        api.sendSOS(SOSRequest(desc))
-                        Toast.makeText(this@SettingsActivity, "SOS inviato.", Toast.LENGTH_LONG).show()
-                    } catch (_: Exception) {}
-                }
+                if (desc.isNotEmpty()) sendSOS(desc)
             }
             .setNegativeButton("Annulla", null).show()
     }
 
+    private fun sendSOS(description: String) {
+        lifecycleScope.launch {
+            try {
+                val resp = api.sendSOS(SOSRequest(description))
+                if (resp.isSuccessful) Toast.makeText(this@SettingsActivity, "SOS inviato. Un esperto ti contatterà presto.", Toast.LENGTH_LONG).show()
+                else Toast.makeText(this@SettingsActivity, "Errore invio SOS", Toast.LENGTH_SHORT).show()
+            } catch (_: Exception) { Toast.makeText(this@SettingsActivity, "Errore di rete", Toast.LENGTH_SHORT).show() }
+        }
+    }
+
+    private fun showChangePasswordDialog() {
+        val layout = android.widget.LinearLayout(this).apply { orientation = android.widget.LinearLayout.VERTICAL; setPadding(48, 16, 48, 8) }
+        val etCurrent = EditText(this).apply { hint = "Password attuale"; inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD }
+        val etNew = EditText(this).apply { hint = "Nuova password"; inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD; setPadding(0, 8, 0, 0) }
+        layout.addView(etCurrent); layout.addView(etNew)
+        AlertDialog.Builder(this).setTitle("Cambia password").setView(layout)
+            .setPositiveButton("Aggiorna") { _, _ ->
+                val cur = etCurrent.text.toString().trim()
+                val nw = etNew.text.toString().trim()
+                if (cur.isNotEmpty() && nw.length >= 8) changePassword(cur, nw)
+                else Toast.makeText(this, "La nuova password deve essere di almeno 8 caratteri", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Annulla", null).show()
+    }
+
+    private fun changePassword(current: String, new: String) {
+        lifecycleScope.launch {
+            try {
+                val resp = api.changePassword(ChangePasswordRequest(current, new))
+                if (resp.isSuccessful) Toast.makeText(this@SettingsActivity, "Password aggiornata", Toast.LENGTH_SHORT).show()
+                else Toast.makeText(this@SettingsActivity, "Password attuale errata", Toast.LENGTH_SHORT).show()
+            } catch (_: Exception) { Toast.makeText(this@SettingsActivity, "Errore di rete", Toast.LENGTH_SHORT).show() }
+        }
+    }
+
     private fun confirmDeleteAccount() {
-        AlertDialog.Builder(this)
-            .setTitle("Elimina Account")
-            .setMessage("Sei sicuro? Tutti i tuoi dati, abbonamento e storico verranno eliminati definitivamente. Questa azione non puo essere annullata.")
-            .setPositiveButton("Elimina") { _, _ -> deleteAccount() }
-            .setNegativeButton("Annulla", null)
-            .show()
+        AlertDialog.Builder(this).setTitle("Elimina account")
+            .setMessage("Questa azione e' irreversibile. Tutti i tuoi dati verranno cancellati definitivamente.")
+            .setPositiveButton("Elimina") { _, _ ->
+                AlertDialog.Builder(this).setTitle("Sei sicuro?")
+                    .setMessage("Confermi l'eliminazione definitiva del tuo account?")
+                    .setPositiveButton("Elimina definitivamente") { _, _ -> deleteAccount() }
+                    .setNegativeButton("Annulla", null).show()
+            }
+            .setNegativeButton("Annulla", null).show()
     }
 
     private fun deleteAccount() {
         lifecycleScope.launch {
             try {
                 val resp = api.deleteAccount()
-                if (resp.isSuccessful) {
+                if (resp.isSuccessful || resp.code() == 204) {
                     tokenManager.clearToken()
-                    Toast.makeText(this@SettingsActivity, "Account eliminato.", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this@SettingsActivity, LoginActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    })
-                } else {
-                    Toast.makeText(this@SettingsActivity, "Errore eliminazione account", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(this@SettingsActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+                    Toast.makeText(this@SettingsActivity, "Account eliminato", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(this@SettingsActivity, LoginActivity::class.java))
+                    finishAffinity()
+                } else Toast.makeText(this@SettingsActivity, "Errore eliminazione account", Toast.LENGTH_SHORT).show()
+            } catch (_: Exception) { Toast.makeText(this@SettingsActivity, "Errore di rete", Toast.LENGTH_SHORT).show() }
         }
     }
 
+    private fun openUrl(url: String) { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+
     private fun logout() {
         tokenManager.clearToken()
-        startActivity(Intent(this, LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        })
+        startActivity(Intent(this, LoginActivity::class.java))
+        finishAffinity()
     }
 }
