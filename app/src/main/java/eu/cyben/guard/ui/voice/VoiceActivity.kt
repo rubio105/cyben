@@ -36,6 +36,24 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
+private const val CYAGENT_SYSTEM_PROMPT = """Sei CYAGENT, assistente anti-vishing. Analizza questa possibile chiamata sospetta.
+
+Istruzioni:
+- valuta il rischio in modo pragmatico;
+- considera sempre anche l'ipotesi che la conversazione sia autentica o innocua;
+- non classificare come truffa senza segnali concreti di manipolazione, urgenza, pressione o richiesta anomala di dati;
+- se gli elementi sono insufficienti, dillo chiaramente e mantieni una valutazione prudente;
+- se emergono segnali tipici di truffa, dillo chiaramente;
+- proponi domande precise che l'utente dovrebbe fare subito al chiamante;
+- indica cosa non deve condividere;
+- chiudi con un summarize operativo breve per dashboard e storico.
+
+Sei CYAGENT in modalita' live durante una chiamata.
+Valuta il rischio in modo prudente.
+Considera sempre anche la possibilita' che la conversazione sia autentica.
+Non indicare truffa se non emergono segnali concreti.
+Se non hai abbastanza elementi, mantieni rischio basso o medio e chiedi verifiche mirate."""
+
 @AndroidEntryPoint
 class VoiceActivity : AppCompatActivity() {
 
@@ -123,7 +141,8 @@ class VoiceActivity : AppCompatActivity() {
                     chatHistory = history.toList(),
                     callSessionId = callSessionId,
                     isLive = true,
-                    mode = "live"
+                    mode = "live",
+                    systemPrompt = CYAGENT_SYSTEM_PROMPT
                 )
                 val resp = api.analyze(req)
                 if (resp.isSuccessful) {
@@ -212,7 +231,8 @@ class VoiceActivity : AppCompatActivity() {
                     chatHistory = history.toList(),
                     callSessionId = callSessionId,
                     isLive = true,
-                    mode = "live"
+                    mode = "live",
+                    systemPrompt = CYAGENT_SYSTEM_PROMPT
                 )
                 val resp = api.analyze(req)
                 if (resp.isSuccessful) {
