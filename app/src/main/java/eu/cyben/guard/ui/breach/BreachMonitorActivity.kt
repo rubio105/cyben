@@ -170,35 +170,32 @@ class BreachMonitorActivity : AppCompatActivity() {
 
     inner class EmailAdapter(private val items: List<GuardMonitoredEmail>) :
         androidx.recyclerview.widget.RecyclerView.Adapter<EmailAdapter.VH>() {
-        inner class VH(val root: android.widget.LinearLayout, val ll: android.widget.LinearLayout, val logo: android.widget.ImageView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
+        inner class VH(val root: android.widget.LinearLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
         override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
             val ll = android.widget.LinearLayout(parent.context).apply {
                 orientation = android.widget.LinearLayout.HORIZONTAL
                 setPadding(40, 28, 40, 28)
-                layoutParams = android.view.ViewGroup.LayoutParams(
+                val lp = android.view.ViewGroup.MarginLayoutParams(
                     android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                     android.view.ViewGroup.LayoutParams.WRAP_CONTENT
                 )
+                lp.setMargins(0, 0, 0, 8)
+                layoutParams = lp
                 setBackgroundResource(eu.cyben.guard.R.drawable.settings_card_bg)
+                gravity = android.view.Gravity.CENTER_VERTICAL
             }
             return VH(ll)
         }
         override fun getItemCount() = items.size
         override fun onBindViewHolder(holder: VH, position: Int) {
             val item = items[position]
-            val ll = holder.ll
+            val ll = holder.root
             ll.removeAllViews()
-            val domain = item.domain ?: (item.breachName?.lowercase()?.replace(" ", "") + ".com")
-            val logoUrl = "https://logo.clearbit.com/$domain"
-            Glide.with(ll.context).load(logoUrl)
-                .placeholder(eu.cyben.guard.R.drawable.icon_bg_red)
-                .error(eu.cyben.guard.R.drawable.icon_bg_red)
-                .circleCrop()
-                .into(holder.logo)
             val count = item.breachCount ?: 0
             val icon = android.widget.TextView(ll.context).apply {
-                text = if (count > 0) "⚠️" else "✔"
-                textSize = 18f
+                text = if (count > 0) "\u26a0" else "\u2714"
+                textSize = 20f
+                setTextColor(if (count > 0) 0xFFFF5252.toInt() else 0xFF66BB6A.toInt())
                 setPadding(0, 0, 28, 0)
             }
             val info = android.widget.LinearLayout(ll.context).apply {
