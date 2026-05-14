@@ -32,7 +32,9 @@
     <LinearLayout android:id="@+id/cardRisk" android:layout_width="match_parent"
         android:layout_height="wrap_content" android:orientation="horizontal"
         android:gravity="center_vertical" android:padding="14dp"
-        android:background="@drawable/settings_card_bg" android:layout_margin="12dp"
+        android:background="@drawable/settings_card_bg"
+        android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
         android:visibility="gone">
         <LinearLayout android:layout_width="60dp" android:layout_height="60dp"
             android:orientation="vertical" android:gravity="center"
@@ -52,75 +54,86 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Suggested questions chips -->
-    <HorizontalScrollView android:id="@+id/scrollChips" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:scrollbars="none"
-        android:paddingStart="12dp" android:paddingEnd="12dp" android:paddingBottom="6dp"
-        android:visibility="gone">
-        <LinearLayout android:id="@+id/chipContainer" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:orientation="horizontal"/>
-    </HorizontalScrollView>
+    <!-- Chips section - always visible -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="12dp" android:paddingEnd="12dp"
+        android:paddingTop="10dp" android:paddingBottom="4dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="💡 Chiedi:" android:textColor="@color/text_secondary"
+            android:textSize="11sp" android:layout_marginBottom="6dp"/>
+        <HorizontalScrollView android:id="@+id/scrollChips" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:scrollbars="none">
+            <LinearLayout android:id="@+id/chipContainer" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:orientation="horizontal"/>
+        </HorizontalScrollView>
+    </LinearLayout>
 
     <!-- Chat transcript -->
     <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvCyAgentChat"
         android:layout_width="match_parent" android:layout_height="0dp"
-        android:layout_weight="1" android:paddingTop="8dp" android:paddingBottom="8dp"
+        android:layout_weight="1" android:paddingTop="6dp" android:paddingBottom="6dp"
         android:clipToPadding="false"/>
 
-    <!-- Context input -->
+    <!-- Context + Controls panel -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:gravity="center_vertical"
+        android:orientation="vertical" android:background="#131325"
         android:paddingStart="12dp" android:paddingEnd="12dp"
-        android:paddingTop="6dp" android:paddingBottom="6dp"
-        android:background="#131325">
-        <EditText android:id="@+id/etContext" android:layout_width="0dp"
-            android:layout_height="wrap_content" android:layout_weight="1"
-            android:hint="Aggiungi contesto (opzionale)..."
-            android:textColor="@color/text_primary" android:textColorHint="@color/text_secondary"
-            android:background="@drawable/input_bg" android:inputType="textMultiLine"
-            android:maxLines="2" android:padding="10dp" android:textSize="13sp"/>
-    </LinearLayout>
+        android:paddingTop="8dp" android:paddingBottom="12dp">
 
-    <!-- Controls -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:background="#131325"
-        android:paddingStart="12dp" android:paddingEnd="12dp"
-        android:paddingBottom="12dp" android:paddingTop="8dp" android:gravity="center_vertical">
-
-        <!-- Avvia / Stop -->
-        <LinearLayout android:id="@+id/btnAvvia" android:layout_width="0dp"
-            android:layout_height="52dp" android:layout_weight="1"
-            android:orientation="horizontal" android:gravity="center"
-            android:background="@drawable/btn_blue" android:layout_marginEnd="8dp"
-            android:clickable="true" android:focusable="true">
-            <TextView android:id="@+id/tvAvviaIcon" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="&#9654;"
-                android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginEnd="6dp"/>
-            <TextView android:id="@+id/tvAvviaLabel" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="Avvia"
-                android:textColor="#FFFFFF" android:textSize="15sp" android:textStyle="bold"/>
-        </LinearLayout>
-
-        <!-- Analizza -->
-        <LinearLayout android:id="@+id/btnAnalizza" android:layout_width="0dp"
-            android:layout_height="52dp" android:layout_weight="1"
-            android:orientation="horizontal" android:gravity="center"
-            android:background="@drawable/btn_dark_rounded" android:layout_marginEnd="8dp"
-            android:clickable="true" android:focusable="true">
-            <ProgressBar android:id="@+id/progressAnalisi" android:layout_width="18dp"
-                android:layout_height="18dp" android:visibility="gone" android:layout_marginEnd="6dp"/>
+        <!-- Context label + input -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="&#128269; Analizza" android:textColor="@color/cyben_orange"
-                android:textSize="13sp" android:textStyle="bold"/>
+                android:text="📝" android:textSize="14sp" android:layout_marginEnd="6dp"/>
+            <EditText android:id="@+id/etContext" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1"
+                android:hint="Contesto della chiamata (opzionale)..."
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_secondary"
+                android:background="@drawable/input_bg" android:inputType="textMultiLine"
+                android:maxLines="2" android:padding="10dp" android:textSize="13sp"/>
         </LinearLayout>
 
-        <!-- Mic -->
-        <LinearLayout android:id="@+id/btnMic" android:layout_width="52dp"
-            android:layout_height="52dp" android:orientation="vertical" android:gravity="center"
-            android:background="@drawable/mic_button_bg"
-            android:clickable="true" android:focusable="true">
-            <TextView android:id="@+id/tvMicIcon" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="&#127897;" android:textSize="22sp"/>
+        <!-- Buttons row -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical">
+
+            <!-- Avvia / Stop -->
+            <LinearLayout android:id="@+id/btnAvvia" android:layout_width="0dp"
+                android:layout_height="52dp" android:layout_weight="1"
+                android:orientation="horizontal" android:gravity="center"
+                android:background="@drawable/btn_blue" android:layout_marginEnd="8dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:id="@+id/tvAvviaIcon" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="&#9654;"
+                    android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginEnd="6dp"/>
+                <TextView android:id="@+id/tvAvviaLabel" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Avvia"
+                    android:textColor="#FFFFFF" android:textSize="15sp" android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Analizza -->
+            <LinearLayout android:id="@+id/btnAnalizza" android:layout_width="0dp"
+                android:layout_height="52dp" android:layout_weight="1"
+                android:orientation="horizontal" android:gravity="center"
+                android:background="@drawable/btn_dark_rounded" android:layout_marginEnd="8dp"
+                android:clickable="true" android:focusable="true">
+                <ProgressBar android:id="@+id/progressAnalisi" android:layout_width="18dp"
+                    android:layout_height="18dp" android:visibility="gone" android:layout_marginEnd="6dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="&#128269; Analizza" android:textColor="@color/cyben_orange"
+                    android:textSize="13sp" android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Mic -->
+            <LinearLayout android:id="@+id/btnMic" android:layout_width="52dp"
+                android:layout_height="52dp" android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/mic_button_bg"
+                android:clickable="true" android:focusable="true">
+                <TextView android:id="@+id/tvMicIcon" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="&#127897;" android:textSize="22sp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

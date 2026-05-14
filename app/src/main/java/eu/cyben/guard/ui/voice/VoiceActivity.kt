@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -82,6 +81,7 @@ class VoiceActivity : AppCompatActivity() {
 
         addBotMessage("Ciao! Sono CyAgent. Premi **Avvia** per iniziare una sessione e ti aiuterò a valutare in tempo reale se stai parlando con un truffatore.")
 
+        setupDefaultChips()
         binding.btnBack.setOnClickListener { finish() }
         binding.btnAvvia.setOnClickListener {
             if (isSessionActive) stopSession() else startSession()
@@ -92,12 +92,35 @@ class VoiceActivity : AppCompatActivity() {
         setupNav()
     }
 
+    private fun setupDefaultChips() {
+        val defaults = listOf("È una truffa?", "Cosa non devo dire?", "È sicuro?", "Verifica il numero")
+        binding.chipContainer.removeAllViews()
+        defaults.forEach { q -> addChip(q) }
+    }
+
+    private fun addChip(text: String) {
+        val chip = android.widget.TextView(this).apply {
+            this.text = text
+            textSize = 12f
+            setTextColor(android.graphics.Color.parseColor("#B0B8D0"))
+            setBackgroundResource(eu.cyben.guard.R.drawable.chip_bg)
+            val lp = android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            lp.setMargins(0, 0, 12, 0)
+            layoutParams = lp
+            setPadding(24, 12, 24, 12)
+            setOnClickListener { sendTranscript(text) }
+        }
+        binding.chipContainer.addView(chip)
+    }
+
     private fun startSession() {
         callSessionId = UUID.randomUUID().toString()
         isSessionActive = true
 
         binding.cardRisk.visibility = View.VISIBLE
-        binding.scrollChips.visibility = View.VISIBLE
         binding.tvSessionStatus.text = "Sessione attiva"
         binding.tvSessionStatus.setTextColor(Color.parseColor("#FF6600"))
         binding.tvAvviaIcon.text = "⏹"
@@ -274,26 +297,8 @@ class VoiceActivity : AppCompatActivity() {
             .map { it.trim() }
             .take(4)
         if (questions.isEmpty()) return
-
         binding.chipContainer.removeAllViews()
-        questions.forEach { q ->
-            val chip = TextView(this).apply {
-                text = q
-                textSize = 12f
-                setTextColor(Color.parseColor("#B0B8D0"))
-                setTypeface(null, Typeface.NORMAL)
-                setBackgroundResource(eu.cyben.guard.R.drawable.chip_bg)
-                val lp = android.widget.LinearLayout.LayoutParams(
-                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
-                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                lp.setMargins(0, 0, 16, 0)
-                layoutParams = lp
-                setPadding(24, 12, 24, 12)
-                setOnClickListener { sendTranscript(q) }
-            }
-            binding.chipContainer.addView(chip)
-        }
+        questions.forEach { addChip(it) }
     }
 
     private fun showReport() {
@@ -314,7 +319,7 @@ class VoiceActivity : AppCompatActivity() {
 
         addBotMessage("Sessione terminata. Ricorda: non fornire mai dati personali, codici OTP o coordinate bancarie per telefono.")
         binding.cardRisk.visibility = View.GONE
-        binding.scrollChips.visibility = View.GONE
+        setupDefaultChips()
     }
 
     private fun addBotMessage(text: String) {
