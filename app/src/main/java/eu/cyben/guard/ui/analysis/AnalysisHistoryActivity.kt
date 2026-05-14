@@ -74,34 +74,82 @@ class AnalysisHistoryActivity : AppCompatActivity() {
     }
 
     inner class AnalysisAdapter(private val items: List<GuardAnalysis>) : RecyclerView.Adapter<AnalysisAdapter.VH>() {
-        inner class VH(val layout: LinearLayout) : RecyclerView.ViewHolder(layout)
+        inner class VH(val card: LinearLayout) : RecyclerView.ViewHolder(card)
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-            val layout = LinearLayout(parent.context).apply {
-                orientation = LinearLayout.VERTICAL; setPadding(40, 28, 40, 28)
-                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val card = LinearLayout(parent.context).apply {
+                orientation = LinearLayout.VERTICAL
+                setPadding(40, 32, 40, 32)
+                val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                lp.setMargins(32, 12, 32, 0)
+                layoutParams = lp
+                setBackgroundResource(eu.cyben.guard.R.drawable.settings_card_bg)
             }
-            return VH(layout)
+            return VH(card)
         }
+
         override fun onBindViewHolder(holder: VH, position: Int) {
             val item = items[position]
-            holder.layout.removeAllViews()
-            val riskColor = when (item.riskLevel) { "dangerous" -> 0xFFFF1744.toInt(); "suspicious" -> 0xFFFF9800.toInt(); else -> 0xFF4CAF50.toInt() }
-            holder.layout.addView(TextView(holder.layout.context).apply {
-                text = "${item.riskLabel} - ${item.inputType ?: "testo"}"; setTextColor(riskColor); textSize = 14f; setPadding(0, 0, 0, 4)
+            holder.card.removeAllViews()
+
+            val riskColor = when (item.riskLevel) {
+                "dangerous" -> 0xFFD32F2F.toInt()
+                "suspicious" -> 0xFFFF6F00.toInt()
+                else -> 0xFF388E3C.toInt()
+            }
+            val riskEmoji = when (item.riskLevel) { "dangerous" -> "🔴"; "suspicious" -> "🟠"; else -> "🟢" }
+            val typeLabel = when (item.inputType) { "call" -> "Chiamata"; "sms" -> "SMS"; "image" -> "Immagine"; else -> "Testo" }
+
+            // Row: emoji + label + type + date
+            val rowTop = LinearLayout(holder.card.context).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = android.view.Gravity.CENTER_VERTICAL
+                layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            }
+            rowTop.addView(TextView(holder.card.context).apply {
+                text = riskEmoji; textSize = 18f
+                val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                lp.marginEnd = 10
+                layoutParams = lp
             })
-            holder.layout.addView(TextView(holder.layout.context).apply {
-                text = item.inputText?.take(80) ?: ""; setTextColor(0xFFB0B0C0.toInt()); textSize = 12f; setPadding(0, 0, 0, 4)
+            rowTop.addView(TextView(holder.card.context).apply {
+                text = item.riskLabel; setTextColor(riskColor); textSize = 14f; setTypeface(null, android.graphics.Typeface.BOLD)
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
             })
-            holder.layout.addView(TextView(holder.layout.context).apply {
-                text = item.createdAt?.take(10) ?: ""; setTextColor(0xFF707080.toInt()); textSize = 11f
+            rowTop.addView(TextView(holder.card.context).apply {
+                text = typeLabel; setTextColor(0xFF707090.toInt()); textSize = 11f
+                val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                lp.marginEnd = 10
+                layoutParams = lp
             })
-            if (position < items.size - 1) {
-                holder.layout.addView(View(holder.layout.context).apply {
-                    layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1).also { it.topMargin = 16 }
-                    setBackgroundColor(0xFF2A2A4A.toInt())
+            rowTop.addView(TextView(holder.card.context).apply {
+                text = item.createdAt?.take(10) ?: ""; setTextColor(0xFF505070.toInt()); textSize = 11f
+            })
+            holder.card.addView(rowTop)
+
+            // Input text preview
+            if (!item.inputText.isNullOrBlank()) {
+                holder.card.addView(TextView(holder.card.context).apply {
+                    text = item.inputText.take(90) + if ((item.inputText.length) > 90) "…" else ""
+                    setTextColor(0xFFB0B8D0.toInt()); textSize = 12f
+                    val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                    lp.topMargin = 8
+                    layoutParams = lp
+                })
+            }
+
+            // Explanation
+            if (!item.explanation.isNullOrBlank()) {
+                holder.card.addView(TextView(holder.card.context).apply {
+                    text = item.explanation.take(120) + if ((item.explanation.length) > 120) "…" else ""
+                    setTextColor(0xFF8090A8.toInt()); textSize = 11f
+                    val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                    lp.topMargin = 6
+                    layoutParams = lp
                 })
             }
         }
+
         override fun getItemCount() = items.size
     }
 }

@@ -17,7 +17,8 @@
         android:text="Nessuna analisi trovata" android:textColor="@color/text_secondary" android:textSize="16sp"
         android:gravity="center" android:layout_marginTop="64dp" android:visibility="gone"/>
     <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHistory"
-        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+        android:paddingBottom="12dp" android:clipToPadding="false"/>
     <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
         android:orientation="horizontal" android:background="@color/cyben_surface" android:elevation="8dp">
         <LinearLayout android:id="@+id/tabAnalizza" android:layout_width="0dp" android:layout_height="match_parent"
