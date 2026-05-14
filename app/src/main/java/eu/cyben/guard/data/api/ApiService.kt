@@ -10,7 +10,7 @@ interface ApiService {
     @GET("/api/guard/auth/me") suspend fun getMe(): Response<GuardUser>
     @DELETE("/api/guard/auth/delete-account") suspend fun deleteAccount(): Response<Unit>
     @POST("/api/guard/auth/resend-verification") suspend fun resendVerification(@Body body: EmailRequest): Response<OkResponse>
-    @POST("/api/guard/auth/verify-email") suspend fun verifyEmail(@Body body: VerifyEmailRequest): Response<GuardAuthResponse>
+    @POST("/api/guard/auth/verify-email-code") suspend fun verifyEmail(@Body body: VerifyEmailRequest): Response<GuardAuthResponse>
     @POST("/api/guard/auth/forgot-password") suspend fun forgotPassword(@Body body: EmailRequest): Response<MessageResponse>
     @POST("/api/guard/auth/change-password") suspend fun changePassword(@Body body: ChangePasswordRequest): Response<OkResponse>
     @POST("/api/guard/analyze") suspend fun analyze(@Body body: AnalyzeRequest): Response<AnalyzeResponse>
@@ -43,7 +43,7 @@ data class OkResponse(val ok: Boolean?)
 data class MessageResponse(val message: String?)
 data class AnalyzeRequest(val text: String, val type: String, val chatHistory: List<Map<String, String>> = emptyList(), val preferredLanguage: String = java.util.Locale.getDefault().language, val callSessionId: String? = null, val isLive: Boolean? = null, val mode: String? = null, val systemPrompt: String? = null)
 data class AddEmailRequest(val email: String, val label: String?)
-data class SubscribeRequest(val plan: String, val billingPeriod: String?)
+data class SubscribeRequest(val plan: String, val billingPeriod: String?, val purchaseToken: String? = null, val productId: String? = null)
 data class HumanRequest(val text: String, val analysisId: Int?)
 data class SOSRequest(val description: String, val incidentType: String = "other")
 data class PhoneCheckRequest(val number: String)

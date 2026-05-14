@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
@@ -20,16 +19,13 @@ import java.lang.String;
 
 public final class ActivitySubscriptionBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final LinearLayout rootView;
 
   @NonNull
   public final ImageButton btnBack;
 
   @NonNull
   public final Button btnManage;
-
-  @NonNull
-  public final Button btnSubscribeBase;
 
   @NonNull
   public final Button btnSubscribePremium;
@@ -40,26 +36,20 @@ public final class ActivitySubscriptionBinding implements ViewBinding {
   @NonNull
   public final ProgressBar progressBar;
 
-  @NonNull
-  public final TextView tvRequiredTitle;
-
-  private ActivitySubscriptionBinding(@NonNull ScrollView rootView, @NonNull ImageButton btnBack,
-      @NonNull Button btnManage, @NonNull Button btnSubscribeBase,
-      @NonNull Button btnSubscribePremium, @NonNull Button btnSubscribePremiumAnnual,
-      @NonNull ProgressBar progressBar, @NonNull TextView tvRequiredTitle) {
+  private ActivitySubscriptionBinding(@NonNull LinearLayout rootView, @NonNull ImageButton btnBack,
+      @NonNull Button btnManage, @NonNull Button btnSubscribePremium,
+      @NonNull Button btnSubscribePremiumAnnual, @NonNull ProgressBar progressBar) {
     this.rootView = rootView;
     this.btnBack = btnBack;
     this.btnManage = btnManage;
-    this.btnSubscribeBase = btnSubscribeBase;
     this.btnSubscribePremium = btnSubscribePremium;
     this.btnSubscribePremiumAnnual = btnSubscribePremiumAnnual;
     this.progressBar = progressBar;
-    this.tvRequiredTitle = tvRequiredTitle;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public LinearLayout getRoot() {
     return rootView;
   }
 
@@ -96,12 +86,6 @@ public final class ActivitySubscriptionBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.btnSubscribeBase;
-      Button btnSubscribeBase = ViewBindings.findChildViewById(rootView, id);
-      if (btnSubscribeBase == null) {
-        break missingId;
-      }
-
       id = R.id.btnSubscribePremium;
       Button btnSubscribePremium = ViewBindings.findChildViewById(rootView, id);
       if (btnSubscribePremium == null) {
@@ -120,15 +104,8 @@ public final class ActivitySubscriptionBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvRequiredTitle;
-      TextView tvRequiredTitle = ViewBindings.findChildViewById(rootView, id);
-      if (tvRequiredTitle == null) {
-        break missingId;
-      }
-
-      return new ActivitySubscriptionBinding((ScrollView) rootView, btnBack, btnManage,
-          btnSubscribeBase, btnSubscribePremium, btnSubscribePremiumAnnual, progressBar,
-          tvRequiredTitle);
+      return new ActivitySubscriptionBinding((LinearLayout) rootView, btnBack, btnManage,
+          btnSubscribePremium, btnSubscribePremiumAnnual, progressBar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

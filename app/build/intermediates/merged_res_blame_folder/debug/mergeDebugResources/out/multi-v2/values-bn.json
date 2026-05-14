@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "eu.cyben.guard.app-mergeDebugResources-49:/values-bn/values-bn.xml",
+            "outputFile": "eu.cyben.guard.app-mergeDebugResources-50:/values-bn/values-bn.xml",
             "map": [
                 {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/res/values-bn/values-bn.xml",
@@ -40,6 +40,23 @@
                     }
                 },
                 {
+                    "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/1d5dce0995b8751e1b86bfabd17730bc/transformed/play-services-base-18.3.0/res/values-bn/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "193,298,453,577,684,816,934,1042,1142,1281,1386,1538,1662,1791,1935,1991,2054",
+                        "endColumns": "104,154,123,106,131,117,107,99,138,104,151,123,128,143,55,62,85",
+                        "endOffsets": "297,452,576,683,815,933,1041,1141,1280,1385,1537,1661,1790,1934,1990,2053,2139"
+                    },
+                    "to": {
+                        "startLines": "48,49,50,51,52,53,54,55,57,58,59,60,61,62,63,64,65",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "4549,4658,4817,4945,5056,5192,5314,5426,5682,5825,5934,6090,6218,6351,6499,6559,6626",
+                        "endColumns": "108,158,127,110,135,121,111,103,142,108,155,127,132,147,59,66,89",
+                        "endOffsets": "4653,4812,4940,5051,5187,5309,5421,5525,5820,5929,6085,6213,6346,6494,6554,6621,6711"
+                    }
+                },
+                {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/74096daacf395f3ad924496645276f03/transformed/play-services-basement-18.3.0/res/values-bn/values.xml",
                     "from": {
                         "startLines": "4",
@@ -54,23 +71,6 @@
                         "startOffsets": "5530",
                         "endColumns": "151",
                         "endOffsets": "5677"
-                    }
-                },
-                {
-                    "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/a47c077c076071a0229e6b382769b28f/transformed/play-services-base-18.1.0/res/values-bn/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "193,298,453,577,684,816,934,1042,1142,1281,1386,1538,1662,1791,1935,1991,2054",
-                        "endColumns": "104,154,123,106,131,117,107,99,138,104,151,123,128,143,55,62,85",
-                        "endOffsets": "297,452,576,683,815,933,1041,1141,1280,1385,1537,1661,1790,1934,1990,2053,2139"
-                    },
-                    "to": {
-                        "startLines": "48,49,50,51,52,53,54,55,57,58,59,60,61,62,63,64,65",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "4549,4658,4817,4945,5056,5192,5314,5426,5682,5825,5934,6090,6218,6351,6499,6559,6626",
-                        "endColumns": "108,158,127,110,135,121,111,103,142,108,155,127,132,147,59,66,89",
-                        "endOffsets": "4653,4812,4940,5051,5187,5309,5421,5525,5820,5929,6085,6213,6346,6494,6554,6621,6711"
                     }
                 },
                 {

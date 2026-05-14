@@ -1,62 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/cyben_dark" android:fillViewport="true">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
-            android:orientation="horizontal" android:gravity="center_vertical"
-            android:padding="8dp" android:background="@color/cyben_surface">
-            <ImageButton android:id="@+id/btnBack" android:layout_width="40dp"
-                android:layout_height="40dp" android:src="@android:drawable/ic_media_previous"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/text_primary"/>
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:text="@string/vpn"
-                android:textColor="@color/text_primary" android:textSize="18sp"
-                android:textStyle="bold" android:layout_marginStart="8dp"/>
-        </LinearLayout>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:background="@color/cyben_surface"
-            android:layout_margin="16dp" android:padding="28dp" android:gravity="center">
-            <View android:id="@+id/vStatusDot" android:layout_width="20dp"
-                android:layout_height="20dp" android:background="@drawable/dot_red"
-                android:layout_marginBottom="16dp"/>
-            <TextView android:id="@+id/tvVpnStatus" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="VPN Non connessa"
-                android:textColor="@color/text_primary" android:textSize="22sp"
-                android:textStyle="bold" android:layout_marginBottom="8dp"/>
-            <TextView android:id="@+id/tvVpnSubtitle" android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tocca il pulsante per connetterti"
-                android:textColor="@color/text_secondary" android:textSize="14sp"/>
-        </LinearLayout>
-        <Button android:id="@+id/btnConnect" android:layout_width="match_parent"
-            android:layout_height="52dp" android:text="Connetti VPN"
-            android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp" android:backgroundTint="@color/cyben_card"/>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:background="@color/cyben_surface"
-            android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp" android:padding="20dp">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Statistiche DNS" android:textColor="@color/text_primary"
-                android:textSize="15sp" android:textStyle="bold" android:layout_marginBottom="12dp"/>
-            <TextView android:id="@+id/tvBlockedDomains" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="Domini bloccati: --"
-                android:textColor="@color/text_secondary" android:textSize="14sp"
-                android:layout_marginBottom="6dp"/>
-            <TextView android:id="@+id/tvDnsServer" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="DNS Server: --"
-                android:textColor="@color/text_secondary" android:textSize="14sp"
-                android:layout_marginBottom="6dp"/>
-            <TextView android:id="@+id/tvDnsStatus" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textColor="@color/status_safe"
-                android:textSize="13sp"/>
-        </LinearLayout>
-        <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_gravity="center"
-            android:visibility="gone" android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"/>
+    android:orientation="vertical" android:background="#0D0D1A">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
+        <ImageButton android:id="@+id/btnBack" android:layout_width="36dp" android:layout_height="36dp"
+            android:src="@android:drawable/ic_media_previous" android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_primary" android:layout_marginEnd="8dp"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:text="VPN" android:textColor="@color/text_primary" android:textSize="20sp" android:textStyle="bold" android:gravity="center"/>
+        <View android:layout_width="36dp" android:layout_height="36dp"/>
     </LinearLayout>
-</ScrollView>
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+            <!-- Header -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="12dp">
+                <TextView android:layout_width="44dp" android:layout_height="44dp" android:text="&#128737;" android:textSize="22sp"
+                    android:gravity="center" android:background="@drawable/icon_bg_blue" android:layout_marginEnd="14dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Proteggi la tua connessione" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Germania - Francoforte  IKEv2 AES-256"
+                        android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Status -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="12dp">
+                <TextView android:id="@+id/tvVpnStatusIcon" android:layout_width="44dp" android:layout_height="44dp"
+                    android:text="&#128275;" android:textSize="22sp" android:gravity="center"
+                    android:background="@drawable/icon_bg_blue" android:layout_marginEnd="14dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:id="@+id/tvVpnStatus" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Disconnesso" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvVpnStatusDesc" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Nessuna connessione VPN attiva" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                </LinearLayout>
+                <View android:id="@+id/viewStatusDot" android:layout_width="10dp" android:layout_height="10dp"
+                    android:background="@drawable/circle_green"/>
+            </LinearLayout>
+            <!-- Location -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp"
+                android:background="@drawable/settings_card_bg" android:layout_marginBottom="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Posizione selezionata" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginBottom="4dp"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="44dp" android:layout_height="44dp" android:text="&#127465;&#127466;" android:textSize="24sp"
+                        android:gravity="center" android:background="@drawable/icon_bg_blue" android:layout_marginEnd="14dp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Germania — Francoforte" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Carica: 41%" android:textColor="@color/status_warning" android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Connect button -->
+            <LinearLayout android:id="@+id/btnConnectVpn" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="18dp"
+                android:background="@drawable/btn_blue" android:layout_marginBottom="16dp"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="&#9654;  " android:textColor="@color/white" android:textSize="16sp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:id="@+id/tvConnectLabel" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Connetti VPN" android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="&#127465;&#127466;  Francoforte" android:textColor="#CCFFFFFF" android:textSize="12sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Features -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp" android:background="@drawable/settings_card_bg">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="10dp">
+                    <TextView android:layout_width="24dp" android:layout_height="wrap_content" android:text="&#128737;" android:textSize="14sp" android:textColor="#00BCD4" android:layout_marginEnd="10dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Protocollo IKEv2 con AES-256" android:textColor="@color/text_secondary" android:textSize="13sp"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="10dp">
+                    <TextView android:layout_width="24dp" android:layout_height="wrap_content" android:text="&#128683;" android:textSize="14sp" android:textColor="#E040FB" android:layout_marginEnd="10dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nessun log delle attivita" android:textColor="@color/text_secondary" android:textSize="13sp"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="10dp">
+                    <TextView android:layout_width="24dp" android:layout_height="wrap_content" android:text="&#128246;" android:textSize="14sp" android:textColor="@color/cyben_orange" android:layout_marginEnd="10dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Protezione automatica su reti WiFi pubbliche" android:textColor="@color/text_secondary" android:textSize="13sp"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="24dp" android:layout_height="wrap_content" android:text="&#127758;" android:textSize="14sp" android:textColor="#4CAF50" android:layout_marginEnd="10dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1 posizione attiva · altre in arrivo" android:textColor="@color/text_secondary" android:textSize="13sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <ProgressBar android:id="@+id/progressVpn" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:visibility="gone" android:layout_gravity="center_horizontal" android:layout_marginTop="16dp"/>
+            <TextView android:id="@+id/tvVpnCredentials" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="" android:textColor="@color/text_secondary" android:textSize="11sp"
+                android:layout_marginTop="8dp" android:gravity="center" android:visibility="gone"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

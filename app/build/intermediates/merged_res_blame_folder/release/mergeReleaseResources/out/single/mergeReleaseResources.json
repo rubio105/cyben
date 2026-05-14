@@ -20,6 +20,10 @@
         "source": "eu.cyben.guard.app-main-52:/layout/activity_email_verification.xml"
     },
     {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_badge_purple.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/badge_purple.xml"
+    },
+    {
         "merged": "eu.cyben.guard.app-release-51:/drawable_qr_scan_frame.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/qr_scan_frame.xml"
     },
@@ -36,12 +40,20 @@
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_lock.xml"
     },
     {
+        "merged": "eu.cyben.guard.app-release-51:/layout_activity_analysis_history.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/layout/activity_analysis_history.xml"
+    },
+    {
         "merged": "eu.cyben.guard.app-release-51:/drawable_ic_shield_check.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_shield_check.xml"
     },
     {
         "merged": "eu.cyben.guard.app-release-51:/drawable_bg_avatar_circle.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/bg_avatar_circle.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_quick_action_bg.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/quick_action_bg.xml"
     },
     {
         "merged": "eu.cyben.guard.app-release-51:/drawable_btn_circle_transparent.xml.flat",
@@ -52,12 +64,24 @@
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_wifi_warning.xml"
     },
     {
+        "merged": "eu.cyben.guard.app-release-51:/layout_activity_qr_scan.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/layout/activity_qr_scan.xml"
+    },
+    {
         "merged": "eu.cyben.guard.app-release-51:/drawable_ic_permissions.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_permissions.xml"
     },
     {
         "merged": "eu.cyben.guard.app-release-51:/layout_activity_dashboard.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/layout/activity_dashboard.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/layout_activity_prohmed.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/layout/activity_prohmed.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_icon_bg_purple.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/icon_bg_purple.xml"
     },
     {
         "merged": "eu.cyben.guard.app-release-51:/layout_activity_vpn.xml.flat",
@@ -74,6 +98,14 @@
     {
         "merged": "eu.cyben.guard.app-release-51:/drawable_ic_qr_code.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_qr_code.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_circle_green.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/circle_green.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_icon_bg_red.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/icon_bg_red.xml"
     },
     {
         "merged": "eu.cyben.guard.app-release-51:/mipmap-hdpi_ic_launcher_round.xml.flat",
@@ -96,8 +128,20 @@
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_launcher_foreground.xml"
     },
     {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_icon_bg_blue.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/icon_bg_blue.xml"
+    },
+    {
         "merged": "eu.cyben.guard.app-release-51:/drawable_ic_wifi.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_wifi.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_badge_green.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/badge_green.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_avatar_bg.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/avatar_bg.xml"
     },
     {
         "merged": "eu.cyben.guard.app-release-51:/layout_activity_settings.xml.flat",
@@ -148,6 +192,10 @@
         "source": "eu.cyben.guard.app-main-52:/layout/activity_register.xml"
     },
     {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_icon_bg_orange.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/icon_bg_orange.xml"
+    },
+    {
         "merged": "eu.cyben.guard.app-release-51:/drawable_ic_scan.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_scan.xml"
     },
@@ -188,12 +236,20 @@
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_arrow_back.xml"
     },
     {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_settings_card_bg.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/settings_card_bg.xml"
+    },
+    {
         "merged": "eu.cyben.guard.app-release-51:/xml_data_extraction_rules.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/xml/data_extraction_rules.xml"
     },
     {
         "merged": "eu.cyben.guard.app-release-51:/drawable_ic_email.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_email.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_btn_blue.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/btn_blue.xml"
     },
     {
         "merged": "eu.cyben.guard.app-release-51:/mipmap-hdpi_ic_launcher.xml.flat",
@@ -234,5 +290,9 @@
     {
         "merged": "eu.cyben.guard.app-release-51:/drawable_ic_back.xml.flat",
         "source": "eu.cyben.guard.app-main-52:/drawable/ic_back.xml"
+    },
+    {
+        "merged": "eu.cyben.guard.app-release-51:/drawable_icon_bg_green.xml.flat",
+        "source": "eu.cyben.guard.app-main-52:/drawable/icon_bg_green.xml"
     }
 ]

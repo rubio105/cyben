@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.textfield.TextInputEditText;
 import eu.cyben.guard.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -27,13 +28,18 @@ public final class ActivityEmailVerificationBinding implements ViewBinding {
   public final Button btnVerified;
 
   @NonNull
+  public final TextInputEditText etVerificationCode;
+
+  @NonNull
   public final TextView tvMessage;
 
   private ActivityEmailVerificationBinding(@NonNull LinearLayout rootView,
-      @NonNull Button btnResend, @NonNull Button btnVerified, @NonNull TextView tvMessage) {
+      @NonNull Button btnResend, @NonNull Button btnVerified,
+      @NonNull TextInputEditText etVerificationCode, @NonNull TextView tvMessage) {
     this.rootView = rootView;
     this.btnResend = btnResend;
     this.btnVerified = btnVerified;
+    this.etVerificationCode = etVerificationCode;
     this.tvMessage = tvMessage;
   }
 
@@ -76,6 +82,12 @@ public final class ActivityEmailVerificationBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.etVerificationCode;
+      TextInputEditText etVerificationCode = ViewBindings.findChildViewById(rootView, id);
+      if (etVerificationCode == null) {
+        break missingId;
+      }
+
       id = R.id.tvMessage;
       TextView tvMessage = ViewBindings.findChildViewById(rootView, id);
       if (tvMessage == null) {
@@ -83,7 +95,7 @@ public final class ActivityEmailVerificationBinding implements ViewBinding {
       }
 
       return new ActivityEmailVerificationBinding((LinearLayout) rootView, btnResend, btnVerified,
-          tvMessage);
+          etVerificationCode, tvMessage);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

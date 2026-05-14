@@ -4,9 +4,8 @@ package eu.cyben.guard.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,34 +18,49 @@ import java.lang.String;
 
 public final class ActivitySettingsBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final LinearLayout rootView;
 
   @NonNull
   public final ImageButton btnBack;
 
   @NonNull
-  public final Button btnChangePassword;
+  public final TextView btnProhmedConsult;
 
   @NonNull
-  public final Button btnDeleteAccount;
+  public final LinearLayout cardHistory;
 
   @NonNull
-  public final Button btnHistory;
+  public final LinearLayout cardLogout;
 
   @NonNull
-  public final Button btnHumanRequest;
+  public final LinearLayout cardProhmed;
 
   @NonNull
-  public final Button btnLogout;
+  public final LinearLayout cardProtection;
 
   @NonNull
-  public final Button btnPasswordCheck;
+  public final LinearLayout cardSos;
 
   @NonNull
-  public final Button btnProhmed;
+  public final LinearLayout cardSubscription;
 
   @NonNull
-  public final Button btnSos;
+  public final TextView labelProhmed;
+
+  @NonNull
+  public final LinearLayout rowChangePassword;
+
+  @NonNull
+  public final LinearLayout rowDeleteAccount;
+
+  @NonNull
+  public final LinearLayout rowPrivacy;
+
+  @NonNull
+  public final LinearLayout rowTerms;
+
+  @NonNull
+  public final TextView tvAvatar;
 
   @NonNull
   public final TextView tvEmail;
@@ -55,31 +69,70 @@ public final class ActivitySettingsBinding implements ViewBinding {
   public final TextView tvName;
 
   @NonNull
-  public final TextView tvPlan;
+  public final TextView tvPlanBadge;
 
-  private ActivitySettingsBinding(@NonNull ScrollView rootView, @NonNull ImageButton btnBack,
-      @NonNull Button btnChangePassword, @NonNull Button btnDeleteAccount,
-      @NonNull Button btnHistory, @NonNull Button btnHumanRequest, @NonNull Button btnLogout,
-      @NonNull Button btnPasswordCheck, @NonNull Button btnProhmed, @NonNull Button btnSos,
-      @NonNull TextView tvEmail, @NonNull TextView tvName, @NonNull TextView tvPlan) {
+  @NonNull
+  public final TextView tvPremiumStatusTitle;
+
+  @NonNull
+  public final TextView tvProhmedEmail;
+
+  @NonNull
+  public final TextView tvProhmedResidui;
+
+  @NonNull
+  public final TextView tvProhmedStatus;
+
+  @NonNull
+  public final TextView tvProhmedUsati;
+
+  @NonNull
+  public final TextView tvSubDesc;
+
+  @NonNull
+  public final TextView tvSubTitle;
+
+  private ActivitySettingsBinding(@NonNull LinearLayout rootView, @NonNull ImageButton btnBack,
+      @NonNull TextView btnProhmedConsult, @NonNull LinearLayout cardHistory,
+      @NonNull LinearLayout cardLogout, @NonNull LinearLayout cardProhmed,
+      @NonNull LinearLayout cardProtection, @NonNull LinearLayout cardSos,
+      @NonNull LinearLayout cardSubscription, @NonNull TextView labelProhmed,
+      @NonNull LinearLayout rowChangePassword, @NonNull LinearLayout rowDeleteAccount,
+      @NonNull LinearLayout rowPrivacy, @NonNull LinearLayout rowTerms, @NonNull TextView tvAvatar,
+      @NonNull TextView tvEmail, @NonNull TextView tvName, @NonNull TextView tvPlanBadge,
+      @NonNull TextView tvPremiumStatusTitle, @NonNull TextView tvProhmedEmail,
+      @NonNull TextView tvProhmedResidui, @NonNull TextView tvProhmedStatus,
+      @NonNull TextView tvProhmedUsati, @NonNull TextView tvSubDesc, @NonNull TextView tvSubTitle) {
     this.rootView = rootView;
     this.btnBack = btnBack;
-    this.btnChangePassword = btnChangePassword;
-    this.btnDeleteAccount = btnDeleteAccount;
-    this.btnHistory = btnHistory;
-    this.btnHumanRequest = btnHumanRequest;
-    this.btnLogout = btnLogout;
-    this.btnPasswordCheck = btnPasswordCheck;
-    this.btnProhmed = btnProhmed;
-    this.btnSos = btnSos;
+    this.btnProhmedConsult = btnProhmedConsult;
+    this.cardHistory = cardHistory;
+    this.cardLogout = cardLogout;
+    this.cardProhmed = cardProhmed;
+    this.cardProtection = cardProtection;
+    this.cardSos = cardSos;
+    this.cardSubscription = cardSubscription;
+    this.labelProhmed = labelProhmed;
+    this.rowChangePassword = rowChangePassword;
+    this.rowDeleteAccount = rowDeleteAccount;
+    this.rowPrivacy = rowPrivacy;
+    this.rowTerms = rowTerms;
+    this.tvAvatar = tvAvatar;
     this.tvEmail = tvEmail;
     this.tvName = tvName;
-    this.tvPlan = tvPlan;
+    this.tvPlanBadge = tvPlanBadge;
+    this.tvPremiumStatusTitle = tvPremiumStatusTitle;
+    this.tvProhmedEmail = tvProhmedEmail;
+    this.tvProhmedResidui = tvProhmedResidui;
+    this.tvProhmedStatus = tvProhmedStatus;
+    this.tvProhmedUsati = tvProhmedUsati;
+    this.tvSubDesc = tvSubDesc;
+    this.tvSubTitle = tvSubTitle;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public LinearLayout getRoot() {
     return rootView;
   }
 
@@ -110,51 +163,81 @@ public final class ActivitySettingsBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.btnChangePassword;
-      Button btnChangePassword = ViewBindings.findChildViewById(rootView, id);
-      if (btnChangePassword == null) {
+      id = R.id.btnProhmedConsult;
+      TextView btnProhmedConsult = ViewBindings.findChildViewById(rootView, id);
+      if (btnProhmedConsult == null) {
         break missingId;
       }
 
-      id = R.id.btnDeleteAccount;
-      Button btnDeleteAccount = ViewBindings.findChildViewById(rootView, id);
-      if (btnDeleteAccount == null) {
+      id = R.id.cardHistory;
+      LinearLayout cardHistory = ViewBindings.findChildViewById(rootView, id);
+      if (cardHistory == null) {
         break missingId;
       }
 
-      id = R.id.btnHistory;
-      Button btnHistory = ViewBindings.findChildViewById(rootView, id);
-      if (btnHistory == null) {
+      id = R.id.cardLogout;
+      LinearLayout cardLogout = ViewBindings.findChildViewById(rootView, id);
+      if (cardLogout == null) {
         break missingId;
       }
 
-      id = R.id.btnHumanRequest;
-      Button btnHumanRequest = ViewBindings.findChildViewById(rootView, id);
-      if (btnHumanRequest == null) {
+      id = R.id.cardProhmed;
+      LinearLayout cardProhmed = ViewBindings.findChildViewById(rootView, id);
+      if (cardProhmed == null) {
         break missingId;
       }
 
-      id = R.id.btnLogout;
-      Button btnLogout = ViewBindings.findChildViewById(rootView, id);
-      if (btnLogout == null) {
+      id = R.id.cardProtection;
+      LinearLayout cardProtection = ViewBindings.findChildViewById(rootView, id);
+      if (cardProtection == null) {
         break missingId;
       }
 
-      id = R.id.btnPasswordCheck;
-      Button btnPasswordCheck = ViewBindings.findChildViewById(rootView, id);
-      if (btnPasswordCheck == null) {
+      id = R.id.cardSos;
+      LinearLayout cardSos = ViewBindings.findChildViewById(rootView, id);
+      if (cardSos == null) {
         break missingId;
       }
 
-      id = R.id.btnProhmed;
-      Button btnProhmed = ViewBindings.findChildViewById(rootView, id);
-      if (btnProhmed == null) {
+      id = R.id.cardSubscription;
+      LinearLayout cardSubscription = ViewBindings.findChildViewById(rootView, id);
+      if (cardSubscription == null) {
         break missingId;
       }
 
-      id = R.id.btnSos;
-      Button btnSos = ViewBindings.findChildViewById(rootView, id);
-      if (btnSos == null) {
+      id = R.id.labelProhmed;
+      TextView labelProhmed = ViewBindings.findChildViewById(rootView, id);
+      if (labelProhmed == null) {
+        break missingId;
+      }
+
+      id = R.id.rowChangePassword;
+      LinearLayout rowChangePassword = ViewBindings.findChildViewById(rootView, id);
+      if (rowChangePassword == null) {
+        break missingId;
+      }
+
+      id = R.id.rowDeleteAccount;
+      LinearLayout rowDeleteAccount = ViewBindings.findChildViewById(rootView, id);
+      if (rowDeleteAccount == null) {
+        break missingId;
+      }
+
+      id = R.id.rowPrivacy;
+      LinearLayout rowPrivacy = ViewBindings.findChildViewById(rootView, id);
+      if (rowPrivacy == null) {
+        break missingId;
+      }
+
+      id = R.id.rowTerms;
+      LinearLayout rowTerms = ViewBindings.findChildViewById(rootView, id);
+      if (rowTerms == null) {
+        break missingId;
+      }
+
+      id = R.id.tvAvatar;
+      TextView tvAvatar = ViewBindings.findChildViewById(rootView, id);
+      if (tvAvatar == null) {
         break missingId;
       }
 
@@ -170,15 +253,59 @@ public final class ActivitySettingsBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvPlan;
-      TextView tvPlan = ViewBindings.findChildViewById(rootView, id);
-      if (tvPlan == null) {
+      id = R.id.tvPlanBadge;
+      TextView tvPlanBadge = ViewBindings.findChildViewById(rootView, id);
+      if (tvPlanBadge == null) {
         break missingId;
       }
 
-      return new ActivitySettingsBinding((ScrollView) rootView, btnBack, btnChangePassword,
-          btnDeleteAccount, btnHistory, btnHumanRequest, btnLogout, btnPasswordCheck, btnProhmed,
-          btnSos, tvEmail, tvName, tvPlan);
+      id = R.id.tvPremiumStatusTitle;
+      TextView tvPremiumStatusTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvPremiumStatusTitle == null) {
+        break missingId;
+      }
+
+      id = R.id.tvProhmedEmail;
+      TextView tvProhmedEmail = ViewBindings.findChildViewById(rootView, id);
+      if (tvProhmedEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.tvProhmedResidui;
+      TextView tvProhmedResidui = ViewBindings.findChildViewById(rootView, id);
+      if (tvProhmedResidui == null) {
+        break missingId;
+      }
+
+      id = R.id.tvProhmedStatus;
+      TextView tvProhmedStatus = ViewBindings.findChildViewById(rootView, id);
+      if (tvProhmedStatus == null) {
+        break missingId;
+      }
+
+      id = R.id.tvProhmedUsati;
+      TextView tvProhmedUsati = ViewBindings.findChildViewById(rootView, id);
+      if (tvProhmedUsati == null) {
+        break missingId;
+      }
+
+      id = R.id.tvSubDesc;
+      TextView tvSubDesc = ViewBindings.findChildViewById(rootView, id);
+      if (tvSubDesc == null) {
+        break missingId;
+      }
+
+      id = R.id.tvSubTitle;
+      TextView tvSubTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvSubTitle == null) {
+        break missingId;
+      }
+
+      return new ActivitySettingsBinding((LinearLayout) rootView, btnBack, btnProhmedConsult,
+          cardHistory, cardLogout, cardProhmed, cardProtection, cardSos, cardSubscription,
+          labelProhmed, rowChangePassword, rowDeleteAccount, rowPrivacy, rowTerms, tvAvatar,
+          tvEmail, tvName, tvPlanBadge, tvPremiumStatusTitle, tvProhmedEmail, tvProhmedResidui,
+          tvProhmedStatus, tvProhmedUsati, tvSubDesc, tvSubTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

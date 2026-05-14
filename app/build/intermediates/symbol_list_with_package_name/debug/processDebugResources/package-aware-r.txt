@@ -3404,6 +3404,7 @@ id etMessage
 id etName
 id etPassword
 id etPhone
+id etVerificationCode
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3998,6 +3999,8 @@ layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
+raw com_android_billingclient_heterodyne_info
+raw com_android_billingclient_registration_info
 raw firebase_common_keep
 string abc_action_bar_home_description
 string abc_action_bar_up_description
@@ -5488,6 +5491,7 @@ styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
 styleable include constraintSet
+xml com_android_billingclient_phenotype
 xml data_extraction_rules
 xml device_admin
 xml ga_ad_services_config

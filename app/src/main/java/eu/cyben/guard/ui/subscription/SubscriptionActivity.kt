@@ -1,18 +1,20 @@
 package eu.cyben.guard.ui.subscription
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.Purchase
 import dagger.hilt.android.AndroidEntryPoint
+import eu.cyben.guard.billing.BillingManager
 import eu.cyben.guard.data.api.ApiService
 import eu.cyben.guard.data.api.SubscribeRequest
 import eu.cyben.guard.databinding.ActivitySubscriptionBinding
-import eu.cyben.guard.ui.auth.LoginActivity
 import eu.cyben.guard.ui.dashboard.DashboardActivity
+import eu.cyben.guard.ui.auth.LoginActivity
 import eu.cyben.guard.utils.TokenManager
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,6 +24,9 @@ class SubscriptionActivity : AppCompatActivity() {
     @Inject lateinit var api: ApiService
     @Inject lateinit var tokenManager: TokenManager
     private lateinit var binding: ActivitySubscriptionBinding
+    private lateinit var billingManager: BillingManager
+    private var monthlyProduct: ProductDetails? = null
+    private var annualProduct: ProductDetails? = null
     private var required = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,19 +34,88 @@ class SubscriptionActivity : AppCompatActivity() {
         binding = ActivitySubscriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         required = intent.getBooleanExtra("required", false)
+
+        billingManager = BillingManager(this)
+        billingManager.init()
+        billingManager.purchaseListener = { purchase -> handlePurchase(purchase) }
+
         if (required) {
-            binding.btnBack.setImageResource(android.R.drawable.ic_menu_close_clear_cancel)
             binding.btnManage.visibility = View.GONE
-        } else {
-            binding.btnManage.visibility = View.VISIBLE
+            onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    tokenManager.clearToken()
+                    startActivity(Intent(this@SubscriptionActivity, LoginActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    })
+                }
+            })
         }
-        binding.btnBack.setOnClickListener {
-            if (required) { tokenManager.clearToken(); startActivity(Intent(this, LoginActivity::class.java)); finishAffinity() }
-            else finish()
+
+        binding.btnSubscribePremium?.setOnClickListener {
+            monthlyProduct?.let { billingManager.launchBillingFlow(this, it) }
+                ?: Toast.makeText(this, "Prodotto non disponibile", Toast.LENGTH_SHORT).show()
         }
-        binding.btnSubscribePremium.setOnClickListener { subscribe("premium", "month") }
-        binding.btnSubscribePremiumAnnual.setOnClickListener { subscribe("premium", "year") }
-        binding.btnManage.setOnClickListener { openBillingPortal() }
+        binding.btnSubscribePremiumAnnual?.setOnClickListener {
+            annualProduct?.let { billingManager.launchBillingFlow(this, it) }
+                ?: Toast.makeText(this, "Prodotto non disponibile", Toast.LENGTH_SHORT).show()
+        }
+        binding.btnManage.setOnClickListener { syncSubscription() }
+
+        loadProducts()
+    }
+
+    private fun loadProducts() {
+        lifecycleScope.launch {
+            val connected = billingManager.connect()
+            if (!connected) return@launch
+            val products = billingManager.getProducts()
+            for (p in products) {
+                when (p.productId) {
+                    BillingManager.PRODUCT_MONTHLY -> monthlyProduct = p
+                    BillingManager.PRODUCT_ANNUAL -> annualProduct = p
+                }
+            }
+        }
+    }
+
+    private fun handlePurchase(purchase: Purchase) {
+        if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED) return
+        val productId = purchase.products.firstOrNull() ?: return
+        val plan = if (productId == BillingManager.PRODUCT_ANNUAL) "annual" else "monthly"
+        val interval = if (productId == BillingManager.PRODUCT_ANNUAL) "year" else "month"
+        lifecycleScope.launch {
+            try {
+                val resp = api.subscribe(SubscribeRequest(
+                    plan = "premium",
+                    billingPeriod = interval,
+                    purchaseToken = purchase.purchaseToken,
+                    productId = productId
+                ))
+                if (resp.isSuccessful) {
+                    billingManager.acknowledgePurchase(purchase.purchaseToken)
+                    startActivity(Intent(this@SubscriptionActivity, DashboardActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    })
+                } else {
+                    Toast.makeText(this@SubscriptionActivity, "Errore attivazione abbonamento", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@SubscriptionActivity, "Errore: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun syncSubscription() {
+        lifecycleScope.launch {
+            try {
+                val resp = api.syncSubscription()
+                if (resp.isSuccessful && (resp.body()?.subscriptionStatus == "active" || resp.body()?.subscriptionStatus == "trialing")) {
+                    startActivity(Intent(this@SubscriptionActivity, DashboardActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    })
+                }
+            } catch (_: Exception) {}
+        }
     }
 
     override fun onResume() {
@@ -50,39 +124,18 @@ class SubscriptionActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 try {
                     val resp = api.getMe()
-                    if (resp.isSuccessful && resp.body()?.hasActiveSubscription == true) {
-                        startActivity(Intent(this@SubscriptionActivity, DashboardActivity::class.java))
-                        finishAffinity()
+                    if (resp.isSuccessful && (resp.body()?.subscriptionStatus == "active" || resp.body()?.subscriptionStatus == "trialing")) {
+                        startActivity(Intent(this@SubscriptionActivity, DashboardActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        })
                     }
                 } catch (_: Exception) {}
             }
         }
     }
 
-    private fun subscribe(plan: String, period: String) {
-        binding.progressBar.visibility = View.VISIBLE
-        lifecycleScope.launch {
-            try {
-                val resp = api.subscribe(SubscribeRequest(plan, period))
-                if (resp.isSuccessful) {
-                    val url = resp.body()?.url
-                    if (url != null) startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                    else Toast.makeText(this@SubscriptionActivity, resp.body()?.error ?: "Errore", Toast.LENGTH_LONG).show()
-                }
-            } catch (e: Exception) { Toast.makeText(this@SubscriptionActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show() }
-            finally { binding.progressBar.visibility = View.GONE }
-        }
-    }
-
-    private fun openBillingPortal() {
-        binding.progressBar.visibility = View.VISIBLE
-        lifecycleScope.launch {
-            try {
-                val resp = api.getBillingPortal()
-                val url = resp.body()?.url
-                if (url != null) startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            } catch (e: Exception) { Toast.makeText(this@SubscriptionActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show() }
-            finally { binding.progressBar.visibility = View.GONE }
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        billingManager.disconnect()
     }
 }

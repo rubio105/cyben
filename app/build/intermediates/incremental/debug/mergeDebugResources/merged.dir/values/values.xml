@@ -2180,9 +2180,9 @@
     <string name="path_password_strike_through" translatable="false">M3.27,4.27 L19.74,20.74</string>
     <string name="plan_base_desc">Chat AI anti-phishing · 7 giorni gratis</string>
     <string name="plan_base_title">Piano Base — €11,90/anno</string>
-    <string name="plan_premium_annual_title">Piano Premium — €24,90/anno</string>
+    <string name="plan_premium_annual_title">Piano Premium — €49,99/anno</string>
     <string name="plan_premium_desc">VPN · SMS · Violazioni · SOS · Human on the Loop</string>
-    <string name="plan_premium_monthly_title">Piano Premium — €3,99/mese</string>
+    <string name="plan_premium_monthly_title">Piano Premium — €4,99/mese</string>
     <string name="privacy_accept">Accetto la Privacy Policy</string>
     <string name="project_id" translatable="false">cyben-defender</string>
     <string name="register">Registrati</string>

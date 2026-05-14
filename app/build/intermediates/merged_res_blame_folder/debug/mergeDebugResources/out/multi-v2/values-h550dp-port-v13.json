@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "eu.cyben.guard.app-mergeDebugResources-49:/values-h550dp-port-v13/values-h550dp-port-v13.xml",
+            "outputFile": "eu.cyben.guard.app-mergeDebugResources-50:/values-h550dp-port-v13/values-h550dp-port-v13.xml",
             "map": [
                 {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/5d3f4ebcb8572522519b4297b7ad3cde/transformed/material-1.11.0/res/values-h550dp-port-v13/values-h550dp-port-v13.xml",

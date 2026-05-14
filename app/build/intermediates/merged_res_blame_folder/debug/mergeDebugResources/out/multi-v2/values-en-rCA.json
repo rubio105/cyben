@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "eu.cyben.guard.app-mergeDebugResources-49:/values-en-rCA/values-en-rCA.xml",
+            "outputFile": "eu.cyben.guard.app-mergeDebugResources-50:/values-en-rCA/values-en-rCA.xml",
             "map": [
                 {
                     "source": "/Users/rubenguarnaccia/.gradle/caches/transforms-3/c3853bd5dc59e41fcadec42a19942b24/transformed/core-1.12.0/res/values-en-rCA/values-en-rCA.xml",
