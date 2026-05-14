@@ -10,7 +10,15 @@
         <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
             android:text="Storico analisi" android:textColor="@color/text_primary" android:textSize="20sp" android:textStyle="bold" android:gravity="center"/>
         <View android:layout_width="36dp" android:layout_height="36dp"/>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
+    </LinearLayout>
+    <ProgressBar android:id="@+id/progressHistory" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:visibility="gone" android:layout_gravity="center_horizontal" android:layout_marginTop="32dp"/>
+    <TextView android:id="@+id/tvEmpty" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="Nessuna analisi trovata" android:textColor="@color/text_secondary" android:textSize="16sp"
+        android:gravity="center" android:layout_marginTop="64dp" android:visibility="gone"/>
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHistory"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
         android:orientation="horizontal" android:background="@color/cyben_surface" android:elevation="8dp">
         <LinearLayout android:id="@+id/tabAnalizza" android:layout_width="0dp" android:layout_height="match_parent"
             android:layout_weight="1" android:orientation="vertical" android:gravity="center"
@@ -48,12 +56,4 @@
                 android:text="Impostazioni" android:textSize="9sp" android:textColor="@color/text_secondary"/>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
-    <ProgressBar android:id="@+id/progressHistory" android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:visibility="gone" android:layout_gravity="center_horizontal" android:layout_marginTop="32dp"/>
-    <TextView android:id="@+id/tvEmpty" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="Nessuna analisi trovata" android:textColor="@color/text_secondary" android:textSize="16sp"
-        android:gravity="center" android:layout_marginTop="64dp" android:visibility="gone"/>
-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHistory"
-        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.R
