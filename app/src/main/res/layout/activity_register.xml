@@ -96,6 +96,23 @@
                 android:background="@null" android:textSize="15sp"/>
         </LinearLayout>
 
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Lingua preferita" android:textColor="#80FFFFFF"
+            android:textSize="12sp" android:layout_marginBottom="8dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginBottom="20dp">
+            <TextView android:id="@+id/chipLangIT" android:layout_width="wrap_content" android:layout_height="40dp"
+                android:text="🇮🇹  Italiano" android:gravity="center" android:textSize="13sp"
+                android:textColor="#FFFFFF" android:background="@drawable/chip_lang_selected"
+                android:paddingLeft="20dp" android:paddingRight="20dp"
+                android:layout_marginEnd="10dp" android:clickable="true" android:focusable="true"/>
+            <TextView android:id="@+id/chipLangEN" android:layout_width="wrap_content" android:layout_height="40dp"
+                android:text="🇬🇧  English" android:gravity="center" android:textSize="13sp"
+                android:textColor="#99FFFFFF" android:background="@drawable/chip_lang_unselected"
+                android:paddingLeft="20dp" android:paddingRight="20dp"
+                android:clickable="true" android:focusable="true"/>
+        </LinearLayout>
+
         <CheckBox android:id="@+id/cbPrivacy" android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="Accetto la Privacy Policy *" android:textColor="#99FFFFFF"
             android:buttonTint="#00D4FF" android:textSize="13sp" android:layout_marginBottom="6dp"/>

@@ -27,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
     @Inject lateinit var tokenManager: TokenManager
     private lateinit var binding: ActivityRegisterBinding
     private var passwordVisible = false
+    private var selectedLanguage = "it"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +37,21 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener { finish() }
         binding.btnRegister.setOnClickListener { doRegister() }
         binding.btnTogglePwd.setOnClickListener { togglePassword() }
+        binding.chipLangIT.setOnClickListener { selectLanguage("it") }
+        binding.chipLangEN.setOnClickListener { selectLanguage("en") }
         binding.etPassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) { updateStrength(s.toString()) }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+    }
+
+    private fun selectLanguage(lang: String) {
+        selectedLanguage = lang
+        binding.chipLangIT.setBackgroundResource(if (lang == "it") R.drawable.chip_lang_selected else R.drawable.chip_lang_unselected)
+        binding.chipLangEN.setBackgroundResource(if (lang == "en") R.drawable.chip_lang_selected else R.drawable.chip_lang_unselected)
+        binding.chipLangIT.setTextColor(if (lang == "it") 0xFFFFFFFF.toInt() else 0x99FFFFFF.toInt())
+        binding.chipLangEN.setTextColor(if (lang == "en") 0xFFFFFFFF.toInt() else 0x99FFFFFF.toInt())
     }
 
     private fun togglePassword() {
@@ -90,7 +101,7 @@ class RegisterActivity : AppCompatActivity() {
         setLoading(true)
         lifecycleScope.launch {
             try {
-                val resp = api.register(RegisterRequest(name, email, password, binding.cbTerms.isChecked, binding.cbPrivacy.isChecked, binding.cbMarketing.isChecked))
+                val resp = api.register(RegisterRequest(name, email, password, binding.cbTerms.isChecked, binding.cbPrivacy.isChecked, binding.cbMarketing.isChecked, selectedLanguage))
                 if (resp.isSuccessful) {
                     val body = resp.body()
                     when {
