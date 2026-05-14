@@ -271,9 +271,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.tabVPN.setOnClickListener {
             startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
-        binding.tabStorico.setOnClickListener {
-            startActivity(Intent(this, AnalysisHistoryActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
-        }
         binding.tabImpostazioni.setOnClickListener { /* already here */ }
     }
 }

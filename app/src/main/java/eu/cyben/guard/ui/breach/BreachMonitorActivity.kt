@@ -160,9 +160,6 @@ class BreachMonitorActivity : AppCompatActivity() {
         binding.tabVPN.setOnClickListener {
             startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
-        binding.tabStorico.setOnClickListener {
-            startActivity(Intent(this, eu.cyben.guard.ui.analysis.AnalysisHistoryActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
-        }
         binding.tabImpostazioni.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }

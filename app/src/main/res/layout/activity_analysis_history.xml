@@ -42,13 +42,6 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="VPN" android:textSize="9sp" android:textColor="@color/text_secondary"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/tabStorico" android:layout_width="0dp" android:layout_height="match_parent"
-            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
-            android:clickable="true" android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128336;" android:textSize="18sp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Storico" android:textSize="9sp" android:textColor="@color/cyben_orange" android:textStyle="bold"/>
-        </LinearLayout>
         <LinearLayout android:id="@+id/tabImpostazioni" android:layout_width="0dp" android:layout_height="match_parent"
             android:layout_weight="1" android:orientation="vertical" android:gravity="center"
             android:clickable="true" android:focusable="true">
