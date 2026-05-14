@@ -116,8 +116,7 @@ class DashboardActivity : AppCompatActivity() {
         }
         binding.btnQuickNumber.setOnClickListener { showPhoneCheckDialog() }
         binding.btnQuickVoice.setOnClickListener {
-            if (currentUser?.isPremium == true) startActivity(Intent(this, VoiceActivity::class.java))
-            else showUpgradeDialog()
+            startActivity(Intent(this, VoiceActivity::class.java))
         }
     }
 
