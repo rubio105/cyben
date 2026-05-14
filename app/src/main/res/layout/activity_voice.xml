@@ -54,20 +54,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Chips section - always visible -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <!-- Suggested questions chips - shown live during session -->
+    <HorizontalScrollView android:id="@+id/scrollChips" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:scrollbars="none"
         android:paddingStart="12dp" android:paddingEnd="12dp"
-        android:paddingTop="10dp" android:paddingBottom="4dp">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="💡 Chiedi:" android:textColor="@color/text_secondary"
-            android:textSize="11sp" android:layout_marginBottom="6dp"/>
-        <HorizontalScrollView android:id="@+id/scrollChips" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:scrollbars="none">
-            <LinearLayout android:id="@+id/chipContainer" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:orientation="horizontal"/>
-        </HorizontalScrollView>
-    </LinearLayout>
+        android:paddingTop="8dp" android:paddingBottom="4dp"
+        android:visibility="gone">
+        <LinearLayout android:id="@+id/chipContainer" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:orientation="horizontal"/>
+    </HorizontalScrollView>
 
     <!-- Chat transcript -->
     <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvCyAgentChat"
@@ -75,29 +70,16 @@
         android:layout_weight="1" android:paddingTop="6dp" android:paddingBottom="6dp"
         android:clipToPadding="false"/>
 
-    <!-- Context + Controls panel -->
+    <!-- Controls panel -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="vertical" android:background="#131325"
         android:paddingStart="12dp" android:paddingEnd="12dp"
         android:paddingTop="8dp" android:paddingBottom="12dp">
 
-        <!-- Context label + input -->
+        <!-- Buttons row -->
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="horizontal" android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="📝" android:textSize="14sp" android:layout_marginEnd="6dp"/>
-            <EditText android:id="@+id/etContext" android:layout_width="0dp"
-                android:layout_height="wrap_content" android:layout_weight="1"
-                android:hint="Contesto della chiamata (opzionale)..."
-                android:textColor="@color/text_primary" android:textColorHint="@color/text_secondary"
-                android:background="@drawable/input_bg" android:inputType="textMultiLine"
-                android:maxLines="2" android:padding="10dp" android:textSize="13sp"/>
-        </LinearLayout>
-
-        <!-- Buttons row -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center_vertical">
 
             <!-- Avvia / Stop -->
             <LinearLayout android:id="@+id/btnAvvia" android:layout_width="0dp"
@@ -135,6 +117,15 @@
                     android:layout_height="wrap_content" android:text="&#127897;" android:textSize="22sp"/>
             </LinearLayout>
         </LinearLayout>
+
+        <!-- Context input - compact single line -->
+        <EditText android:id="@+id/etContext" android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Contesto (opzionale)..."
+            android:textColor="@color/text_primary" android:textColorHint="@color/text_secondary"
+            android:background="@drawable/input_bg" android:inputType="text"
+            android:maxLines="1" android:paddingStart="12dp" android:paddingEnd="12dp"
+            android:textSize="13sp" android:imeOptions="actionDone"/>
     </LinearLayout>
 
     <!-- Bottom nav -->
