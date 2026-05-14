@@ -44,7 +44,7 @@ class AnalysisHistoryActivity : AppCompatActivity() {
                     val analyses = resp.body() ?: emptyList()
                     if (analyses.isEmpty()) {
                         binding.tvEmpty.visibility = View.VISIBLE
-                        binding.rvHistory.visibility = View.GONE
+                        binding.rvHistory.visibility = View.INVISIBLE
                     } else {
                         binding.tvEmpty.visibility = View.GONE
                         binding.rvHistory.visibility = View.VISIBLE
