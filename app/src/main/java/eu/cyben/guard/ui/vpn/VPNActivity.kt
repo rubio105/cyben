@@ -31,6 +31,7 @@ class VPNActivity : AppCompatActivity() {
         binding.btnConnectVpn.setOnClickListener { if (connected) disconnect() else connect() }
         setupNav()
         loadCredentials()
+        loadDnsStats()
     }
 
     private fun loadCredentials() {
@@ -47,6 +48,24 @@ class VPNActivity : AppCompatActivity() {
                 }
             } catch (_: Exception) {}
             finally { binding.progressVpn.visibility = View.GONE }
+        }
+    }
+
+    private fun loadDnsStats() {
+        lifecycleScope.launch {
+            try {
+                val resp = api.getVPNDnsStats()
+                if (resp.isSuccessful) {
+                    val stats = resp.body() ?: return@launch
+                    binding.cardDnsStats.visibility = View.VISIBLE
+                    binding.tvDnsActive.text = if (stats.active) "Filtro attivo" else "Filtro inattivo"
+                    binding.tvDnsBlocked.text = "%,d".format(stats.blockedDomains)
+                    binding.tvDnsServer.text = stats.dnsServer
+                    if (!stats.lastUpdated.isNullOrBlank()) {
+                        binding.tvDnsLastUpdated.text = "Aggiornato: ${stats.lastUpdated}"
+                    }
+                }
+            } catch (_: Exception) {}
         }
     }
 

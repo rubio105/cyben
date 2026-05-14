@@ -47,6 +47,8 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.btnBack.setOnClickListener { finish() }
         binding.cardSubscription.setOnClickListener { startActivity(Intent(this, SubscriptionActivity::class.java)) }
+        binding.btnManageSub.setOnClickListener { openBillingPortal() }
+        binding.btnUpgradeSub.setOnClickListener { startActivity(Intent(this, SubscriptionActivity::class.java)) }
         binding.cardHistory.setOnClickListener { startActivity(Intent(this, AnalysisHistoryActivity::class.java)) }
         binding.cardProtection.setOnClickListener { showProtectionInfo() }
         binding.cardSos.setOnClickListener { showSOSDialog() }
@@ -250,6 +252,23 @@ class SettingsActivity : AppCompatActivity() {
                     finishAffinity()
                 } else Toast.makeText(this@SettingsActivity, "Errore eliminazione account", Toast.LENGTH_SHORT).show()
             } catch (_: Exception) { Toast.makeText(this@SettingsActivity, "Errore di rete", Toast.LENGTH_SHORT).show() }
+        }
+    }
+
+    private fun openBillingPortal() {
+        lifecycleScope.launch {
+            try {
+                val resp = api.getBillingPortal()
+                if (resp.isSuccessful) {
+                    val url = resp.body()?.url
+                    if (!url.isNullOrBlank()) openUrl(url)
+                    else Toast.makeText(this@SettingsActivity, "Portale non disponibile", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@SettingsActivity, "Errore portale abbonamento", Toast.LENGTH_SHORT).show()
+                }
+            } catch (_: Exception) {
+                Toast.makeText(this@SettingsActivity, "Errore di rete", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

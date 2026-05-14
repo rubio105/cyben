@@ -17,4 +17,6 @@
     <color name="black">#000000</color>
     <color name="surface_variant">#2A2A4A</color>
     <color name="text_tertiary">#707080</color>
+    <color name="cyben_cyan">#00D4FF</color>
+    <color name="cyben_blue_accent">#2979FF</color>
 </resources>
