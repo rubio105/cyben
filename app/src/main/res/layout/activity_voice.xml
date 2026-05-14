@@ -5,27 +5,60 @@
 
     <!-- Header -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
-        android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="16dp" android:paddingEnd="16dp"
         android:background="#131325">
-        <ImageButton android:id="@+id/btnBack" android:layout_width="36dp" android:layout_height="36dp"
-            android:src="@android:drawable/ic_media_previous"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/text_primary" android:layout_marginEnd="8dp"/>
+        <View android:layout_width="64dp" android:layout_height="36dp"/>
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:orientation="vertical">
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:gravity="center_vertical">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="CyAgent" android:textColor="@color/text_primary"
-                    android:textSize="18sp" android:textStyle="bold"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text=" BETA" android:textColor="@color/cyben_orange"
-                    android:textSize="10sp" android:textStyle="bold" android:layout_marginStart="4dp"/>
-            </LinearLayout>
-            <TextView android:id="@+id/tvSessionStatus" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="Pronto"
-                android:textColor="#66BB6A" android:textSize="11sp"/>
+            android:layout_weight="1" android:orientation="horizontal" android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="CYAGENT" android:textColor="@color/text_primary"
+                android:textSize="17sp" android:textStyle="bold"/>
         </LinearLayout>
+        <TextView android:id="@+id/btnBack" android:layout_width="64dp" android:layout_height="36dp"
+            android:text="Chiudi" android:textColor="#4DA6FF" android:textSize="14sp"
+            android:gravity="center" android:background="@drawable/chip_close_bg"
+            android:clickable="true" android:focusable="true"/>
+    </LinearLayout>
+
+    <!-- Status under header -->
+    <TextView android:id="@+id/tvSessionStatus" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Pronto"
+        android:textColor="#66BB6A" android:textSize="11sp"
+        android:gravity="center" android:paddingTop="4dp" android:paddingBottom="4dp"
+        android:visibility="gone"/>
+
+    <!-- Info card (hidden when session active) -->
+    <LinearLayout android:id="@+id/cardInfo" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="vertical"
+        android:background="@drawable/card_info_bg"
+        android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp" android:padding="16dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="🎙" android:textSize="26sp" android:layout_marginEnd="12dp"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical">
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Assistente anti-truffa" android:textColor="#FFFFFF"
+                        android:textSize="15sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text=" BETA" android:textColor="#66BB6A"
+                        android:textSize="10sp" android:textStyle="bold" android:layout_marginStart="6dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Avvia l'ascolto mentre la chiamata è in vivavoce. CyAgent trascrive e ti suggerisce in tempo reale le domande da fare."
+            android:textColor="#B0C8E0" android:textSize="13sp" android:lineSpacingMultiplier="1.3"
+            android:layout_marginBottom="8dp"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Lo storico analisi viene comunque aggiornato al termine della sessione."
+            android:textColor="#6080A0" android:textSize="11sp"/>
     </LinearLayout>
 
     <!-- Risk badge (shown during session) -->
@@ -34,8 +67,7 @@
         android:gravity="center_vertical" android:padding="14dp"
         android:background="@drawable/settings_card_bg"
         android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
-        android:layout_marginTop="10dp"
-        android:visibility="gone">
+        android:layout_marginTop="10dp" android:visibility="gone">
         <LinearLayout android:layout_width="60dp" android:layout_height="60dp"
             android:orientation="vertical" android:gravity="center"
             android:background="@drawable/icon_bg_blue" android:layout_marginEnd="14dp">
@@ -54,7 +86,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Suggested questions chips - shown live during session -->
+    <!-- Chips (live from AI, shown during session) -->
     <HorizontalScrollView android:id="@+id/scrollChips" android:layout_width="match_parent"
         android:layout_height="wrap_content" android:scrollbars="none"
         android:paddingStart="12dp" android:paddingEnd="12dp"
@@ -64,68 +96,89 @@
             android:layout_height="wrap_content" android:orientation="horizontal"/>
     </HorizontalScrollView>
 
-    <!-- Chat transcript -->
+    <!-- Chat results RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvCyAgentChat"
         android:layout_width="match_parent" android:layout_height="0dp"
         android:layout_weight="1" android:paddingTop="6dp" android:paddingBottom="6dp"
         android:clipToPadding="false"/>
 
-    <!-- Controls panel -->
+    <!-- Ascolto guidato card -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:background="#131325"
-        android:paddingStart="12dp" android:paddingEnd="12dp"
-        android:paddingTop="8dp" android:paddingBottom="12dp">
+        android:orientation="vertical" android:background="@drawable/settings_card_bg"
+        android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp" android:padding="14dp">
 
-        <!-- Buttons row -->
+        <!-- Title row -->
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="horizontal" android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="10dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="Ascolto guidato"
+                android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold"/>
+            <TextView android:id="@+id/tvTimer" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="02:00"
+                android:textColor="#4DA6FF" android:textSize="13sp" android:textStyle="bold"
+                android:background="@drawable/timer_bg" android:paddingStart="10dp"
+                android:paddingEnd="10dp" android:paddingTop="4dp" android:paddingBottom="4dp"
+                android:visibility="gone"/>
+        </LinearLayout>
 
-            <!-- Avvia / Stop -->
+        <!-- Live transcript -->
+        <TextView android:id="@+id/tvTranscript" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:minHeight="56dp"
+            android:text="Premi Start ascolto, metti la chiamata in vivavoce e lascia parlare il chiamante."
+            android:textColor="@color/text_secondary" android:textSize="13sp"
+            android:background="@drawable/input_bg" android:padding="12dp"
+            android:lineSpacingMultiplier="1.3" android:layout_marginBottom="12dp"/>
+
+        <!-- Buttons -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <LinearLayout android:id="@+id/btnAvvia" android:layout_width="0dp"
-                android:layout_height="52dp" android:layout_weight="1"
+                android:layout_height="50dp" android:layout_weight="1"
                 android:orientation="horizontal" android:gravity="center"
                 android:background="@drawable/btn_blue" android:layout_marginEnd="8dp"
                 android:clickable="true" android:focusable="true">
                 <TextView android:id="@+id/tvAvviaIcon" android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="&#9654;"
-                    android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginEnd="6dp"/>
+                    android:layout_height="wrap_content" android:text="&#127897;"
+                    android:textSize="16sp" android:layout_marginEnd="6dp"/>
                 <TextView android:id="@+id/tvAvviaLabel" android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="Avvia"
-                    android:textColor="#FFFFFF" android:textSize="15sp" android:textStyle="bold"/>
+                    android:layout_height="wrap_content" android:text="Start ascolto"
+                    android:textColor="#FFFFFF" android:textSize="14sp" android:textStyle="bold"/>
             </LinearLayout>
-
-            <!-- Analizza -->
             <LinearLayout android:id="@+id/btnAnalizza" android:layout_width="0dp"
-                android:layout_height="52dp" android:layout_weight="1"
+                android:layout_height="50dp" android:layout_weight="1"
                 android:orientation="horizontal" android:gravity="center"
-                android:background="@drawable/btn_dark_rounded" android:layout_marginEnd="8dp"
+                android:background="@drawable/btn_teal"
                 android:clickable="true" android:focusable="true">
                 <ProgressBar android:id="@+id/progressAnalisi" android:layout_width="18dp"
                     android:layout_height="18dp" android:visibility="gone" android:layout_marginEnd="6dp"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="&#128269; Analizza" android:textColor="@color/cyben_orange"
-                    android:textSize="13sp" android:textStyle="bold"/>
-            </LinearLayout>
-
-            <!-- Mic -->
-            <LinearLayout android:id="@+id/btnMic" android:layout_width="52dp"
-                android:layout_height="52dp" android:orientation="vertical" android:gravity="center"
-                android:background="@drawable/mic_button_bg"
-                android:clickable="true" android:focusable="true">
-                <TextView android:id="@+id/tvMicIcon" android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="&#127897;" android:textSize="22sp"/>
+                    android:text="⚡ Analizza" android:textColor="#FFFFFF"
+                    android:textSize="14sp" android:textStyle="bold"/>
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 
-        <!-- Context input - compact single line -->
+    <!-- Mini contesto card -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:background="@drawable/settings_card_bg"
+        android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp" android:layout_marginBottom="12dp" android:padding="14dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Mini contesto" android:textColor="@color/text_primary"
+            android:textSize="14sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Aggiungi informazioni utili che il microfono potrebbe non cogliere."
+            android:textColor="@color/text_secondary" android:textSize="12sp"
+            android:layout_marginBottom="8dp"/>
         <EditText android:id="@+id/etContext" android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="Contesto (opzionale)..."
+            android:layout_height="wrap_content"
+            android:hint="Es: mi hanno già chiamato ieri, dicono di essere la mia banca..."
             android:textColor="@color/text_primary" android:textColorHint="@color/text_secondary"
-            android:background="@drawable/input_bg" android:inputType="text"
-            android:maxLines="1" android:paddingStart="12dp" android:paddingEnd="12dp"
-            android:textSize="13sp" android:imeOptions="actionDone"/>
+            android:background="@drawable/input_bg" android:inputType="textMultiLine"
+            android:minLines="2" android:maxLines="4" android:padding="12dp"
+            android:textSize="13sp" android:gravity="top"/>
     </LinearLayout>
 
     <!-- Bottom nav -->
