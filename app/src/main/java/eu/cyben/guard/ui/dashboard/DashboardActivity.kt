@@ -131,6 +131,9 @@ class DashboardActivity : AppCompatActivity() {
                 startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
             else showUpgradeDialog()
         }
+        binding.tabStorico.setOnClickListener {
+            startActivity(Intent(this, eu.cyben.guard.ui.analysis.AnalysisHistoryActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
         binding.tabImpostazioni.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
@@ -256,19 +259,65 @@ class DashboardActivity : AppCompatActivity() {
                 val resp = api.checkPhone(PhoneCheckRequest(number))
                 if (resp.isSuccessful) {
                     val body = resp.body()
-                    val result = when {
-                        body?.isScam == true -> "ATTENZIONE: $number e sospetto. ${body.explanation ?: ""}"
-                        (body?.score ?: 100) < 50 -> "$number potrebbe essere sospetto. ${body?.explanation ?: ""}"
-                        else -> "$number sembra sicuro. ${body?.explanation ?: ""}"
+                    val score = body?.score ?: 100
+                    val isScam = body?.isScam == true || score < 40
+                    val riskLabel = when {
+                        isScam || score < 40 -> "TRUFFA"
+                        score < 70 -> "SOSPETTO"
+                        else -> "SICURO"
                     }
+                    val riskColor = when {
+                        isScam || score < 40 -> "#FF1744"
+                        score < 70 -> "#FF9800"
+                        else -> "#4CAF50"
+                    }
+                    val summary = "${body?.explanation ?: "Nessun dettaglio disponibile"}"
                     messages.add(ChatMessage("Verifica numero: $number", true))
-                    messages.add(ChatMessage(result, false))
+                    messages.add(ChatMessage("$riskLabel — Score: $score/100\n$summary", false))
                     adapter.notifyItemRangeInserted(messages.size - 2, 2)
                     binding.rvChat.scrollToPosition(messages.size - 1)
+                    showPhoneResultDialog(number, riskLabel, riskColor, score, body?.explanation)
                 }
             } catch (_: Exception) { Toast.makeText(this@DashboardActivity, "Errore verifica numero", Toast.LENGTH_SHORT).show() }
             finally { binding.progressTyping.visibility = View.GONE }
         }
+    }
+
+    private fun showPhoneResultDialog(number: String, label: String, colorHex: String, score: Int, explanation: String?) {
+        val container = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(56, 32, 56, 16)
+            gravity = android.view.Gravity.CENTER
+        }
+        val scoreView = android.widget.TextView(this).apply {
+            text = "$score"
+            textSize = 48f
+            setTypeface(null, android.graphics.Typeface.BOLD)
+            setTextColor(android.graphics.Color.parseColor(colorHex))
+            gravity = android.view.Gravity.CENTER
+        }
+        val labelView = android.widget.TextView(this).apply {
+            text = label
+            textSize = 20f
+            setTypeface(null, android.graphics.Typeface.BOLD)
+            setTextColor(android.graphics.Color.parseColor(colorHex))
+            gravity = android.view.Gravity.CENTER
+            setPadding(0, 4, 0, 12)
+        }
+        val descView = android.widget.TextView(this).apply {
+            text = explanation ?: "Nessun dettaglio disponibile"
+            textSize = 13f
+            setTextColor(android.graphics.Color.parseColor("#B0B0C0"))
+            gravity = android.view.Gravity.CENTER
+        }
+        container.addView(scoreView)
+        container.addView(labelView)
+        container.addView(descView)
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Verifica: $number")
+            .setView(container)
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     private fun startListening() {

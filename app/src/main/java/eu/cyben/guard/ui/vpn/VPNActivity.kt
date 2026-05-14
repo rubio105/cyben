@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.data.api.ApiService
+import eu.cyben.guard.ui.analysis.AnalysisHistoryActivity
 import eu.cyben.guard.databinding.ActivityVpnBinding
 import eu.cyben.guard.ui.dashboard.DashboardActivity
 import eu.cyben.guard.ui.breach.BreachMonitorActivity
@@ -87,6 +88,9 @@ class VPNActivity : AppCompatActivity() {
             startActivity(Intent(this, BreachMonitorActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
         binding.tabVPN.setOnClickListener { /* already here */ }
+        binding.tabStorico.setOnClickListener {
+            startActivity(Intent(this, eu.cyben.guard.ui.analysis.AnalysisHistoryActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
         binding.tabImpostazioni.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }

@@ -1,12 +1,19 @@
 package eu.cyben.guard.ui.settings
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.data.api.ApiService
@@ -21,6 +28,7 @@ import eu.cyben.guard.ui.breach.BreachMonitorActivity
 import eu.cyben.guard.ui.vpn.VPNActivity
 import eu.cyben.guard.ui.prohmed.ProhmedActivity
 import eu.cyben.guard.ui.subscription.SubscriptionActivity
+import eu.cyben.guard.utils.AppLockManager
 import eu.cyben.guard.utils.TokenManager
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,6 +39,7 @@ class SettingsActivity : AppCompatActivity() {
     @Inject lateinit var tokenManager: TokenManager
     private lateinit var binding: ActivitySettingsBinding
     private var currentUser: GuardUser? = null
+    private var nameEditVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +56,78 @@ class SettingsActivity : AppCompatActivity() {
         binding.rowTerms.setOnClickListener { openUrl("https://cyben.eu/terms") }
         binding.cardLogout.setOnClickListener { logout() }
         binding.btnProhmedConsult.setOnClickListener { startActivity(Intent(this, ProhmedActivity::class.java)) }
+        setupAppLock()
+        setupNameEdit()
+        checkNotifPermission()
         setupNav()
         loadUser()
+    }
+
+    private fun setupAppLock() {
+        val appLock = AppLockManager(this)
+        binding.switchAppLock.isChecked = appLock.isEnabled
+        binding.rowAppLock.setOnClickListener {
+            val newState = !binding.switchAppLock.isChecked
+            if (newState) {
+                val bm = BiometricManager.from(this)
+                if (bm.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK) != BiometricManager.BIOMETRIC_SUCCESS) {
+                    Toast.makeText(this, "Biometria non disponibile su questo dispositivo", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                val executor = ContextCompat.getMainExecutor(this)
+                val prompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationSucceeded(r: BiometricPrompt.AuthenticationResult) {
+                        appLock.isEnabled = true
+                        binding.switchAppLock.isChecked = true
+                        Toast.makeText(this@SettingsActivity, "App Lock attivato", Toast.LENGTH_SHORT).show()
+                    }
+                    override fun onAuthenticationError(code: Int, msg: CharSequence) {}
+                    override fun onAuthenticationFailed() {}
+                })
+                prompt.authenticate(BiometricPrompt.PromptInfo.Builder()
+                    .setTitle("Conferma identita'")
+                    .setSubtitle("Usa la biometria per attivare il blocco")
+                    .setNegativeButtonText("Annulla").build())
+            } else {
+                appLock.isEnabled = false
+                binding.switchAppLock.isChecked = false
+                Toast.makeText(this, "App Lock disattivato", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupNameEdit() {
+        binding.btnEditName.setOnClickListener {
+            nameEditVisible = !nameEditVisible
+            if (nameEditVisible) {
+                binding.etNameEdit.setText(binding.tvName.text)
+                binding.etNameEdit.visibility = View.VISIBLE
+                binding.etNameEdit.requestFocus()
+            } else {
+                val newName = binding.etNameEdit.text.toString().trim()
+                if (newName.isNotEmpty() && newName != binding.tvName.text.toString()) {
+                    binding.tvName.text = newName
+                    val initial = newName.firstOrNull()?.uppercaseChar()?.toString() ?: "?"
+                    binding.tvAvatar.text = initial
+                    Toast.makeText(this, "Nome aggiornato", Toast.LENGTH_SHORT).show()
+                }
+                binding.etNameEdit.visibility = View.GONE
+            }
+        }
+        binding.etNameEdit.setOnEditorActionListener { _, _, _ ->
+            binding.btnEditName.performClick(); true
+        }
+    }
+
+    private fun checkNotifPermission() {
+        val granted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        } else true
+        binding.tvNotifPermBadge.text = if (granted) "\u2714" else "!"
+        binding.tvNotifPermBadge.setBackgroundResource(
+            if (granted) eu.cyben.guard.R.drawable.circle_green else eu.cyben.guard.R.drawable.icon_bg_red
+        )
+        binding.tvNotifPermBadge.setTextColor(if (granted) android.graphics.Color.WHITE else android.graphics.Color.parseColor("#FF1744"))
     }
 
     private fun loadUser() {
@@ -62,12 +141,10 @@ class SettingsActivity : AppCompatActivity() {
                     binding.tvAvatar.text = initial
                     binding.tvName.text = user.name
                     binding.tvEmail.text = user.email
-                    binding.tvPlanBadge.text = "✦ ${user.planLabel}"
+                    binding.tvPlanBadge.text = "\u2736 ${user.planLabel}"
                     binding.tvSubTitle.text = "Piano ${user.planLabel}"
                     binding.tvSubDesc.text = if (user.isPremiumAnnual) "Tutte le funzioni Premium attive, incluso Health Prohmed" else "Tutte le funzioni Premium attive"
-                    if (user.isProhmedEnabled) {
-                        loadProhmedStatus()
-                    }
+                    if (user.isProhmedEnabled) loadProhmedStatus()
                 } else if (resp.code() == 401) logout()
             } catch (_: Exception) {}
         }
@@ -79,8 +156,8 @@ class SettingsActivity : AppCompatActivity() {
                 val resp = api.getProhmedStatus()
                 if (resp.isSuccessful) {
                     val status = resp.body() ?: return@launch
-                    binding.labelProhmed.visibility = android.view.View.VISIBLE
-                    binding.cardProhmed.visibility = android.view.View.VISIBLE
+                    binding.labelProhmed.visibility = View.VISIBLE
+                    binding.cardProhmed.visibility = View.VISIBLE
                     if (status.activated) {
                         binding.tvProhmedStatus.text = "Profilo attivo"
                         binding.tvProhmedEmail.text = status.email ?: ""
@@ -194,7 +271,9 @@ class SettingsActivity : AppCompatActivity() {
         binding.tabVPN.setOnClickListener {
             startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
+        binding.tabStorico.setOnClickListener {
+            startActivity(Intent(this, AnalysisHistoryActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
         binding.tabImpostazioni.setOnClickListener { /* already here */ }
     }
-
 }

@@ -64,6 +64,8 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.2")
     implementation("androidx.camera:camera-view:1.3.2")
     implementation("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation("androidx.biometric:biometric:1.1.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     testImplementation("junit:junit:4.13.2")
 }
 

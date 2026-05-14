@@ -109,7 +109,7 @@
         <EditText android:id="@+id/etMessage" android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1" android:hint="Incolla qui messaggio, email o link sospetto"
             android:textColor="@color/text_primary" android:textColorHint="@color/text_tertiary"
-            android:background="@null" android:inputType="textMultiLine" android:maxLines="4" android:padding="8dp"/>
+            android:background="@null" android:inputType="textMultiLine" android:minLines="3" android:maxLines="6" android:padding="8dp"/>
         <ImageButton android:id="@+id/btnMic" android:layout_width="38dp" android:layout_height="38dp"
             android:src="@android:drawable/ic_btn_speak_now"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -142,7 +142,14 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="VPN" android:textSize="9sp" android:textColor="@color/text_secondary"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/tabImpostazioni" android:layout_width="0dp" android:layout_height="match_parent"
+        <LinearLayout android:id="@+id/tabStorico" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:clickable="true" android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#128336;" android:textSize="18sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Storico" android:textSize="9sp" android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+                <LinearLayout android:id="@+id/tabImpostazioni" android:layout_width="0dp" android:layout_height="match_parent"
             android:layout_weight="1" android:orientation="vertical" android:gravity="center"
             android:clickable="true" android:focusable="true">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#9881;" android:textSize="18sp"/>

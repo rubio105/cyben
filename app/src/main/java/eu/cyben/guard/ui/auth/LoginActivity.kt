@@ -86,7 +86,29 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun goToDashboard() { startActivity(Intent(this, DashboardActivity::class.java)); finish() }
+    private fun goToDashboard() {
+        val appLock = eu.cyben.guard.utils.AppLockManager(this)
+        if (!appLock.isEnabled) {
+            startActivity(Intent(this, DashboardActivity::class.java)); finish(); return
+        }
+        val executor = ContextCompat.getMainExecutor(this)
+        val prompt = androidx.biometric.BiometricPrompt(this, executor, object : androidx.biometric.BiometricPrompt.AuthenticationCallback() {
+            override fun onAuthenticationSucceeded(r: androidx.biometric.BiometricPrompt.AuthenticationResult) {
+                startActivity(Intent(this@LoginActivity, DashboardActivity::class.java)); finish()
+            }
+            override fun onAuthenticationError(code: Int, msg: CharSequence) {
+                if (code != androidx.biometric.BiometricPrompt.ERROR_USER_CANCELED &&
+                    code != androidx.biometric.BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+                    Toast.makeText(this@LoginActivity, "Errore biometria: $msg", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onAuthenticationFailed() {}
+        })
+        prompt.authenticate(androidx.biometric.BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Sblocca CybenDefender")
+            .setSubtitle("Usa la biometria per accedere")
+            .setNegativeButtonText("Annulla").build())
+    }
     private fun setLoading(b: Boolean) {
         binding.progressBar.visibility = if (b) View.VISIBLE else View.GONE
         binding.btnLogin.isEnabled = !b

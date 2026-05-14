@@ -10,7 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import android.content.Intent
 import eu.cyben.guard.data.api.ApiService
+import eu.cyben.guard.ui.breach.BreachMonitorActivity
+import eu.cyben.guard.ui.dashboard.DashboardActivity
+import eu.cyben.guard.ui.settings.SettingsActivity
+import eu.cyben.guard.ui.vpn.VPNActivity
 import eu.cyben.guard.data.models.GuardAnalysis
 import eu.cyben.guard.databinding.ActivityAnalysisHistoryBinding
 import kotlinx.coroutines.launch
@@ -26,6 +31,7 @@ class AnalysisHistoryActivity : AppCompatActivity() {
         binding = ActivityAnalysisHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnBack.setOnClickListener { finish() }
+        setupNav()
         loadHistory()
     }
 
@@ -48,6 +54,22 @@ class AnalysisHistoryActivity : AppCompatActivity() {
                 }
             } catch (_: Exception) {}
             finally { binding.progressHistory.visibility = View.GONE }
+        }
+    }
+
+    private fun setupNav() {
+        binding.tabAnalizza.setOnClickListener {
+            startActivity(Intent(this, DashboardActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+        binding.tabViolazioni.setOnClickListener {
+            startActivity(Intent(this, BreachMonitorActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+        binding.tabVPN.setOnClickListener {
+            startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
+        binding.tabStorico.setOnClickListener { /* already here */ }
+        binding.tabImpostazioni.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
     }
 

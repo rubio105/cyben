@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.data.api.AddEmailRequest
+import com.bumptech.glide.Glide
 import eu.cyben.guard.data.api.ApiService
 import eu.cyben.guard.data.api.HibpCheckRequest
 import eu.cyben.guard.databinding.ActivityBreachMonitorBinding
@@ -159,6 +160,9 @@ class BreachMonitorActivity : AppCompatActivity() {
         binding.tabVPN.setOnClickListener {
             startActivity(Intent(this, VPNActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
+        binding.tabStorico.setOnClickListener {
+            startActivity(Intent(this, eu.cyben.guard.ui.analysis.AnalysisHistoryActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+        }
         binding.tabImpostazioni.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
@@ -166,7 +170,7 @@ class BreachMonitorActivity : AppCompatActivity() {
 
     inner class EmailAdapter(private val items: List<GuardMonitoredEmail>) :
         androidx.recyclerview.widget.RecyclerView.Adapter<EmailAdapter.VH>() {
-        inner class VH(val root: android.widget.LinearLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
+        inner class VH(val root: android.widget.LinearLayout, val ll: android.widget.LinearLayout, val logo: android.widget.ImageView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
         override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
             val ll = android.widget.LinearLayout(parent.context).apply {
                 orientation = android.widget.LinearLayout.HORIZONTAL
@@ -182,8 +186,15 @@ class BreachMonitorActivity : AppCompatActivity() {
         override fun getItemCount() = items.size
         override fun onBindViewHolder(holder: VH, position: Int) {
             val item = items[position]
-            val ll = holder.root
+            val ll = holder.ll
             ll.removeAllViews()
+            val domain = item.domain ?: (item.breachName?.lowercase()?.replace(" ", "") + ".com")
+            val logoUrl = "https://logo.clearbit.com/$domain"
+            Glide.with(ll.context).load(logoUrl)
+                .placeholder(eu.cyben.guard.R.drawable.icon_bg_red)
+                .error(eu.cyben.guard.R.drawable.icon_bg_red)
+                .circleCrop()
+                .into(holder.logo)
             val count = item.breachCount ?: 0
             val icon = android.widget.TextView(ll.context).apply {
                 text = if (count > 0) "⚠️" else "✔"
@@ -214,10 +225,10 @@ class BreachMonitorActivity : AppCompatActivity() {
 
     inner class AlertAdapter(private val items: List<GuardBreachAlert>) :
         androidx.recyclerview.widget.RecyclerView.Adapter<AlertAdapter.VH>() {
-        inner class VH(val root: android.widget.LinearLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
+        inner class VH(val root: android.widget.LinearLayout, val ll: android.widget.LinearLayout, val logo: android.widget.ImageView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
         override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
-            val ll = android.widget.LinearLayout(parent.context).apply {
-                orientation = android.widget.LinearLayout.VERTICAL
+            val outer = android.widget.LinearLayout(parent.context).apply {
+                orientation = android.widget.LinearLayout.HORIZONTAL
                 setPadding(40, 28, 40, 28)
                 val lp = android.view.ViewGroup.MarginLayoutParams(
                     android.view.ViewGroup.LayoutParams.MATCH_PARENT,
@@ -226,14 +237,36 @@ class BreachMonitorActivity : AppCompatActivity() {
                 lp.setMargins(0, 0, 0, 16)
                 layoutParams = lp
                 setBackgroundResource(eu.cyben.guard.R.drawable.settings_card_bg)
+                gravity = android.view.Gravity.START
             }
-            return VH(ll)
+            val logo = android.widget.ImageView(parent.context).apply {
+                id = android.view.View.generateViewId()
+                val lp = android.widget.LinearLayout.LayoutParams(80, 80)
+                lp.marginEnd = 24
+                layoutParams = lp
+                scaleType = android.widget.ImageView.ScaleType.FIT_CENTER
+                tag = "logo"
+            }
+            val ll = android.widget.LinearLayout(parent.context).apply {
+                orientation = android.widget.LinearLayout.VERTICAL
+                layoutParams = android.widget.LinearLayout.LayoutParams(0, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            }
+            outer.addView(logo)
+            outer.addView(ll)
+            return VH(outer, ll, logo)
         }
         override fun getItemCount() = items.size
         override fun onBindViewHolder(holder: VH, position: Int) {
             val item = items[position]
-            val ll = holder.root
+            val ll = holder.ll
             ll.removeAllViews()
+            val domain = item.domain ?: (item.breachName?.lowercase()?.replace(" ", "") + ".com")
+            val logoUrl = "https://logo.clearbit.com/$domain"
+            Glide.with(ll.context).load(logoUrl)
+                .placeholder(eu.cyben.guard.R.drawable.icon_bg_red)
+                .error(eu.cyben.guard.R.drawable.icon_bg_red)
+                .circleCrop()
+                .into(holder.logo)
             val tvName = android.widget.TextView(ll.context).apply {
                 text = "⚠️ " + (item.breachName ?: "Violazione sconosciuta")
                 setTextColor(0xFFFF5252.toInt())
