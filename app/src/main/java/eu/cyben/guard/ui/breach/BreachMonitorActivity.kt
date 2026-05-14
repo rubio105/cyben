@@ -257,7 +257,7 @@ class BreachMonitorActivity : AppCompatActivity() {
             val item = items[position]
             val ll = holder.ll
             ll.removeAllViews()
-            val domain = item.domain ?: (item.breachName?.lowercase()?.replace(" ", "") + ".com")
+            val domain = item.breachName?.lowercase()?.replace(" ", "") + ".com"
             val logoUrl = "https://logo.clearbit.com/$domain"
             Glide.with(ll.context).load(logoUrl)
                 .placeholder(eu.cyben.guard.R.drawable.icon_bg_red)
