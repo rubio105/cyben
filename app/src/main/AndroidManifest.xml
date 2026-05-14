@@ -52,6 +52,7 @@
         <activity android:name=".ui.voice.VoiceActivity" android:exported="false" />
         <activity android:name=".ui.prohmed.ProhmedActivity" android:exported="false" />
         <activity android:name=".ui.dashboard.QrScanActivity" android:exported="false" />
+        <activity android:name=".ui.dashboard.PhoneCheckActivity" android:exported="false" />
 
 
         <receiver android:name=".receiver.SmsReceiver" android:exported="true">

@@ -114,7 +114,7 @@ class DashboardActivity : AppCompatActivity() {
         binding.btnQuickQr.setOnClickListener {
             qrLauncher.launch(Intent(this, QrScanActivity::class.java))
         }
-        binding.btnQuickNumber.setOnClickListener { showPhoneCheckDialog() }
+        binding.btnQuickNumber.setOnClickListener { startActivity(Intent(this, PhoneCheckActivity::class.java)) }
         binding.btnQuickVoice.setOnClickListener {
             startActivity(Intent(this, VoiceActivity::class.java))
         }
