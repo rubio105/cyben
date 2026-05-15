@@ -24,7 +24,8 @@
         android:theme="@style/Theme.CybenGuard"
         android:usesCleartextTraffic="false">
 
-        <activity android:name=".ui.auth.LoginActivity" android:exported="true">
+        <activity android:name=".ui.auth.LoginActivity" android:exported="true"
+            android:theme="@style/Theme.CybenGuard.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
