@@ -42,12 +42,30 @@ jobs:
       - name: Post error as commit comment
         if: failure()
         run: |
-          TAIL=$(grep -E "^e:|error:|FAILURE|Exception" /tmp/gradle-build.log 2>/dev/null | head -30 || tail -40 /tmp/gradle-build.log)
-          curl -s -X POST \
-            -H "Authorization: Bearer ${{ github.token }}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/commits/${{ github.sha }}/comments" \
-            -d "$(python3 -c "import json,sys; print(json.dumps({'body': '### Build error\n\`\`\`\n' + open('/dev/stdin').read() + '\n\`\`\`'}))" <<< "$TAIL")"
+          TAIL=$(tail -80 /tmp/gradle-build.log 2>/dev/null || echo "log non trovato")
+          python3 - <<'PYEOF'
+import json, subprocess, urllib.request, os
+log = open('/tmp/gradle-build.log').read()[-4000:]
+body = f"### Build error\n```\n{log}\n```"
+data = json.dumps({"body": body}).encode()
+req = urllib.request.Request(
+    f"https://api.github.com/repos/{os.environ['REPO']}/commits/{os.environ['SHA']}/comments",
+    data=data,
+    method="POST",
+    headers={
+        "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+    }
+)
+try:
+    with urllib.request.urlopen(req) as r: print(f"Comment posted: {r.status}")
+except Exception as e: print(f"Failed: {e}")
+PYEOF
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
 
       - name: Upload AAB
         if: success()
