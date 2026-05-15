@@ -146,6 +146,7 @@ class SettingsActivity : AppCompatActivity() {
                     binding.tvPlanBadge.text = "\u2736 ${user.planLabel}"
                     binding.tvSubTitle.text = "Piano ${user.planLabel}"
                     binding.tvSubDesc.text = if (user.isPremiumAnnual) "Tutte le funzioni Premium attive, incluso Health Prohmed" else "Tutte le funzioni Premium attive"
+                    binding.btnUpgradeSub.visibility = if (user.isPremiumAnnual) View.GONE else View.VISIBLE
                     if (user.isProhmedEnabled) loadProhmedStatus()
                 } else if (resp.code() == 401) logout()
             } catch (_: Exception) {}
