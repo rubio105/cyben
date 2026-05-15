@@ -9,8 +9,8 @@ data class GuardUser(
 ) {
     val normalizedPlan: String get() = plan.trim().lowercase()
     val isPremium: Boolean get() = normalizedPlan == "premium"
-    val isPremiumMonthly: Boolean get() = isPremium && subscriptionInterval == "month"
-    val isPremiumAnnual: Boolean get() = isPremium && subscriptionInterval == "year"
+    val isPremiumMonthly: Boolean get() = isPremium && (subscriptionInterval == "month" || subscriptionInterval == "monthly")
+    val isPremiumAnnual: Boolean get() = isPremium && (subscriptionInterval == "year" || subscriptionInterval == "annual" || subscriptionInterval == "yearly")
     val isProhmedEnabled: Boolean get() = isPremiumAnnual
     val hasActiveSubscription: Boolean get() = isPremium && (subscriptionStatus == "active" || subscriptionStatus == "trialing")
     val planLabel: String get() = when {
