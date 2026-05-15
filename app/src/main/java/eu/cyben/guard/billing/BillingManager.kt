@@ -9,8 +9,8 @@ import kotlin.coroutines.resume
 class BillingManager(private val context: Context) {
 
     companion object {
-        const val PRODUCT_MONTHLY = "cyben_guard_monthly"
-        const val PRODUCT_ANNUAL = "cyben_guard_annual"
+        const val PRODUCT_MONTHLY = "cyben_premium_monthly"
+        const val PRODUCT_ANNUAL = "cyben_premium_yearly"
     }
 
     private var billingClient: BillingClient? = null

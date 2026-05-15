@@ -1,82 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:background="#0D0D1A">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
-        android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
-        <ImageButton android:id="@+id/btnBack" android:layout_width="36dp" android:layout_height="36dp"
-            android:src="@android:drawable/ic_media_previous" android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/text_primary" android:layout_marginEnd="8dp"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-            android:text="Abbonamento" android:textColor="@color/text_primary" android:textSize="20sp"
-            android:textStyle="bold" android:gravity="center"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0D0D1A">
+
+    <!-- Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_primary"
+            android:layout_marginEnd="8dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Abbonamento"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
         <View android:layout_width="36dp" android:layout_height="36dp"/>
     </LinearLayout>
-    <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:visibility="gone" android:layout_gravity="center_horizontal"/>
-    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:padding="16dp">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Scegli il tuo piano" android:textColor="@color/text_primary"
-                android:textSize="24sp" android:textStyle="bold" android:gravity="center"
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="32dp">
+
+            <!-- Hero header -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Scegli il tuo piano"
+                android:textColor="@color/text_primary"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="6dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Protezione completa per la tua identità digitale"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginBottom="28dp"/>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PIANO ANNUALE — In evidenza             -->
+            <!-- ═══════════════════════════════════════ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_annual"
+                android:padding="20dp"
+                android:layout_marginBottom="16dp">
+
+                <!-- Badge row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="14dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7 giorni gratis"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/badge_trial"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginEnd="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Più completo"
+                        android:textColor="#CE93D8"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/badge_purple"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"/>
+                </LinearLayout>
+
+                <!-- Title + price -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Premium Annuale"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"/>
+                <TextView
+                    android:id="@+id/tvAnnualPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="49,99 €/anno  ·  risparmia il 16%"
+                    android:textColor="#CE93D8"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="18dp"/>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#3D1A6E"
+                    android:layout_marginBottom="14dp"/>
+
+                <!-- Feature section: Monthly base -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROTEZIONE PREMIUM"
+                    android:textColor="#9E9EB0"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.12"
+                    android:layout_marginBottom="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Agente analisi phishing, smishing e QR" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  VPN con protezione navigazione" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Analisi violazioni email" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Verifica password compromesse" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Dashboard sicurezza e storico" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="14dp"/>
+
+                <!-- Feature section: Annual extras -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SOLO NELL'ANNUALE"
+                    android:textColor="#CE93D8"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.12"
+                    android:layout_marginBottom="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★  CYAGENT vocale anti-truffa" android:textColor="#CE93D8" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★  Analisi chiamate sospette" android:textColor="#CE93D8" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★  Suggerimenti live durante le chiamate" android:textColor="#CE93D8" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★  2 consulti con Medico Prohmed" android:textColor="#CE93D8" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★  Supporto Prohmed" android:textColor="#CE93D8" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="20dp"/>
+
+                <!-- CTA Annual -->
+                <Button
+                    android:id="@+id/btnSubscribePremiumAnnual"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Inizia 7 giorni gratis"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/btn_annual_gradient"
+                    android:stateListAnimator="@null"/>
+            </LinearLayout>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PIANO MENSILE                           -->
+            <!-- ═══════════════════════════════════════ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_monthly"
+                android:padding="20dp"
+                android:layout_marginBottom="12dp">
+
+                <!-- Title + price -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Premium Mensile"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"/>
+                <TextView
+                    android:id="@+id/tvMonthlyPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4,99 €/mese"
+                    android:textColor="@color/cyben_orange"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2A2A4A"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Agente analisi phishing, smishing e QR" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  VPN con protezione navigazione" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Analisi violazioni email" android:textColor="@color/text_secondary" android:layout_marginBottom="4dp" android:textSize="13sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Verifica password compromesse" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Dashboard sicurezza e storico" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="18dp"/>
+
+                <!-- CTA Monthly -->
+                <Button
+                    android:id="@+id/btnSubscribePremium"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Continua con Mensile"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/cyben_orange"
+                    android:stateListAnimator="@null"/>
+            </LinearLayout>
+
+            <!-- Note legali -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Il trial di 7 giorni si applica solo al piano Annuale. L'abbonamento si rinnova automaticamente. Puoi cancellare in qualsiasi momento dal tuo account Google Play."
+                android:textColor="@color/text_tertiary"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Protezione completa per te e la tua identita digitale"
-                android:textColor="@color/text_secondary" android:textSize="14sp"
-                android:gravity="center" android:layout_marginBottom="28dp"/>
-            <!-- Monthly -->
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:background="@drawable/settings_card_bg"
-                android:padding="18dp" android:layout_marginBottom="14dp">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="8dp">
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="Premium Mensile" android:textColor="@color/text_primary"
-                            android:textSize="18sp" android:textStyle="bold"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="4,99 €/mese" android:textColor="@color/cyben_orange" android:textSize="15sp"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Chat AI anti-phishing illimitata" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="3dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  VPN inclusa" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="3dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Analisi SMS e chiamate" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="3dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Monitoraggio violazioni" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="14dp"/>
-                <Button android:id="@+id/btnSubscribePremium" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:text="Scegli Mensile" android:backgroundTint="@color/cyben_orange" android:textColor="@color/white"/>
-            </LinearLayout>
-            <!-- Annual -->
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:background="@drawable/icon_bg_purple"
-                android:padding="18dp" android:layout_marginBottom="14dp">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="4dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="MIGLIORE OFFERTA" android:textColor="#E040FB"
-                        android:textSize="11sp" android:textStyle="bold" android:background="@drawable/badge_purple"
-                        android:paddingStart="8dp" android:paddingEnd="8dp" android:paddingTop="2dp" android:paddingBottom="2dp"
-                        android:layout_marginBottom="8dp"/>
-                </LinearLayout>
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="8dp">
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="Premium Annuale" android:textColor="@color/text_primary"
-                            android:textSize="18sp" android:textStyle="bold"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="49,99 €/anno  •  risparmia il 48%" android:textColor="#E040FB" android:textSize="15sp"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Tutto il piano Mensile" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="3dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Health Prohmed incluso" android:textColor="#E040FB" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="3dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Agente vocale CYAGENT" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="14dp"/>
-                <Button android:id="@+id/btnSubscribePremiumAnnual" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:text="Scegli Annuale" android:backgroundTint="#E040FB" android:textColor="@color/white"/>
-            </LinearLayout>
-            <Button android:id="@+id/btnManage" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Gestisci abbonamento" style="?attr/borderlessButtonStyle"
-                android:textColor="@color/text_secondary" android:layout_marginTop="8dp" android:visibility="gone"/>
+
+            <!-- Gestisci abbonamento -->
+            <Button
+                android:id="@+id/btnManage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hai già un abbonamento? Ripristina"
+                style="?attr/borderlessButtonStyle"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:visibility="gone"/>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
