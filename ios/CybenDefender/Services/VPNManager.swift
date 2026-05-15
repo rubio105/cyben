@@ -22,11 +22,19 @@ final class VPNManager: ObservableObject {
     }
 
     private func observeStatus() {
+        var wasConnecting = false
         statusObserver = NotificationCenter.default
             .publisher(for: .NEVPNStatusDidChange)
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
-                self?.status = self?.manager.connection.status ?? .disconnected
+                guard let self else { return }
+                let newStatus = self.manager.connection.status
+                if newStatus == .connecting { wasConnecting = true }
+                if wasConnecting && newStatus == .disconnected {
+                    wasConnecting = false
+                    self.lastError = "Connessione VPN fallita. Verifica che il server IKEv2 sia raggiungibile e che la capability Personal VPN sia abilitata nel provisioning profile."
+                }
+                self.status = newStatus
             }
     }
 
