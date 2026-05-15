@@ -28,23 +28,29 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release Bundle
+        id: build
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew bundleRelease --no-daemon --stacktrace 2>&1 | tee /tmp/gradle-build.log; exit ${PIPESTATUS[0]}
+        run: |
+          ./gradlew bundleRelease --no-daemon --stacktrace 2>&1 | tee /tmp/gradle-build.log
+          exit ${PIPESTATUS[0]}
 
-      - name: Upload build log (always)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gradle-build-log
-          path: /tmp/gradle-build.log
-          retention-days: 7
-
-      - name: Find AAB
-        run: find app/build/outputs -name "*.aab" 2>/dev/null || echo "Nessun AAB trovato"
+      - name: Post error as commit comment
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAIL=$(tail -80 /tmp/gradle-build.log | sed 's/`/\`/g')
+          BODY="### Build failed\n\`\`\`\n${TAIL}\n\`\`\`"
+          curl -s -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/commits/${{ github.sha }}/comments" \
+            -d "{\"body\": $(echo "$BODY" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')}"
 
       - name: Upload AAB
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: cyben-release-bundle
