@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.VpnManager
 import android.net.VpnProfileState
-import android.net.ipsec.ike.Ikev2VpnProfile
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -106,11 +105,19 @@ class VPNActivity : AppCompatActivity() {
     @androidx.annotation.RequiresApi(Build.VERSION_CODES.Q)
     private fun connectIkev2(username: String, password: String) {
         try {
-            val profile = Ikev2VpnProfile.Builder(VPN_SERVER, VPN_SERVER)
-                .setAuthUsernamePassword(username, password, null)
-                .build()
+            // Usiamo reflection per evitare dipendenze dal modulo android.ipsec al compile time
+            val builderClass = Class.forName("android.net.ipsec.ike.Ikev2VpnProfile\$Builder")
+            val builder = builderClass.getConstructor(String::class.java, String::class.java)
+                .newInstance(VPN_SERVER, VPN_SERVER)
+            builderClass.getMethod("setAuthUsernamePassword", String::class.java, String::class.java, java.security.cert.X509Certificate::class.java)
+                .invoke(builder, username, password, null)
+            val profile = builderClass.getMethod("build").invoke(builder)
+
             val vpnManager = getSystemService(VpnManager::class.java)
-            val consentIntent = vpnManager.provisionVpnProfile(profile)
+            val consentIntent = vpnManager.javaClass
+                .getMethod("provisionVpnProfile", Class.forName("android.net.ipsec.ike.Ikev2VpnProfile"))
+                .invoke(vpnManager, profile) as? Intent
+
             if (consentIntent != null) {
                 @Suppress("DEPRECATION")
                 startActivityForResult(consentIntent, REQ_VPN_CONSENT)
@@ -118,7 +125,7 @@ class VPNActivity : AppCompatActivity() {
                 startVpnProfile()
             }
         } catch (e: Exception) {
-            Toast.makeText(this, "Errore configurazione VPN: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Errore configurazione VPN: ${e.cause?.localizedMessage ?: e.localizedMessage}", Toast.LENGTH_LONG).show()
         }
     }
 
