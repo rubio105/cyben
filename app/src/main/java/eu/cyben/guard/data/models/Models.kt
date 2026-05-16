@@ -54,5 +54,4 @@ data class ImageAnalyzeRequest(val imageBase64: String, val mimeType: String = "
 data class PhoneCheckResponse(val isScam: Boolean?, val score: Int?, val explanation: String?, val error: String?)
 data class ChangePasswordRequest(val currentPassword: String, val newPassword: String)
 data class HibpCheckResponse(val found: Boolean?, val count: Int?, val error: String?)
-
 data class GoogleAuthRequest(val idToken: String)
