@@ -69,6 +69,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.android.billingclient:billing-ktx:7.0.0")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
     testImplementation("junit:junit:4.13.2")
 }
 
