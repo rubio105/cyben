@@ -35,6 +35,7 @@ interface ApiService {
     @POST("/api/guard/prohmed/consult") suspend fun consultProhmed(@Body body: ProhmedConsultRequest): Response<ProhmedConsultResponse>
     @GET("/api/guard/prohmed/consults") suspend fun getProhmedConsults(): Response<List<ProhmedConsult>>
     @POST("/api/guard/partner-codes/validate") suspend fun validatePartnerCode(@Body body: ValidatePartnerCodeRequest): Response<ValidatePartnerCodeResponse>
+    @POST("/api/guard/auth/google") suspend fun googleLogin(@Body body: GoogleAuthRequest): Response<GuardAuthResponse>
 }
 
 data class RegisterRequest(val name: String, val email: String, val password: String, val termsAccepted: Boolean, val privacyAccepted: Boolean, val marketingConsent: Boolean, val preferredLanguage: String = java.util.Locale.getDefault().language, val partnerCode: String? = null)
@@ -52,3 +53,4 @@ data class SOSRequest(val description: String, val incidentType: String = "other
 data class PhoneCheckRequest(val number: String)
 data class VerifyEmailRequest(val email: String, val code: String)
 data class HibpCheckRequest(val password: String)
+data class GoogleAuthRequest(val idToken: String)

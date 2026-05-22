@@ -68,6 +68,7 @@ dependencies {
     implementation("androidx.biometric:biometric:1.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.android.billingclient:billing-ktx:7.0.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     testImplementation("junit:junit:4.13.2")
 }
 
