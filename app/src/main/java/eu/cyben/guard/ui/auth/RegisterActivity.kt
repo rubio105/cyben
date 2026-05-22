@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.R
 import eu.cyben.guard.data.api.ApiService
 import eu.cyben.guard.data.api.RegisterRequest
+import eu.cyben.guard.data.api.ValidatePartnerCodeRequest
 import eu.cyben.guard.databinding.ActivityRegisterBinding
 import eu.cyben.guard.ui.dashboard.DashboardActivity
 import eu.cyben.guard.utils.TokenManager
@@ -28,6 +29,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private var passwordVisible = false
     private var selectedLanguage = "it"
+    private var partnerCodeValid = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,15 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnTogglePwd.setOnClickListener { togglePassword() }
         binding.chipLangIT.setOnClickListener { selectLanguage("it") }
         binding.chipLangEN.setOnClickListener { selectLanguage("en") }
+        binding.btnVerifyCode.setOnClickListener { verifyPartnerCode() }
+        binding.etPartnerCode.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                partnerCodeValid = false
+                binding.tvPartnerCodeStatus.visibility = View.GONE
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
         binding.etPassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) { updateStrength(s.toString()) }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -87,11 +98,44 @@ class RegisterActivity : AppCompatActivity() {
         binding.tvPasswordStrength.setTextColor(Color.parseColor(hex))
     }
 
+    private fun verifyPartnerCode() {
+        val code = binding.etPartnerCode.text.toString().trim()
+        if (code.isEmpty()) return
+        binding.btnVerifyCode.isEnabled = false
+        binding.tvPartnerCodeStatus.visibility = View.GONE
+        lifecycleScope.launch {
+            try {
+                val resp = api.validatePartnerCode(ValidatePartnerCodeRequest(code))
+                if (resp.isSuccessful && resp.body()?.ok == true) {
+                    val body = resp.body()!!
+                    val planLabel = if (body.plan == "premium") "Premium" else "Basic"
+                    val intervalLabel = if (body.interval == "monthly") "1 mese" else "12 mesi"
+                    partnerCodeValid = true
+                    binding.tvPartnerCodeStatus.text = "✓ Codice valido — Piano $planLabel per $intervalLabel"
+                    binding.tvPartnerCodeStatus.setTextColor(Color.parseColor("#44BB44"))
+                } else {
+                    partnerCodeValid = false
+                    binding.tvPartnerCodeStatus.text = "✗ Codice non valido o scaduto"
+                    binding.tvPartnerCodeStatus.setTextColor(Color.parseColor("#FF4444"))
+                }
+                binding.tvPartnerCodeStatus.visibility = View.VISIBLE
+            } catch (e: Exception) {
+                partnerCodeValid = false
+                binding.tvPartnerCodeStatus.text = "✗ Errore di rete"
+                binding.tvPartnerCodeStatus.setTextColor(Color.parseColor("#FF4444"))
+                binding.tvPartnerCodeStatus.visibility = View.VISIBLE
+            } finally {
+                binding.btnVerifyCode.isEnabled = true
+            }
+        }
+    }
+
     private fun doRegister() {
         val name = binding.etName.text.toString().trim()
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString()
         val confirm = binding.etConfirmPassword.text.toString()
+        val partnerCode = binding.etPartnerCode.text.toString().trim().takeIf { it.isNotEmpty() }
         if (name.isEmpty()) { binding.etName.error = "Campo obbligatorio"; return }
         if (email.isEmpty()) { binding.etEmail.error = "Campo obbligatorio"; return }
         if (password.length < 8) { binding.etPassword.error = "Minimo 8 caratteri"; return }
@@ -101,7 +145,7 @@ class RegisterActivity : AppCompatActivity() {
         setLoading(true)
         lifecycleScope.launch {
             try {
-                val resp = api.register(RegisterRequest(name, email, password, binding.cbTerms.isChecked, binding.cbPrivacy.isChecked, binding.cbMarketing.isChecked, selectedLanguage))
+                val resp = api.register(RegisterRequest(name, email, password, binding.cbTerms.isChecked, binding.cbPrivacy.isChecked, binding.cbMarketing.isChecked, selectedLanguage, partnerCode))
                 if (resp.isSuccessful) {
                     val body = resp.body()
                     when {

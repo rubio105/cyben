@@ -113,6 +113,25 @@
                 android:clickable="true" android:focusable="true"/>
         </LinearLayout>
 
+        <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+            android:background="@drawable/bg_field" android:orientation="horizontal"
+            android:gravity="center_vertical" android:paddingLeft="16dp" android:paddingRight="8dp"
+            android:layout_marginBottom="6dp">
+            <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                android:src="@drawable/ic_key" android:alpha="0.45" android:layout_marginEnd="12dp"/>
+            <EditText android:id="@+id/etPartnerCode" android:layout_width="0dp" android:layout_height="match_parent"
+                android:layout_weight="1" android:hint="Codice partner (facoltativo)" android:textColorHint="#73FFFFFF"
+                android:textColor="#FFFFFF" android:inputType="textCapCharacters|textNoSuggestions"
+                android:background="@null" android:textSize="15sp"/>
+            <Button android:id="@+id/btnVerifyCode" android:layout_width="wrap_content" android:layout_height="36dp"
+                android:text="Verifica" android:textSize="12sp" android:textColor="#00D4FF"
+                android:background="@null" android:paddingLeft="8dp" android:paddingRight="8dp"/>
+        </LinearLayout>
+
+        <TextView android:id="@+id/tvPartnerCodeStatus" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:textSize="11sp"
+            android:layout_marginBottom="16dp" android:visibility="gone"/>
+
         <CheckBox android:id="@+id/cbPrivacy" android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="Accetto la Privacy Policy *" android:textColor="#99FFFFFF"
             android:buttonTint="#00D4FF" android:textSize="13sp" android:layout_marginBottom="6dp"/>
