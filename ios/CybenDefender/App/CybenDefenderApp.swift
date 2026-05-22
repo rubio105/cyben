@@ -2,13 +2,17 @@ import SwiftUI
 import UserNotifications
 import OneSignalFramework
 
-// MARK: - App Delegate (handles APNs token registration)
+// MARK: - App Delegate
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
         OneSignal.initialize("31270916-7dbe-4d64-817f-cbb7aa808060", withLaunchOptions: launchOptions)
+        // Lascia gestire a OneSignal la richiesta permesso e la registrazione APNs
+        OneSignal.Notifications.requestPermission({ accepted in
+            print("[OneSignal] Permesso notifiche: \(accepted)")
+        }, fallbackToSettings: true)
         return true
     }
 
@@ -17,7 +21,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         UserDefaults.standard.set(token, forKey: "apns_device_token")
         NotificationService.shared.deviceToken = token
-        // Upload token to backend (fire-and-forget)
         Task { await NotificationService.shared.registerTokenIfNeeded() }
     }
 
@@ -26,14 +29,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         print("[Cyben] APNs registration failed: \(error.localizedDescription)")
     }
 
-    // Handle notification shown while app is in foreground
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .badge, .sound])
     }
 
-    // Handle notification tap
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -49,34 +50,16 @@ final class NotificationService: ObservableObject {
     @Published var permissionStatus: UNAuthorizationStatus = .notDetermined
     var deviceToken: String?
 
-    /// Requests notification permission from the user.
-    /// Only shows the system dialog once; subsequently respects the user's choice.
     @MainActor
     func requestPermission() async {
         let center = UNUserNotificationCenter.current()
         let current = await center.notificationSettings()
-
         await MainActor.run { permissionStatus = current.authorizationStatus }
-
-        if current.authorizationStatus == .notDetermined {
-            do {
-                let granted = try await center.requestAuthorization(options: [.alert, .badge, .sound])
-                let updated = await center.notificationSettings()
-                await MainActor.run { permissionStatus = updated.authorizationStatus }
-                if granted {
-                    await UIApplication.shared.registerForRemoteNotifications()
-                    OneSignal.Notifications.requestPermission({ _ in }, fallbackToSettings: false)
-                }
-            } catch {
-                print("[Cyben] Notification permission error: \(error)")
-            }
-        } else if current.authorizationStatus == .authorized {
-            // Already authorized — ensure remote registration is active
+        if current.authorizationStatus == .authorized {
             await UIApplication.shared.registerForRemoteNotifications()
         }
     }
 
-    /// Upload device token to backend so server can send APNs pushes.
     func registerTokenIfNeeded() async {
         guard let token = deviceToken ?? UserDefaults.standard.string(forKey: "apns_device_token"),
               KeychainService.shared.load(for: "guard_token") != nil else { return }
@@ -92,13 +75,11 @@ final class NotificationService: ObservableObject {
         }
     }
 
-    /// Schedules a local notification (used for security alerts).
     func scheduleLocalNotification(title: String, body: String, identifier: String = UUID().uuidString) {
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
         content.sound = .default
-
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
@@ -113,7 +94,6 @@ struct CybenGuardApp: App {
     @StateObject private var vpnManager = VPNManager.shared
     @StateObject private var notificationService = NotificationService.shared
     @StateObject private var storeKitManager = StoreKitManager.shared
-    // Prevents double-initialization when both .task and onChange fire for the same session
     @State private var storeKitInitialized = false
 
     var body: some Scene {
@@ -133,34 +113,22 @@ struct CybenGuardApp: App {
             }
             .animation(.easeInOut(duration: 0.3), value: authState.isAuthenticated)
             .onChange(of: authState.isAuthenticated) { isAuth in
-                if isAuth {
-                    initializeStoreKit()
-                } else {
+                if isAuth { initializeStoreKit() } else {
                     storeKitInitialized = false
                     storeKitManager.stopListening()
                 }
             }
-            // Handles cold launch when session is already restored from Keychain
-            .task {
-                if authState.isAuthenticated {
-                    initializeStoreKit()
-                }
-            }
+            .task { if authState.isAuthenticated { initializeStoreKit() } }
         }
     }
 
     private func initializeStoreKit() {
-        guard !storeKitInitialized else {
-            print("[App] StoreKit già inizializzato — skip")
-            return
-        }
+        guard !storeKitInitialized else { return }
         storeKitInitialized = true
         storeKitManager.startListening(authState: authState)
         Task {
             await storeKitManager.loadProducts()
             await storeKitManager.restorePurchases(authState: authState)
-            try? await Task.sleep(nanoseconds: 1_500_000_000)
-            await NotificationService.shared.requestPermission()
         }
     }
 }
@@ -190,12 +158,8 @@ final class AuthState: ObservableObject {
     init() {
         isAuthenticated = KeychainService.shared.load(for: "guard_token") != nil
         restoreUser()
-        // If already authenticated on launch, request permission after a delay
         if isAuthenticated {
-            Task {
-                try? await Task.sleep(nanoseconds: 2_000_000_000)
-                await NotificationService.shared.requestPermission()
-            }
+            Task { await NotificationService.shared.requestPermission() }
         }
     }
 
@@ -216,14 +180,10 @@ final class AuthState: ObservableObject {
         saveUser(user)
         currentUser = user
         isAuthenticated = true
-        // Upload APNs token to backend (now that JWT auth is ready)
         Task { await NotificationService.shared.registerTokenIfNeeded() }
     }
 
-    func updateUser(_ user: GuardUser) {
-        saveUser(user)
-        currentUser = user
-    }
+    func updateUser(_ user: GuardUser) { saveUser(user); currentUser = user }
 
     private func saveUser(_ user: GuardUser) {
         KeychainService.shared.save(String(user.id), for: "guard_userId")
