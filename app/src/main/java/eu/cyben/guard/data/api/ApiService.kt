@@ -34,9 +34,12 @@ interface ApiService {
     @POST("/api/guard/prohmed/activate") suspend fun activateProhmed(@Body body: ProhmedActivateRequest): Response<ProhmedActivateResponse>
     @POST("/api/guard/prohmed/consult") suspend fun consultProhmed(@Body body: ProhmedConsultRequest): Response<ProhmedConsultResponse>
     @GET("/api/guard/prohmed/consults") suspend fun getProhmedConsults(): Response<List<ProhmedConsult>>
+    @POST("/api/guard/partner-codes/validate") suspend fun validatePartnerCode(@Body body: ValidatePartnerCodeRequest): Response<ValidatePartnerCodeResponse>
 }
 
-data class RegisterRequest(val name: String, val email: String, val password: String, val termsAccepted: Boolean, val privacyAccepted: Boolean, val marketingConsent: Boolean, val preferredLanguage: String = java.util.Locale.getDefault().language)
+data class RegisterRequest(val name: String, val email: String, val password: String, val termsAccepted: Boolean, val privacyAccepted: Boolean, val marketingConsent: Boolean, val preferredLanguage: String = java.util.Locale.getDefault().language, val partnerCode: String? = null)
+data class ValidatePartnerCodeRequest(val code: String)
+data class ValidatePartnerCodeResponse(val ok: Boolean, val plan: String?, val interval: String?)
 data class LoginRequest(val email: String, val password: String)
 data class EmailRequest(val email: String)
 data class OkResponse(val ok: Boolean?)
