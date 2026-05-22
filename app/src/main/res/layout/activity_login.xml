@@ -14,7 +14,7 @@
         </FrameLayout>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Cyben Guard" android:textColor="#FFFFFF"
+            android:text="Cyben Defender" android:textColor="#FFFFFF"
             android:textSize="28sp" android:textStyle="bold" android:layout_marginBottom="6dp"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="La tua guardia digitale personale" android:textColor="#8CFFFFFF"
@@ -51,6 +51,24 @@
             android:text="Accedi" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="16sp"
             android:background="@drawable/bg_button_gradient" android:layout_marginBottom="16dp"/>
 
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="12dp">
+            <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:background="#33FFFFFF"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="  oppure  " android:textColor="#66FFFFFF" android:textSize="12sp"/>
+            <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:background="#33FFFFFF"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/btnGoogleSignIn"
+            android:layout_width="match_parent" android:layout_height="52dp"
+            android:background="@drawable/bg_field" android:orientation="horizontal"
+            android:gravity="center" android:layout_marginBottom="16dp"
+            android:clickable="true" android:focusable="true">
+            <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                android:src="@drawable/ic_google" android:layout_marginEnd="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Continua con Google" android:textColor="#FFFFFF" android:textSize="15sp"/>
+        </LinearLayout>
         <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:visibility="gone"
             android:indeterminateTint="#00D4FF" android:layout_marginBottom="8dp"/>

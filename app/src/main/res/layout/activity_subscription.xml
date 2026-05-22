@@ -25,6 +25,17 @@
                 android:text="Protezione completa per te e la tua identita digitale"
                 android:textColor="@color/text_secondary" android:textSize="14sp"
                 android:gravity="center" android:layout_marginBottom="28dp"/>
+            <!-- Trial Banner -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="#1A472A" android:padding="12dp" android:gravity="center"
+                android:layout_marginBottom="20dp" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="PROVA GRATUITA 7 GIORNI" android:textColor="#4CAF50"
+                    android:textSize="16sp" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Solo sul piano Annuale - Nessun addebito per 7 giorni"
+                    android:textColor="#A5D6A7" android:textSize="12sp" android:layout_marginTop="2dp"/>
+            </LinearLayout>
             <!-- Monthly -->
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical" android:background="@drawable/settings_card_bg"
@@ -72,7 +83,7 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Health Prohmed incluso" android:textColor="#E040FB" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="3dp"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✓  Agente vocale CYAGENT" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginBottom="14dp"/>
                 <Button android:id="@+id/btnSubscribePremiumAnnual" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:text="Scegli Annuale" android:backgroundTint="#E040FB" android:textColor="@color/white"/>
+                    android:text="Inizia 7 giorni gratuiti" android:backgroundTint="#E040FB" android:textColor="@color/white"/>
             </LinearLayout>
             <Button android:id="@+id/btnManage" android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:text="Gestisci abbonamento" style="?attr/borderlessButtonStyle"

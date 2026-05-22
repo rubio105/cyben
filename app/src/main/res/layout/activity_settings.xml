@@ -102,6 +102,7 @@
                         android:layout_weight="1" android:text="Aggiorna piano"
                         android:textColor="@color/white" android:textSize="13sp" android:gravity="center"
                         android:background="@drawable/btn_blue"
+        android:visibility="gone"
                         android:clickable="true" android:focusable="true"/>
                 </LinearLayout>
             </LinearLayout>
@@ -265,9 +266,9 @@
         <LinearLayout android:id="@+id/tabImpostazioni" android:layout_width="0dp" android:layout_height="match_parent"
             android:layout_weight="1" android:orientation="vertical" android:gravity="center"
             android:clickable="true" android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&#9881;" android:textSize="18sp"/>
+            <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_settings"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Impostazioni" android:textSize="9sp" android:textColor="@color/cyben_orange" android:textStyle="bold"/>
+                android:text="Impostazioni" android:textSize="9sp" android:textColor="@color/text_secondary"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

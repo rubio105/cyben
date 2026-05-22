@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:background="#1C2236" android:padding="20dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="20dp">
+        <TextView android:layout_width="52dp" android:layout_height="52dp"
+            android:text="&#128680;" android:textSize="26sp" android:gravity="center"
+            android:background="@drawable/icon_bg_red" android:layout_marginEnd="14dp"/>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="SOS Incidente Critico" android:textColor="#FFFFFF"
+                android:textSize="18sp" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Un esperto risponde entro 4 ore" android:textColor="#9AA0B8" android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="TIPO INCIDENTE" android:textColor="#9AA0B8" android:textSize="11sp" android:layout_marginBottom="8dp"/>
+    <Spinner android:id="@+id/spinnerIncidentType" android:layout_width="match_parent"
+        android:layout_height="52dp" android:background="@drawable/input_bg"
+        android:paddingStart="14dp" android:paddingEnd="14dp" android:layout_marginBottom="16dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="DESCRIZIONE DETTAGLIATA" android:textColor="#9AA0B8" android:textSize="11sp" android:layout_marginBottom="8dp"/>
+    <EditText android:id="@+id/etSosDesc" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descrivi cosa e' successo con quanti piu' dettagli possibile..."
+        android:textColor="#FFFFFF" android:textColorHint="#4A4A6A"
+        android:background="@drawable/input_bg" android:padding="14dp"
+        android:inputType="textMultiLine" android:minLines="5" android:maxLines="8"
+        android:layout_marginBottom="16dp"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:background="@drawable/settings_card_bg" android:padding="14dp">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Alta urgenza" android:textColor="#FFFFFF" android:textSize="14sp" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Attivare per minacce immediate" android:textColor="#9AA0B8" android:textSize="11sp"/>
+        </LinearLayout>
+        <Switch android:id="@+id/switchUrgency" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:thumbTint="#FF6B35" android:trackTint="#3A2A1A"/>
+    </LinearLayout>
+</LinearLayout>

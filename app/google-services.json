@@ -4,14 +4,89 @@
     "project_id": "cyben-defender",
     "storage_bucket": "cyben-defender.firebasestorage.app"
   },
-  "client": [{
-    "client_info": {
-      "mobilesdk_app_id": "1:743094303265:android:03dc48c4164bb5ac760160",
-      "android_client_info": { "package_name": "eu.cyben.guard" }
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743094303265:android:03dc48c4164bb5ac760160",
+        "android_client_info": {
+          "package_name": "eu.cyben.guard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743094303265-vkm5eq77h65tj85jepfga3oiinasonse.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.cyben.guard",
+            "certificate_hash": "df6432668e75b4c5fc259be68786188e90478def"
+          }
+        },
+        {
+          "client_id": "743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3eFCtXVQAN9Jmv8ia1e-rjJ2kf5FCxPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     },
-    "oauth_client": [],
-    "api_key": [{ "current_key": "AIzaSyB3eFCtXVQAN9Jmv8ia1e-rjJ2kf5FCxPE" }],
-    "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
-  }],
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743094303265:android:fcd74912b919240f760160",
+        "android_client_info": {
+          "package_name": "eu.cyben.guard.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743094303265-7c572kdsr3eao68tpsbdfu06v202b6it.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.cyben.guard.android",
+            "certificate_hash": "db9965185f76781ca09c2e96013f3506154d8ea7"
+          }
+        },
+        {
+          "client_id": "743094303265-jcg4vudbkll947ef38186nbffl9aq1hb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.cyben.guard.android",
+            "certificate_hash": "df6432668e75b4c5fc259be68786188e90478def"
+          }
+        },
+        {
+          "client_id": "743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3eFCtXVQAN9Jmv8ia1e-rjJ2kf5FCxPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
   "configuration_version": "1"
 }

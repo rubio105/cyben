@@ -1,4 +1,5 @@
 package eu.cyben.guard.ui.dashboard
+import androidx.activity.result.PickVisualMediaRequest
 
 import android.Manifest
 import android.app.Activity
@@ -56,7 +57,7 @@ class DashboardActivity : AppCompatActivity() {
     private var dailyUsed = 0
     private var dailyLimit = 10
 
-    private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         uri?.let { analyzeImageUri(it) }
     }
 
@@ -108,7 +109,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setupQuickActions() {
         binding.btnQuickImage.setOnClickListener {
-            if (currentUser?.isPremium == true) imagePickerLauncher.launch("image/*")
+            if (currentUser?.isPremium == true) imagePickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             else showUpgradeDialog()
         }
         binding.btnQuickQr.setOnClickListener {

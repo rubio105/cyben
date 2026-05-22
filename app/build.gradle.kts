@@ -10,11 +10,11 @@ android {
     namespace = "eu.cyben.guard"
     compileSdk = 35
     defaultConfig {
-        applicationId = "eu.cyben.guard"
+        applicationId = "eu.cyben.guard.android"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.3.0"
+        versionCode = 18
+        versionName = "1.4.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://cyben.eu\"")
     }
@@ -67,6 +67,7 @@ dependencies {
     implementation("androidx.biometric:biometric:1.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.android.billingclient:billing-ktx:7.0.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     testImplementation("junit:junit:4.13.2")
 }
 
