@@ -8,16 +8,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
-        // Verbose logging temporaneo per debug registrazione dispositivo
         OneSignal.Debug.logLevel = .verbose
         OneSignal.initialize("31270916-7dbe-4d64-817f-cbb7aa808060", withLaunchOptions: launchOptions)
-        print("[OneSignal] Initialized. Player ID: \(OneSignal.User.pushSubscription.id ?? "nil")")
-        // Lascia gestire a OneSignal la richiesta permesso e la registrazione APNs
+        print("[OneSignal] Initialized. Subscription ID: \(OneSignal.User.pushSubscription.id ?? \"nil\")")
         OneSignal.Notifications.requestPermission({ accepted in
-            print("[OneSignal] Permesso notifiche: \(accepted)")
-            print("[OneSignal] Push subscription ID: \(OneSignal.User.pushSubscription.id ?? \"nil\")")
-            print("[OneSignal] Push token: \(OneSignal.User.pushSubscription.token ?? \"nil\")")
-            print("[OneSignal] Opted in: \(OneSignal.User.pushSubscription.optedIn)")
+            print("[OneSignal] Permesso: \(accepted) | ID: \(OneSignal.User.pushSubscription.id ?? \"nil\") | token: \(OneSignal.User.pushSubscription.token ?? \"nil\")")
         }, fallbackToSettings: true)
         return true
     }
@@ -25,7 +20,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("[APNs] Device token ricevuto: \(token)")
+        print("[APNs] Device token: \(token)")
         UserDefaults.standard.set(token, forKey: "apns_device_token")
         NotificationService.shared.deviceToken = token
         Task { await NotificationService.shared.registerTokenIfNeeded() }
@@ -165,6 +160,10 @@ final class AuthState: ObservableObject {
     init() {
         isAuthenticated = KeychainService.shared.load(for: "guard_token") != nil
         restoreUser()
+        if isAuthenticated, let user = currentUser {
+            OneSignal.login(String(user.id))
+            OneSignal.User.addEmail(user.email)
+        }
         if isAuthenticated {
             Task { await NotificationService.shared.requestPermission() }
         }
@@ -187,6 +186,8 @@ final class AuthState: ObservableObject {
         saveUser(user)
         currentUser = user
         isAuthenticated = true
+        OneSignal.login(String(user.id))
+        OneSignal.User.addEmail(user.email)
         Task { await NotificationService.shared.registerTokenIfNeeded() }
     }
 
@@ -202,6 +203,7 @@ final class AuthState: ObservableObject {
     }
 
     func logout() {
+        OneSignal.logout()
         KeychainService.shared.clearAll()
         currentUser = nil
         isAuthenticated = false
