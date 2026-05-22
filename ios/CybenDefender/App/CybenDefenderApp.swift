@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import OneSignalFramework
 
 // MARK: - App Delegate (handles APNs token registration)
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -7,6 +8,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
+        OneSignal.initialize("31270916-7dbe-4d64-817f-cbb7aa808060", withLaunchOptions: launchOptions)
         return true
     }
 
@@ -63,6 +65,7 @@ final class NotificationService: ObservableObject {
                 await MainActor.run { permissionStatus = updated.authorizationStatus }
                 if granted {
                     await UIApplication.shared.registerForRemoteNotifications()
+                    OneSignal.Notifications.requestPermission({ _ in }, fallbackToSettings: false)
                 }
             } catch {
                 print("[Cyben] Notification permission error: \(error)")
