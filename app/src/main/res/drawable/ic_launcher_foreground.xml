@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/ic_launcher_foreground_layer"
-    android:gravity="center"/>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="25%"
+        android:left="25%"
+        android:right="25%"
+        android:top="25%">
+        <bitmap
+            android:src="@drawable/ic_launcher_foreground_layer"
+            android:gravity="center"/>
+    </item>
+</layer-list>
