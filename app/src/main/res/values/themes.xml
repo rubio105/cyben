@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.CybenGuard.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/background_dark</item>
+        <item name="postSplashScreenTheme">@style/Theme.CybenGuard</item>
+    </style>
+
     <style name="Theme.CybenGuard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/cyben_orange</item>
         <item name="colorPrimaryVariant">@color/cyben_dark</item>

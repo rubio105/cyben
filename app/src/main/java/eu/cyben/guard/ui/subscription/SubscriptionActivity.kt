@@ -34,6 +34,7 @@ class SubscriptionActivity : AppCompatActivity() {
         binding = ActivitySubscriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         required = intent.getBooleanExtra("required", false)
+        binding.btnBack.setOnClickListener { finish() }
 
         billingManager = BillingManager(this)
         billingManager.init()
