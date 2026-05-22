@@ -66,6 +66,7 @@ final class APIService: ObservableObject {
             let termsAccepted, privacyAccepted, marketingConsent: Bool
             let partnerCode: String?
             let preferredLanguage: String
+            let partnerCode: String?
         }
         let lang = Locale.current.language.languageCode?.identifier ?? "it"
         return try await request(path: "/api/guard/auth/register", method: "POST",
