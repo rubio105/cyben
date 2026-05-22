@@ -12,6 +12,7 @@ struct RegisterView: View {
     @State private var acceptTerms = false
     @State private var acceptPrivacy = false
     @State private var marketingConsent = false
+    @State private var partnerCode = ""
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var showVerifyEmail = false
@@ -107,6 +108,21 @@ struct RegisterView: View {
                     }
                     .padding(.horizontal, 28)
 
+                    HStack {
+                        Image(systemName: "key.fill")
+                            .foregroundColor(.white.opacity(0.4))
+                            .frame(width: 20)
+                        TextField("Codice partner (facoltativo)", text: $partnerCode)
+                            .autocapitalization(.allCharacters)
+                            .disableAutocorrection(true)
+                            .foregroundColor(.white)
+                    }
+                    .padding(14)
+                    .background(Color.white.opacity(0.07))
+                    .cornerRadius(12)
+                    .padding(.horizontal, 28)
+                    .padding(.top, 8)
+
                     VStack(spacing: 10) {
                         GuardConsentRow(isOn: $acceptPrivacy, label: "Accetto la",
                                         linkText: "Privacy Policy", url: "https://cyben.eu/privacy")
@@ -155,7 +171,8 @@ struct RegisterView: View {
                 let resp = try await APIService.shared.register(
                     name: name, email: email, password: password,
                     termsAccepted: acceptTerms, privacyAccepted: acceptPrivacy,
-                    marketingConsent: marketingConsent
+                    marketingConsent: marketingConsent,
+                    partnerCode: partnerCode
                 )
                 await MainActor.run {
                     isLoading = false

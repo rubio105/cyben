@@ -59,17 +59,20 @@ final class APIService: ObservableObject {
 
     // MARK: - Auth
     func register(name: String, email: String, password: String,
-                  termsAccepted: Bool, privacyAccepted: Bool, marketingConsent: Bool) async throws -> GuardAuthResponse {
+                  termsAccepted: Bool, privacyAccepted: Bool, marketingConsent: Bool,
+                  partnerCode: String? = nil) async throws -> GuardAuthResponse {
         struct Body: Encodable {
             let name, email, password: String
             let termsAccepted, privacyAccepted, marketingConsent: Bool
             let preferredLanguage: String
+            let partnerCode: String?
         }
         let lang = Locale.current.language.languageCode?.identifier ?? "it"
         return try await request(path: "/api/guard/auth/register", method: "POST",
                                  body: Body(name: name, email: email, password: password,
                                             termsAccepted: termsAccepted, privacyAccepted: privacyAccepted,
-                                            marketingConsent: marketingConsent, preferredLanguage: lang),
+                                            marketingConsent: marketingConsent, preferredLanguage: lang,
+                                            partnerCode: partnerCode.flatMap { $0.isEmpty ? nil : $0 }),
                                  authenticated: false)
     }
 
