@@ -13,8 +13,8 @@ android {
         applicationId = "eu.cyben.guard"
         minSdk = 26
         targetSdk = 35
-        versionCode = 6
-        versionName = "1.4.1"
+        versionCode = 7
+        versionName = "1.4.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://cyben.eu\"")
         buildConfigField("String", "ONESIGNAL_APP_ID", "\"31270916-7dbe-4d64-817f-cbb7aa808060\"")
