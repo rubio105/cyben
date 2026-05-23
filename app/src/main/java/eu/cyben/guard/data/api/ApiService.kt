@@ -7,6 +7,7 @@ import retrofit2.http.*
 interface ApiService {
     @POST("/api/guard/auth/register") suspend fun register(@Body body: RegisterRequest): Response<GuardAuthResponse>
     @POST("/api/guard/auth/login") suspend fun login(@Body body: LoginRequest): Response<GuardAuthResponse>
+    @POST("/api/guard/auth/google") suspend fun googleLogin(@Body body: GoogleAuthRequest): Response<GuardAuthResponse>
     @GET("/api/guard/auth/me") suspend fun getMe(): Response<GuardUser>
     @DELETE("/api/guard/auth/delete-account") suspend fun deleteAccount(): Response<Unit>
     @POST("/api/guard/auth/resend-verification") suspend fun resendVerification(@Body body: EmailRequest): Response<OkResponse>
