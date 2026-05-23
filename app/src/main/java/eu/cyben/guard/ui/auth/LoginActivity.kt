@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.R
 import eu.cyben.guard.data.api.ApiService
@@ -143,6 +144,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToDashboard() {
+        lifecycleScope.launch {
+            OneSignal.Notifications.requestPermission(true)
+        }
         val appLock = AppLockManager(this)
         if (!appLock.isEnabled) { startActivity(Intent(this, DashboardActivity::class.java)); finish(); return }
         val executor = ContextCompat.getMainExecutor(this)
