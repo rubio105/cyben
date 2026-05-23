@@ -17,6 +17,7 @@ android {
         versionName = "1.4.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://cyben.eu\"")
+        buildConfigField("String", "ONESIGNAL_APP_ID", "\"YOUR_ONESIGNAL_APP_ID\"")
     }
     signingConfigs {
         create("release") {
@@ -68,6 +69,7 @@ dependencies {
     implementation("androidx.biometric:biometric:1.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.android.billingclient:billing-ktx:7.0.0")
+    implementation("com.onesignal:OneSignal:[5.1.6, 5.99.99]")
     testImplementation("junit:junit:4.13.2")
 }
 
