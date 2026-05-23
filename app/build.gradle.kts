@@ -17,7 +17,7 @@ android {
         versionName = "1.4.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://cyben.eu\"")
-        buildConfigField("String", "ONESIGNAL_APP_ID", "\"YOUR_ONESIGNAL_APP_ID\"")
+        buildConfigField("String", "ONESIGNAL_APP_ID", "\"31270916-7dbe-4d64-817f-cbb7aa808060\"")
     }
     signingConfigs {
         create("release") {
