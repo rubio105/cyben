@@ -2,26 +2,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Network Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <!-- SMS Permissions (for phishing detection) -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
+
+    <!-- Package Query (for app scanning) -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
+
+    <!-- Device Admin (for anti-theft) -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Biometric -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
+    <!-- Camera (for intruder selfie) -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
+    
+    <!-- Telephony (for SMS protection - not required) -->
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+    <!-- Location (for anti-theft) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Phone State (for SIM change detection) -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Usage Stats (for app monitoring) -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
 
@@ -38,6 +57,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="34">
 
+        <!-- Main Activity -->
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -47,36 +67,105 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LoginActivity" android:exported="false" android:theme="@style/Theme.CybenMobile" />
-        <activity android:name=".ui.DashboardActivity" android:exported="false" android:theme="@style/Theme.CybenMobile" />
-        <activity android:name=".ui.AppLockActivity" android:exported="false" android:theme="@style/Theme.CybenMobile.Lock" android:noHistory="true" android:excludeFromRecents="true" />
-        <activity android:name=".ui.SettingsActivity" android:exported="false" android:theme="@style/Theme.CybenMobile" />
-        <activity android:name=".ui.LicenseActivity" android:exported="false" android:theme="@style/Theme.CybenMobile" />
-        <activity android:name=".ui.QRScannerActivity" android:exported="false" android:theme="@style/Theme.CybenMobile" />
 
-        <receiver android:name=".receivers.SmsReceiver" android:exported="true" android:permission="android.permission.BROADCAST_SMS">
+        <!-- Dashboard Activity -->
+        <activity
+            android:name=".ui.DashboardActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CybenMobile" />
+
+        <!-- App Lock Activity -->
+        <activity
+            android:name=".ui.AppLockActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CybenMobile.Lock"
+            android:noHistory="true"
+            android:excludeFromRecents="true" />
+
+        <!-- Settings Activity -->
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CybenMobile" />
+
+        <!-- License Activity -->
+        <activity
+            android:name=".ui.LicenseActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CybenMobile" />
+
+        <!-- Login Activity -->
+        <activity
+            android:name=".ui.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CybenMobile" />
+
+        <!-- Register Activity -->
+        <activity
+            android:name=".ui.RegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CybenMobile" />
+
+        <!-- QR Scanner Activity -->
+        <activity
+            android:name=".ui.QRScannerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CybenMobile" />
+
+        <!-- SMS Receiver -->
+        <receiver
+            android:name=".receivers.SmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter android:priority="999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receivers.BootReceiver" android:exported="true">
+
+        <!-- Boot Receiver -->
+        <receiver
+            android:name=".receivers.BootReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receivers.SimChangeReceiver" android:exported="true">
+
+        <!-- SIM Change Receiver -->
+        <receiver
+            android:name=".receivers.SimChangeReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SIM_STATE_CHANGED" />
             </intent-filter>
         </receiver>
-        <service android:name=".services.SecurityScanService" android:exported="false" android:foregroundServiceType="specialUse" />
-        <service android:name=".services.ProtectionService" android:exported="false" android:foregroundServiceType="specialUse" />
-        <receiver android:name=".receivers.CybenDeviceAdminReceiver" android:exported="true" android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data android:name="android.app.device_admin" android:resource="@xml/device_admin" />
+
+        <!-- Security Scan Service -->
+        <service
+            android:name=".services.SecurityScanService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" />
+
+        <!-- Protection Service -->
+        <service
+            android:name=".services.ProtectionService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" />
+
+        <!-- Device Admin Receiver -->
+        <receiver
+            android:name=".receivers.CybenDeviceAdminReceiver"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+
     </application>
+
 </manifest>

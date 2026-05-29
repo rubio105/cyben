@@ -63,8 +63,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupGoogleSignIn() {
+        val webClientId = getString(R.string.default_web_client_id)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(webClientId)
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -74,23 +75,37 @@ class LoginActivity : AppCompatActivity() {
         binding.btnAccedi.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
-            if (email.isEmpty()) { binding.etEmail.error = getString(R.string.error_email_required); return@setOnClickListener }
-            if (password.isEmpty()) { binding.etPassword.error = getString(R.string.error_password_required); return@setOnClickListener }
+
+            if (email.isEmpty()) {
+                binding.etEmail.error = getString(R.string.error_email_required)
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                binding.etPassword.error = getString(R.string.error_password_required)
+                return@setOnClickListener
+            }
+
             signInWithEmail(email, password)
         }
+
         binding.btnGoogleSignIn.setOnClickListener {
             showLoading(true)
             googleSignInClient.signOut().addOnCompleteListener {
                 googleSignInLauncher.launch(googleSignInClient.signInIntent)
             }
         }
+
         binding.tvPasswordDimenticata.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
-            if (email.isEmpty()) { binding.etEmail.error = getString(R.string.error_email_required); return@setOnClickListener }
+            if (email.isEmpty()) {
+                binding.etEmail.error = getString(R.string.error_email_required)
+                return@setOnClickListener
+            }
             resetPassword(email)
         }
+
         binding.tvRegistrati.setOnClickListener {
-            Toast.makeText(this, getString(R.string.register_redirect), Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
@@ -125,7 +140,11 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 auth.sendPasswordResetEmail(email).await()
-                Toast.makeText(this@LoginActivity, getString(R.string.password_reset_sent, email), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@LoginActivity,
+                    getString(R.string.password_reset_sent, email),
+                    Toast.LENGTH_LONG
+                ).show()
             } catch (e: Exception) {
                 showError(getString(R.string.error_reset_password, e.message ?: ""))
             }
@@ -137,7 +156,9 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun showError(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    private fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 
     private fun showLoading(loading: Boolean) {
         binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE

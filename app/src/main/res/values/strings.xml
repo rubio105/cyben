@@ -3,6 +3,8 @@
     <string name="app_name">Cyben Defender</string>
     <string name="app_description">Mobile Security by Cyben</string>
     <string name="app_subtitle">La tua guardia digitale personale</string>
+
+    <!-- Dashboard -->
     <string name="dashboard_title">Security Dashboard</string>
     <string name="protection_status">Protection Status</string>
     <string name="status_protected">Protected</string>
@@ -10,18 +12,24 @@
     <string name="status_danger">At Risk</string>
     <string name="last_scan">Last Scan</string>
     <string name="never_scanned">Never</string>
+
+    <!-- Scan -->
     <string name="scan_now">Scan Now</string>
     <string name="scanning">Scanning&#8230;</string>
     <string name="scan_complete">Scan Complete</string>
     <string name="threats_found">%d threats found</string>
     <string name="no_threats">No threats detected</string>
     <string name="apps_scanned">%d apps scanned</string>
+
+    <!-- Features -->
     <string name="feature_app_scan">App Scanner</string>
     <string name="feature_app_scan_desc">Scan installed apps for malware</string>
     <string name="feature_sms_protection">SMS Protection</string>
     <string name="feature_sms_protection_desc">Detect phishing links in messages</string>
     <string name="feature_qr_scanner">QR Scanner</string>
     <string name="feature_qr_scanner_desc">Scan QR codes and verify URLs are safe</string>
+
+    <!-- QR Scanner -->
     <string name="point_camera_at_qr">Point camera at QR code</string>
     <string name="analyzing_url">Analyzing URL safety&#8230;</string>
     <string name="qr_safe">Safe QR Code</string>
@@ -49,13 +57,19 @@
     <string name="feature_permission_manager_desc">Monitor app permissions</string>
     <string name="feature_anti_theft">Anti-Theft</string>
     <string name="feature_anti_theft_desc">Locate and wipe your device remotely</string>
+
+    <!-- App Lock -->
     <string name="enter_pin">Enter PIN</string>
     <string name="wrong_pin">Wrong PIN</string>
     <string name="attempts_remaining">%d attempts remaining</string>
     <string name="use_fingerprint">Use fingerprint</string>
+
+    <!-- Permissions -->
     <string name="permission_required">Permission Required</string>
     <string name="permission_sms_rationale">SMS permission is needed to detect phishing links in text messages</string>
     <string name="permission_phone_rationale">Phone permission is needed to detect SIM card changes</string>
+
+    <!-- Alerts -->
     <string name="alert_phishing">Phishing Detected</string>
     <string name="alert_phishing_message">A suspicious link was found in an SMS from %s</string>
     <string name="alert_malware">Malware Detected</string>
@@ -64,6 +78,8 @@
     <string name="alert_breach_message">The app "%s" suffered a data breach. Consider changing your password.</string>
     <string name="alert_wifi">Insecure WiFi</string>
     <string name="alert_wifi_message">You are connected to an insecure network: %s</string>
+
+    <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="settings_account">Account</string>
     <string name="settings_notifications">Notifications</string>
@@ -73,16 +89,22 @@
     <string name="settings_sms_scan">SMS Scanning</string>
     <string name="settings_license">License</string>
     <string name="settings_about">About</string>
+
+    <!-- License -->
     <string name="license_active">Active</string>
     <string name="license_expired">Expired</string>
     <string name="license_trial">Trial</string>
     <string name="license_expires">Expires: %s</string>
     <string name="activate_license">Activate License</string>
     <string name="enter_license_key">Enter License Key</string>
+
+    <!-- Actions -->
     <string name="action_remove">Remove</string>
     <string name="action_ignore">Ignore</string>
     <string name="action_details">Details</string>
     <string name="action_fix">Fix</string>
+
+    <!-- Login -->
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="btn_accedi">ACCEDI</string>
@@ -96,6 +118,21 @@
     <string name="google_signin_failed">Google Sign-In fallito: %s</string>
     <string name="password_reset_sent">Email di reset inviata a %s</string>
     <string name="error_reset_password">Errore nell&#39;invio: %s</string>
-    <string name="register_redirect">Registrazione disponibile sul sito cyben.eu</string>
     <string name="default_web_client_id">743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com</string>
+
+    <!-- Registration -->
+    <string name="create_account">Crea account</string>
+    <string name="hint_name">Nome completo</string>
+    <string name="hint_confirm_password">Conferma password</string>
+    <string name="hint_partner_code">Codice partner (opzionale)</string>
+    <string name="partner_code_hint">Il codice partner verrà applicato al momento della registrazione</string>
+    <string name="terms_accept">Accetto i Termini di Servizio e la Privacy Policy</string>
+    <string name="btn_registrati">REGISTRATI</string>
+    <string name="already_account">Hai già un account? </string>
+    <string name="login">Accedi</string>
+    <string name="error_name_required">Inserisci il tuo nome</string>
+    <string name="error_password_mismatch">Le password non coincidono</string>
+    <string name="error_terms_required">Devi accettare i termini per continuare</string>
+    <string name="error_register_failed">Registrazione fallita. Riprova.</string>
+    <string name="register_success">Registrazione completata! Puoi ora accedere.</string>
 </resources>
