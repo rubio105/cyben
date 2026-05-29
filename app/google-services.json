@@ -26,21 +26,8 @@
           "client_type": 3
         }
       ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB3eFCtXVQAN9Jmv8ia1e-rjJ2kf5FCxPE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
+      "api_key": [{"current_key": "AIzaSyB3eFCtXVQAN9Jmv8ia1e-rjJ2kf5FCxPE"}],
+      "services": {"appinvite_service": {"other_platform_oauth_client": [{"client_id": "743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com", "client_type": 3}]}}
     },
     {
       "client_info": {
@@ -71,21 +58,8 @@
           "client_type": 3
         }
       ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB3eFCtXVQAN9Jmv8ia1e-rjJ2kf5FCxPE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
+      "api_key": [{"current_key": "AIzaSyB3eFCtXVQAN9Jmv8ia1e-rjJ2kf5FCxPE"}],
+      "services": {"appinvite_service": {"other_platform_oauth_client": [{"client_id": "743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com", "client_type": 3}]}}
     }
   ],
   "configuration_version": "1"
