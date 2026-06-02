@@ -4,17 +4,20 @@ import android.app.Activity
 import android.content.Intent
 import android.net.VpnManager
 import android.net.VpnProfileState
+import android.net.ipsec.ike.Ikev2VpnProfile
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.data.api.ApiService
 import eu.cyben.guard.databinding.ActivityVpnBinding
-import eu.cyben.guard.ui.dashboard.DashboardActivity
 import eu.cyben.guard.ui.breach.BreachMonitorActivity
+import eu.cyben.guard.ui.dashboard.DashboardActivity
 import eu.cyben.guard.ui.settings.SettingsActivity
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,9 +49,7 @@ class VPNActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            syncVpnState()
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) syncVpnState()
     }
 
     private fun loadCredentials() {
@@ -80,9 +81,8 @@ class VPNActivity : AppCompatActivity() {
                     binding.tvDnsActive.text = if (stats.active) "Filtro attivo" else "Filtro inattivo"
                     binding.tvDnsBlocked.text = "%,d".format(stats.blockedDomains)
                     binding.tvDnsServer.text = stats.dnsServer
-                    if (!stats.lastUpdated.isNullOrBlank()) {
+                    if (!stats.lastUpdated.isNullOrBlank())
                         binding.tvDnsLastUpdated.text = "Aggiornato: ${stats.lastUpdated}"
-                    }
                 }
             } catch (_: Exception) {}
         }
@@ -95,29 +95,21 @@ class VPNActivity : AppCompatActivity() {
             Toast.makeText(this, "Attendi il caricamento delle credenziali", Toast.LENGTH_SHORT).show()
             return
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             connectIkev2(username, password)
         } else {
-            Toast.makeText(this, "Vai in Impostazioni → VPN e aggiungi: server $VPN_SERVER, tipo IKEv2, utente $username", Toast.LENGTH_LONG).show()
+            showManualSetupDialog(username, password)
         }
     }
 
-    @androidx.annotation.RequiresApi(Build.VERSION_CODES.Q)
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun connectIkev2(username: String, password: String) {
         try {
-            // Usiamo reflection per evitare dipendenze dal modulo android.ipsec al compile time
-            val builderClass = Class.forName("android.net.ipsec.ike.Ikev2VpnProfile\$Builder")
-            val builder = builderClass.getConstructor(String::class.java, String::class.java)
-                .newInstance(VPN_SERVER, VPN_SERVER)
-            builderClass.getMethod("setAuthUsernamePassword", String::class.java, String::class.java, java.security.cert.X509Certificate::class.java)
-                .invoke(builder, username, password, null)
-            val profile = builderClass.getMethod("build").invoke(builder)
-
+            val profile = Ikev2VpnProfile.Builder(VPN_SERVER, VPN_SERVER)
+                .setAuthUsernamePassword(username, password, null)
+                .build()
             val vpnManager = getSystemService(VpnManager::class.java)
-            val consentIntent = vpnManager.javaClass
-                .getMethod("provisionVpnProfile", Class.forName("android.net.ipsec.ike.Ikev2VpnProfile"))
-                .invoke(vpnManager, profile) as? Intent
-
+            val consentIntent = vpnManager.provisionVpnProfile(profile)
             if (consentIntent != null) {
                 @Suppress("DEPRECATION")
                 startActivityForResult(consentIntent, REQ_VPN_CONSENT)
@@ -125,11 +117,11 @@ class VPNActivity : AppCompatActivity() {
                 startVpnProfile()
             }
         } catch (e: Exception) {
-            Toast.makeText(this, "Errore configurazione VPN: ${e.cause?.localizedMessage ?: e.localizedMessage}", Toast.LENGTH_LONG).show()
+            showManualSetupDialog(username, password)
         }
     }
 
-    @androidx.annotation.RequiresApi(Build.VERSION_CODES.Q)
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun startVpnProfile() {
         try {
             getSystemService(VpnManager::class.java).startProvisionedVpnProfile()
@@ -140,7 +132,28 @@ class VPNActivity : AppCompatActivity() {
         }
     }
 
-    @androidx.annotation.RequiresApi(Build.VERSION_CODES.Q)
+    private fun showManualSetupDialog(username: String, password: String) {
+        val msg = "Il tuo dispositivo richiede configurazione manuale.\n\n" +
+            "Vai in Impostazioni → Rete → VPN e aggiungi:\n\n" +
+            "• Tipo: IKEv2/IPSec MSCHAPv2\n" +
+            "• Server: $VPN_SERVER\n" +
+            "• Utente: $username\n" +
+            "• Password: $password"
+        AlertDialog.Builder(this)
+            .setTitle("Configurazione VPN")
+            .setMessage(msg)
+            .setPositiveButton("Apri impostazioni VPN") { _, _ ->
+                try {
+                    startActivity(Intent("android.net.vpn.SETTINGS"))
+                } catch (_: Exception) {
+                    startActivity(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS))
+                }
+            }
+            .setNegativeButton("Chiudi", null)
+            .show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun syncVpnState() {
         val state = getSystemService(VpnManager::class.java).provisionedVpnProfileState
         connected = state?.state == VpnProfileState.STATE_CONNECTED
@@ -151,17 +164,14 @@ class VPNActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQ_VPN_CONSENT && resultCode == Activity.RESULT_OK) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                startVpnProfile()
-            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) startVpnProfile()
         }
     }
 
     private fun disconnect() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            try {
-                getSystemService(VpnManager::class.java).stopProvisionedVpnProfile()
-            } catch (_: Exception) {}
+            try { getSystemService(VpnManager::class.java).stopProvisionedVpnProfile() }
+            catch (_: Exception) {}
         }
         connected = false
         updateStatus()
@@ -188,7 +198,7 @@ class VPNActivity : AppCompatActivity() {
         binding.tabViolazioni.setOnClickListener {
             startActivity(Intent(this, BreachMonitorActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
-        binding.tabVPN.setOnClickListener { /* already here */ }
+        binding.tabVPN.setOnClickListener { }
         binding.tabImpostazioni.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         }
