@@ -13,7 +13,7 @@ android {
         applicationId = "eu.cyben.guard"
         minSdk = 26
         targetSdk = 35
-        versionCode = 18
+        versionCode = 26
         versionName = "1.5.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://cyben.eu\"")
@@ -54,8 +54,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("com.google.dagger:hilt-android:2.52")
-    kapt("com.google.dagger:hilt-compiler:2.52")
+    implementation("com.google.dagger:hilt-android:2.56")
+    kapt("com.google.dagger:hilt-compiler:2.56")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
