@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.net.VpnManager
 import android.net.VpnProfileState
-import android.net.ipsec.ike.Ikev2VpnProfile
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -95,33 +93,41 @@ class VPNActivity : AppCompatActivity() {
             Toast.makeText(this, "Attendi il caricamento delle credenziali", Toast.LENGTH_SHORT).show()
             return
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             connectIkev2(username, password)
         } else {
             showManualSetupDialog(username, password)
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
+    @androidx.annotation.RequiresApi(Build.VERSION_CODES.Q)
     private fun connectIkev2(username: String, password: String) {
         try {
-            val profile = Ikev2VpnProfile.Builder(VPN_SERVER, VPN_SERVER)
-                .setAuthUsernamePassword(username, password, null)
-                .build()
+            val builderClass = Class.forName("android.net.ipsec.ike.Ikev2VpnProfile\$Builder")
+            val builder = builderClass.getConstructor(String::class.java, String::class.java)
+                .newInstance(VPN_SERVER, VPN_SERVER)
+            builderClass.getMethod("setAuthUsernamePassword",
+                String::class.java, String::class.java, java.security.cert.X509Certificate::class.java)
+                .invoke(builder, username, password, null)
+            val profile = builderClass.getMethod("build").invoke(builder)
+
             val vpnManager = getSystemService(VpnManager::class.java)
-            val consentIntent = vpnManager.provisionVpnProfile(profile)
+            val consentIntent = vpnManager.javaClass
+                .getMethod("provisionVpnProfile", Class.forName("android.net.ipsec.ike.Ikev2VpnProfile"))
+                .invoke(vpnManager, profile) as? Intent
+
             if (consentIntent != null) {
                 @Suppress("DEPRECATION")
                 startActivityForResult(consentIntent, REQ_VPN_CONSENT)
             } else {
                 startVpnProfile()
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             showManualSetupDialog(username, password)
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
+    @androidx.annotation.RequiresApi(Build.VERSION_CODES.Q)
     private fun startVpnProfile() {
         try {
             getSystemService(VpnManager::class.java).startProvisionedVpnProfile()
@@ -153,11 +159,13 @@ class VPNActivity : AppCompatActivity() {
             .show()
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
+    @androidx.annotation.RequiresApi(Build.VERSION_CODES.Q)
     private fun syncVpnState() {
-        val state = getSystemService(VpnManager::class.java).provisionedVpnProfileState
-        connected = state?.state == VpnProfileState.STATE_CONNECTED
-        updateStatus()
+        try {
+            val state = getSystemService(VpnManager::class.java).provisionedVpnProfileState
+            connected = state?.state == VpnProfileState.STATE_CONNECTED
+            updateStatus()
+        } catch (_: Exception) {}
     }
 
     @Suppress("OVERRIDE_DEPRECATION")
