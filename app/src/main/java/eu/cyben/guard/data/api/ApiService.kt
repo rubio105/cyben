@@ -14,7 +14,7 @@ interface ApiService {
     @POST("/api/guard/auth/forgot-password") suspend fun forgotPassword(@Body body: EmailRequest): Response<MessageResponse>
     @POST("/api/guard/auth/change-password") suspend fun changePassword(@Body body: ChangePasswordRequest): Response<OkResponse>
     @POST("/api/guard/analyze") suspend fun analyze(@Body body: AnalyzeRequest): Response<AnalyzeResponse>
-    @POST("/api/guard/analyze/image") suspend fun analyzeImage(@Body body: ImageAnalyzeRequest): Response<AnalyzeResponse>
+    @POST("/api/guard/analyze-image") suspend fun analyzeImage(@Body body: ImageAnalyzeRequest): Response<AnalyzeResponse>
     @POST("/api/guard/check-phone") suspend fun checkPhone(@Body body: PhoneCheckRequest): Response<PhoneCheckResponse>
     @POST("/api/guard/hibp-check") suspend fun hibpCheck(@Body body: HibpCheckRequest): Response<HibpCheckResponse>
     @GET("/api/guard/analyses") suspend fun getAnalyses(): Response<List<GuardAnalysis>>
