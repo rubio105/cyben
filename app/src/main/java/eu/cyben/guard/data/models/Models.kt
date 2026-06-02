@@ -83,3 +83,60 @@ data class ImageAnalyzeRequest(val imageBase64: String, val mimeType: String = "
 data class PhoneCheckResponse(val isScam: Boolean?, val score: Int?, val explanation: String?, val error: String?)
 data class ChangePasswordRequest(val currentPassword: String, val newPassword: String)
 data class HibpCheckResponse(val found: Boolean?, val count: Int?, val error: String?)
+
+// Protection feed
+data class ProtectionFeed(
+    val blockedPhones: List<String>?,
+    val suspiciousPhones: List<String>?,
+    val trustedPhones: List<String>?,
+    val suspiciousDomains: List<String>?,
+    val blockedPhrases: List<String>?,
+    val suspiciousPhrases: List<String>?,
+    val lastUpdatedAt: String?
+)
+
+// Network scan
+data class NetworkScanRequest(
+    val platform: String = "android",
+    val appVersion: String? = null,
+    val deviceTime: String? = null,
+    val scanType: String = "network_anomaly",
+    val signals: Map<String, String> = emptyMap()
+)
+data class NetworkScanResponse(
+    val status: String?,
+    val score: Int?,
+    val summary: String?,
+    val notifyUser: Boolean?,
+    val notificationText: String?,
+    val generatedAt: String?,
+    val scanId: Int?
+)
+data class ScanHistoryItem(
+    val id: String?,
+    val type: String?,
+    val status: String?,
+    val score: Int?,
+    val summary: String?,
+    val acknowledged: Boolean?,
+    val generatedAt: String?
+)
+data class ScanHistoryResponse(val items: List<ScanHistoryItem>?)
+data class ScanAcknowledgeRequest(val scanId: String)
+
+// Phone report
+data class ReportPhoneRequest(val phone: String, val category: String? = null, val description: String? = null)
+data class ReportPhoneResponse(val communityReports: Int?)
+
+// Profile updates
+data class UpdateEmailRequest(val email: String)
+data class UpdateEmailResponse(val ok: Boolean?, val email: String?)
+data class UpdatePreferencesRequest(
+    val preferredLanguage: String? = null,
+    val name: String? = null,
+    val appLockEnabled: Boolean? = null,
+    val biometricUnlockEnabled: Boolean? = null
+)
+
+// Reset password
+data class ResetPasswordRequest(val email: String, val code: String, val newPassword: String)

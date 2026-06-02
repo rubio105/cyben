@@ -82,13 +82,12 @@ class SubscriptionActivity : AppCompatActivity() {
     private fun handlePurchase(purchase: Purchase) {
         if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED) return
         val productId = purchase.products.firstOrNull() ?: return
-        val plan = if (productId == BillingManager.PRODUCT_ANNUAL) "annual" else "monthly"
-        val interval = if (productId == BillingManager.PRODUCT_ANNUAL) "year" else "month"
+        val billingPeriod = if (productId == BillingManager.PRODUCT_ANNUAL) "annual" else "month"
         lifecycleScope.launch {
             try {
                 val resp = api.subscribe(SubscribeRequest(
                     plan = "premium",
-                    billingPeriod = interval,
+                    billingPeriod = billingPeriod,
                     purchaseToken = purchase.purchaseToken,
                     productId = productId
                 ))

@@ -13,10 +13,12 @@ interface ApiService {
     @POST("/api/guard/auth/verify-email-code") suspend fun verifyEmail(@Body body: VerifyEmailRequest): Response<GuardAuthResponse>
     @POST("/api/guard/auth/forgot-password") suspend fun forgotPassword(@Body body: EmailRequest): Response<MessageResponse>
     @POST("/api/guard/auth/change-password") suspend fun changePassword(@Body body: ChangePasswordRequest): Response<OkResponse>
+    @POST("/api/guard/auth/reset-password") suspend fun resetPassword(@Body body: ResetPasswordRequest): Response<OkResponse>
     @POST("/api/guard/analyze") suspend fun analyze(@Body body: AnalyzeRequest): Response<AnalyzeResponse>
     @POST("/api/guard/analyze") suspend fun analyzeLive(@Body body: AnalyzeRequest): Response<LiveAnalyzeResponse>
     @POST("/api/guard/analyze-image") suspend fun analyzeImage(@Body body: ImageAnalyzeRequest): Response<AnalyzeResponse>
     @POST("/api/guard/check-phone") suspend fun checkPhone(@Body body: PhoneCheckRequest): Response<PhoneCheckResponse>
+    @POST("/api/guard/report-phone") suspend fun reportPhone(@Body body: ReportPhoneRequest): Response<ReportPhoneResponse>
     @POST("/api/guard/hibp-check") suspend fun hibpCheck(@Body body: HibpCheckRequest): Response<HibpCheckResponse>
     @GET("/api/guard/analyses") suspend fun getAnalyses(): Response<List<GuardAnalysis>>
     @GET("/api/guard/monitored-emails") suspend fun getMonitoredEmails(): Response<List<GuardMonitoredEmail>>
@@ -31,10 +33,16 @@ interface ApiService {
     @POST("/api/guard/critical-requests") suspend fun sendSOS(@Body body: SOSRequest): Response<CriticalRequestResponse>
     @GET("/api/guard/vpn/credentials") suspend fun getVPNCredentials(): Response<VPNCredentials>
     @GET("/api/guard/vpn/dns-stats") suspend fun getVPNDnsStats(): Response<VPNDnsStats>
+    @GET("/api/guard/protection/feed") suspend fun getProtectionFeed(): Response<ProtectionFeed>
+    @POST("/api/guard/scan/network") suspend fun scanNetwork(@Body body: NetworkScanRequest): Response<NetworkScanResponse>
+    @GET("/api/guard/scan/history") suspend fun getScanHistory(): Response<ScanHistoryResponse>
+    @POST("/api/guard/scan/acknowledge") suspend fun acknowledgeScan(@Body body: ScanAcknowledgeRequest): Response<OkResponse>
     @GET("/api/guard/prohmed/status") suspend fun getProhmedStatus(): Response<ProhmedStatus>
     @POST("/api/guard/prohmed/activate") suspend fun activateProhmed(@Body body: ProhmedActivateRequest): Response<ProhmedActivateResponse>
     @POST("/api/guard/prohmed/consult") suspend fun consultProhmed(@Body body: ProhmedConsultRequest): Response<ProhmedConsultResponse>
     @GET("/api/guard/prohmed/consults") suspend fun getProhmedConsults(): Response<List<ProhmedConsult>>
+    @PATCH("/api/guard/profile/email") suspend fun updateEmail(@Body body: UpdateEmailRequest): Response<UpdateEmailResponse>
+    @PATCH("/api/guard/me/preferences") suspend fun updatePreferences(@Body body: UpdatePreferencesRequest): Response<OkResponse>
     @POST("/api/guard/partner-codes/validate") suspend fun validatePartnerCode(@Body body: ValidatePartnerCodeRequest): Response<ValidatePartnerCodeResponse>
     @POST("/api/guard/auth/google") suspend fun googleLogin(@Body body: GoogleAuthRequest): Response<GuardAuthResponse>
 }
