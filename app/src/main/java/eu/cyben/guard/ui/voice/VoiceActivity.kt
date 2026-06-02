@@ -25,7 +25,6 @@ import eu.cyben.guard.data.api.AnalyzeRequest
 import eu.cyben.guard.data.api.ApiService
 import eu.cyben.guard.data.models.ChatMessage
 import eu.cyben.guard.databinding.ActivityVoiceBinding
-import eu.cyben.guard.ui.analysis.AnalysisHistoryActivity
 import eu.cyben.guard.ui.breach.BreachMonitorActivity
 import eu.cyben.guard.ui.dashboard.ChatAdapter
 import eu.cyben.guard.ui.dashboard.DashboardActivity
@@ -159,19 +158,25 @@ class VoiceActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val resp = api.analyze(AnalyzeRequest(
+                val resp = api.analyzeLive(AnalyzeRequest(
                     text = text, type = "call", chatHistory = history.toList(),
                     callSessionId = callSessionId, isLive = true, mode = "live",
                     systemPrompt = CYAGENT_SYSTEM_PROMPT
                 ))
                 if (resp.isSuccessful) {
                     val body = resp.body()
-                    val reply = body?.conversationalMessage ?: body?.analysis?.explanation ?: "Analisi completata"
+                    val reply = body?.messaggio_live ?: body?.motivo_breve ?: "Analisi completata"
                     history.add(mapOf("role" to "user", "content" to text))
                     history.add(mapOf("role" to "assistant", "content" to reply))
                     addBotMessage(reply)
-                    updateRiskFromResponse(body?.analysis?.riskLevel, body?.analysis?.riskScore, body?.analysis?.explanation)
-                    extractAndShowChips(reply)
+                    val riskLevel = when (body?.rischio_attuale) {
+                        "alto" -> "dangerous"
+                        "medio" -> "suspicious"
+                        "basso" -> "safe"
+                        else -> null
+                    }
+                    updateRiskFromResponse(riskLevel, null, body?.motivo_breve)
+                    body?.domande_subito?.let { showChips(it) }
                 } else {
                     Toast.makeText(this@VoiceActivity, "Errore analisi", Toast.LENGTH_SHORT).show()
                 }
@@ -243,19 +248,25 @@ class VoiceActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val resp = api.analyze(AnalyzeRequest(
+                val resp = api.analyzeLive(AnalyzeRequest(
                     text = text, type = "call", chatHistory = history.toList(),
                     callSessionId = callSessionId, isLive = true, mode = "live",
                     systemPrompt = CYAGENT_SYSTEM_PROMPT
                 ))
                 if (resp.isSuccessful) {
                     val body = resp.body()
-                    val reply = body?.conversationalMessage ?: body?.analysis?.explanation ?: "Ok"
+                    val reply = body?.messaggio_live ?: body?.motivo_breve ?: "Ok"
                     history.add(mapOf("role" to "user", "content" to text))
                     history.add(mapOf("role" to "assistant", "content" to reply))
                     addBotMessage(reply)
-                    updateRiskFromResponse(body?.analysis?.riskLevel, body?.analysis?.riskScore, body?.analysis?.explanation)
-                    extractAndShowChips(reply)
+                    val riskLevel = when (body?.rischio_attuale) {
+                        "alto" -> "dangerous"
+                        "medio" -> "suspicious"
+                        "basso" -> "safe"
+                        else -> null
+                    }
+                    updateRiskFromResponse(riskLevel, null, body?.motivo_breve)
+                    body?.domande_subito?.let { showChips(it) }
                 }
             } catch (_: Exception) { }
             if (isSessionActive) handler.postDelayed({ startListeningLoop() }, 800)
@@ -279,14 +290,10 @@ class VoiceActivity : AppCompatActivity() {
         binding.tvRiskDesc.text = desc
     }
 
-    private fun extractAndShowChips(reply: String) {
-        val questions = reply.split(". ", "\n")
-            .filter { it.trimEnd().endsWith("?") }
-            .map { it.trim() }
-            .take(4)
+    private fun showChips(questions: List<String>) {
         if (questions.isEmpty()) return
         binding.chipContainer.removeAllViews()
-        questions.forEach { q ->
+        questions.take(4).forEach { q ->
             val chip = TextView(this).apply {
                 text = q; textSize = 12f
                 setTextColor(Color.parseColor("#B0B8D0"))

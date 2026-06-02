@@ -49,6 +49,15 @@ data class AnalyzeResponse(
     val resolvedDailyUsed: Int? get() = dailyUsed ?: daily_used
     val resolvedDailyLimit: Int? get() = dailyLimit ?: daily_limit
 }
+
+data class LiveAnalyzeResponse(
+    val rischio_attuale: String? = null,
+    val motivo_breve: String? = null,
+    val domande_subito: List<String>? = null,
+    val non_condividere: List<String>? = null,
+    val messaggio_live: String? = null
+)
+
 data class GuardMonitoredEmail(val id: Int, val email: String, val label: String?, val lastChecked: String?, val breachCount: Int?)
 data class GuardBreachAlert(val id: Int, val emailId: Int?, val breachName: String?, val breachDate: String?, val dataClasses: List<String>?, val description: String?, val isRead: Boolean?, val createdAt: String?)
 data class BreachCheckResponse(val found: Boolean?, val breaches: List<BreachInfo>?, val error: String?)
