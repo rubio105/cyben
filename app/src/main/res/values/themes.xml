@@ -15,8 +15,4 @@
         <item name="android:navigationBarColor">@color/cyben_dark</item>
     </style>
 
-    <style name="Theme.CybenGuard.Splash" parent="Theme.CybenGuard">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
 </resources>
