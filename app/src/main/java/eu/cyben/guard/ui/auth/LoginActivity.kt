@@ -10,17 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.onesignal.OneSignal
 import dagger.hilt.android.AndroidEntryPoint
 import eu.cyben.guard.R
 import eu.cyben.guard.data.api.ApiService
 import eu.cyben.guard.data.api.EmailRequest
 import eu.cyben.guard.data.api.LoginRequest
-import eu.cyben.guard.data.models.GoogleAuthRequest
 import eu.cyben.guard.databinding.ActivityLoginBinding
 import eu.cyben.guard.ui.dashboard.DashboardActivity
 import eu.cyben.guard.utils.AppLockManager
@@ -33,10 +28,7 @@ class LoginActivity : AppCompatActivity() {
     @Inject lateinit var api: ApiService
     @Inject lateinit var tokenManager: TokenManager
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var googleSignInClient: GoogleSignInClient
     private var passwordVisible = false
-
-    companion object { private const val RC_SIGN_IN = 9001 }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -45,18 +37,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         if (tokenManager.isLoggedIn()) { goToDashboard(); return }
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("743094303265-k7i1je5nglbjf1vgdt0shj83dq9brlsu.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
+        binding.btnGoogleSignIn.visibility = View.GONE
 
         binding.btnLogin.setOnClickListener { doLogin() }
         binding.btnRegister.setOnClickListener { startActivity(Intent(this, RegisterActivity::class.java)) }
         binding.btnTogglePwd.setOnClickListener { togglePassword() }
-        binding.btnGoogleSignIn.setOnClickListener {
-            startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
-        }
         binding.tvForgotPassword.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             if (email.isEmpty()) { binding.etEmail.error = "Inserisci la tua email"; return@setOnClickListener }
@@ -68,37 +53,6 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, "Errore: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                val idToken = account.idToken ?: return
-                doGoogleLogin(idToken)
-            } catch (e: ApiException) {
-                Toast.makeText(this, "Google Sign-In fallito: ${e.statusCode}", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun doGoogleLogin(idToken: String) {
-        setLoading(true)
-        lifecycleScope.launch {
-            try {
-                val resp = api.googleLogin(GoogleAuthRequest(idToken))
-                if (resp.isSuccessful) {
-                    val body = resp.body()
-                    if (body?.token != null) { tokenManager.saveToken(body.token); goToDashboard() }
-                    else Toast.makeText(this@LoginActivity, body?.error ?: "Errore Google login", Toast.LENGTH_LONG).show()
-                } else Toast.makeText(this@LoginActivity, "Errore Google Sign-In", Toast.LENGTH_SHORT).show()
-            } catch (e: Exception) {
-                Toast.makeText(this@LoginActivity, "Errore di rete", Toast.LENGTH_SHORT).show()
-            } finally { setLoading(false) }
         }
     }
 
