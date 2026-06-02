@@ -78,6 +78,7 @@ class DashboardActivity : AppCompatActivity() {
         loadUser()
         initTts()
         requestRuntimePermissions()
+        handleSmsIntent(intent)
     }
 
     override fun onResume() {
@@ -85,6 +86,44 @@ class DashboardActivity : AppCompatActivity() {
         val user = currentUser ?: return
         if (!user.hasActiveSubscription) {
             startActivity(Intent(this, SubscriptionActivity::class.java).putExtra("required", true))
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleSmsIntent(intent)
+    }
+
+    private fun handleSmsIntent(intent: Intent) {
+        val sender = intent.getStringExtra("sms_sender") ?: return
+        val body = intent.getStringExtra("sms_body") ?: return
+        val notifId = intent.getIntExtra("notification_id", -1)
+        if (notifId != -1) {
+            (getSystemService(android.content.Context.NOTIFICATION_SERVICE) as android.app.NotificationManager).cancel(notifId)
+        }
+        intent.removeExtra("sms_sender")
+
+        val displayText = "SMS da $sender:\n$body"
+        messages.add(ChatMessage(displayText, true))
+        adapter.notifyItemInserted(messages.size - 1)
+        binding.rvChat.scrollToPosition(messages.size - 1)
+        binding.progressTyping.visibility = android.view.View.VISIBLE
+
+        lifecycleScope.launch {
+            try {
+                val resp = api.analyze(eu.cyben.guard.data.api.AnalyzeRequest(body, "sms", history.toList(), sender = sender))
+                if (resp.isSuccessful) {
+                    val respBody = resp.body()
+                    val reply = respBody?.conversationalMessage ?: respBody?.analysis?.explanation ?: ""
+                    history.add(mapOf("role" to "user", "content" to displayText))
+                    history.add(mapOf("role" to "assistant", "content" to reply))
+                    messages.add(ChatMessage(reply, false, analysis = respBody?.analysis))
+                    adapter.notifyItemInserted(messages.size - 1)
+                    binding.rvChat.scrollToPosition(messages.size - 1)
+                }
+            } catch (_: Exception) { }
+            finally { binding.progressTyping.visibility = android.view.View.GONE }
         }
     }
 
@@ -203,7 +242,7 @@ class DashboardActivity : AppCompatActivity() {
                     val reply = body?.conversationalMessage ?: body?.analysis?.explanation ?: "Analisi completata"
                     history.add(mapOf("role" to "user", "content" to text))
                     history.add(mapOf("role" to "assistant", "content" to reply))
-                    messages.add(ChatMessage(reply, false))
+                    messages.add(ChatMessage(reply, false, analysis = body?.analysis))
                     adapter.notifyItemInserted(messages.size - 1)
                     binding.rvChat.scrollToPosition(messages.size - 1)
                     body?.analysis?.riskLevel?.let { risk ->
@@ -233,7 +272,7 @@ class DashboardActivity : AppCompatActivity() {
                 val resp = api.analyzeImage(ImageAnalyzeRequest(base64))
                 if (resp.isSuccessful) {
                     val reply = resp.body()?.conversationalMessage ?: resp.body()?.analysis?.explanation ?: "Analisi immagine completata"
-                    messages.add(ChatMessage(reply, false))
+                    messages.add(ChatMessage(reply, false, analysis = resp.body()?.analysis))
                     adapter.notifyItemInserted(messages.size - 1)
                     binding.rvChat.scrollToPosition(messages.size - 1)
                 }

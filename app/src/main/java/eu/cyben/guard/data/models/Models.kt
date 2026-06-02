@@ -21,14 +21,34 @@ data class GuardUser(
 }
 
 data class GuardAnalysis(
-    val id: Int, val inputText: String?, val inputType: String?,
-    val riskLevel: String?, val riskScore: Int?, val explanation: String?,
-    val recommendation: String?, val indicators: List<String>?, val createdAt: String?
+    val id: Int = 0,
+    val inputText: String? = null, val input_text: String? = null,
+    val inputType: String? = null, val input_type: String? = null,
+    val riskLevel: String? = null, val risk_level: String? = null,
+    val riskScore: Int? = null, val risk_score: Int? = null,
+    val explanation: String? = null,
+    val recommendation: String? = null,
+    val indicators: List<String>? = null,
+    val createdAt: String? = null, val created_at: String? = null
 ) {
-    val riskLabel: String get() = when (riskLevel) { "safe" -> "Sicuro"; "suspicious" -> "Sospetto"; "dangerous" -> "Pericoloso"; else -> "Sconosciuto" }
+    val resolvedRiskLevel: String get() = riskLevel ?: risk_level ?: "unknown"
+    val resolvedRiskScore: Int? get() = riskScore ?: risk_score
+    val riskLabel: String get() = when (resolvedRiskLevel) {
+        "safe" -> "Sicuro"; "suspicious" -> "Sospetto"; "dangerous" -> "Pericoloso"; else -> "Sconosciuto"
+    }
 }
 
-data class AnalyzeResponse(val analysis: GuardAnalysis?, val conversationalMessage: String?, val dailyUsed: Int?, val dailyLimit: Int?, val error: String?)
+data class AnalyzeResponse(
+    val analysis: GuardAnalysis? = null,
+    val conversationalMessage: String? = null, val conversational_message: String? = null,
+    val dailyUsed: Int? = null, val daily_used: Int? = null,
+    val dailyLimit: Int? = null, val daily_limit: Int? = null,
+    val error: String? = null
+) {
+    val displayMessage: String? get() = conversationalMessage ?: conversational_message
+    val resolvedDailyUsed: Int? get() = dailyUsed ?: daily_used
+    val resolvedDailyLimit: Int? get() = dailyLimit ?: daily_limit
+}
 data class GuardMonitoredEmail(val id: Int, val email: String, val label: String?, val lastChecked: String?, val breachCount: Int?)
 data class GuardBreachAlert(val id: Int, val emailId: Int?, val breachName: String?, val breachDate: String?, val dataClasses: List<String>?, val description: String?, val isRead: Boolean?, val createdAt: String?)
 data class BreachCheckResponse(val found: Boolean?, val breaches: List<BreachInfo>?, val error: String?)
@@ -41,7 +61,7 @@ data class CriticalRequestResponse(val id: Int?, val error: String?, val message
 data class VPNCredentials(val username: String, val password: String, val authMethod: String?)
 data class VPNDnsStats(val active: Boolean, val blockedDomains: Int, val lastUpdated: String?, val dnsServer: String, val feedSource: String, val updateSchedule: String)
 data class ErrorResponse(val error: String?, val message: String?) { val display: String get() = error ?: message ?: "Errore sconosciuto" }
-data class ChatMessage(val text: String, val isUser: Boolean, val timestamp: Long = System.currentTimeMillis())
+data class ChatMessage(val text: String, val isUser: Boolean, val timestamp: Long = System.currentTimeMillis(), val analysis: GuardAnalysis? = null)
 
 data class ProhmedStatus(val activated: Boolean, val activatedAt: String?, val name: String?, val fiscalCode: String?, val email: String?, val residui: Int?)
 data class ProhmedActivateRequest(val name: String, val fiscalCode: String, val birthDate: String, val phone: String)
@@ -54,4 +74,3 @@ data class ImageAnalyzeRequest(val imageBase64: String, val mimeType: String = "
 data class PhoneCheckResponse(val isScam: Boolean?, val score: Int?, val explanation: String?, val error: String?)
 data class ChangePasswordRequest(val currentPassword: String, val newPassword: String)
 data class HibpCheckResponse(val found: Boolean?, val count: Int?, val error: String?)
-data class GoogleAuthRequest(val idToken: String)
