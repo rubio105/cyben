@@ -4,8 +4,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- SMS_FEATURE_DISABLED <uses-permission android:name="android.permission.RECEIVE_SMS" /> -->
+    <!-- SMS_FEATURE_DISABLED <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CONTROL_VPN"/>
@@ -54,11 +54,13 @@
         <activity android:name=".ui.dashboard.PhoneCheckActivity" android:exported="false" />
 
 
+        <!-- SMS_FEATURE_DISABLED
         <receiver android:name=".receiver.SmsReceiver" android:exported="true">
             <intent-filter android:priority="999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+        -->
 
         <service
             android:name=".service.GuardCallScreeningService"

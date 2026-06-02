@@ -79,6 +79,7 @@ class DashboardActivity : AppCompatActivity() {
         initTts()
         requestRuntimePermissions()
         handleSmsIntent(intent)
+        handleShareIntent(intent)
     }
 
     override fun onResume() {
@@ -93,6 +94,7 @@ class DashboardActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         handleSmsIntent(intent)
+        handleShareIntent(intent)
     }
 
     private fun handleSmsIntent(intent: Intent) {
@@ -125,6 +127,25 @@ class DashboardActivity : AppCompatActivity() {
             } catch (_: Exception) { }
             finally { binding.progressTyping.visibility = android.view.View.GONE }
         }
+    }
+
+    private fun handleShareIntent(intent: Intent) {
+        if (intent.action != Intent.ACTION_SEND) return
+        val mimeType = intent.type ?: return
+        when {
+            mimeType.startsWith("image/") -> {
+                val uri = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU)
+                    intent.getParcelableExtra(Intent.EXTRA_STREAM, android.net.Uri::class.java)
+                else
+                    @Suppress("DEPRECATION") intent.getParcelableExtra(Intent.EXTRA_STREAM)
+                uri?.let { analyzeImageUri(it) }
+            }
+            mimeType == "text/plain" -> {
+                val text = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
+                if (text.isNotBlank()) sendMessage(text)
+            }
+        }
+        intent.action = null
     }
 
     private fun initTts() {
